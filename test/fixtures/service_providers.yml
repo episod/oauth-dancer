@@ -1,0 +1,39 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  label: MyString
+  note: MyText
+  consumer_key: MyString
+  consumer_secret: MyString
+  request_token_url: MyString
+  authorize_url: MyString
+  access_token_url: MyString
+  use_out_of_band: false
+
+two:
+  label: MyString
+  note: MyText
+  consumer_key: MyString
+  consumer_secret: MyString
+  request_token_url: MyString
+  authorize_url: MyString
+  access_token_url: MyString
+  use_out_of_band: false
+
+# == Schema Information
+#
+# Table name: service_providers
+#
+#  id                :integer         not null, primary key
+#  label             :string(255)
+#  note              :text
+#  consumer_key      :string(255)
+#  consumer_secret   :string(255)
+#  request_token_url :string(255)
+#  authorize_url     :string(255)
+#  access_token_url  :string(255)
+#  use_out_of_band   :boolean
+#  created_at        :datetime
+#  updated_at        :datetime
+#
+

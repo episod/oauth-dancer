@@ -1,0 +1,23 @@
+<p>
+  <b>Label:</b>
+  <%=h @access_token.label %>
+</p>
+
+<p>
+  <b>Oauth token:</b>
+  <%=h @access_token.oauth_token %>
+</p>
+
+<p>
+  <b>Oauth token secret:</b>
+  <%=h @access_token.oauth_token_secret %>
+</p>
+
+<p>
+  <b>Service provider:</b>
+  <%=h @access_token.service_provider_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_access_token_path(@access_token) %> |
+<%= link_to 'Back', access_tokens_path %>

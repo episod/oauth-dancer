@@ -1,0 +1,43 @@
+<p>
+  <b>Label:</b>
+  <%=h @service_provider.label %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%=h @service_provider.note %>
+</p>
+
+<p>
+  <b>Consumer key:</b>
+  <%=h @service_provider.consumer_key %>
+</p>
+
+<p>
+  <b>Consumer secret:</b>
+  <%=h @service_provider.consumer_secret %>
+</p>
+
+<p>
+  <b>Request token url:</b>
+  <%=h @service_provider.request_token_url %>
+</p>
+
+<p>
+  <b>Authorize url:</b>
+  <%=h @service_provider.authorize_url %>
+</p>
+
+<p>
+  <b>Access token url:</b>
+  <%=h @service_provider.access_token_url %>
+</p>
+
+<p>
+  <b>Use out of band:</b>
+  <%=h @service_provider.use_out_of_band %>
+</p>
+
+
+<%= link_to 'Edit', edit_service_provider_path(@service_provider) %> |
+<%= link_to 'Back', service_providers_path %>

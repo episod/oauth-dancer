@@ -1,0 +1,34 @@
+<h1>Listing service_providers</h1>
+
+<table>
+  <tr>
+    <th>Label</th>
+    <th>Note</th>
+    <th>Consumer key</th>
+    <th>Consumer secret</th>
+    <th>Request token url</th>
+    <th>Authorize url</th>
+    <th>Access token url</th>
+    <th>Use out of band</th>
+  </tr>
+
+<% @service_providers.each do |service_provider| %>
+  <tr>
+    <td><%=h service_provider.label %></td>
+    <td><%=h service_provider.note %></td>
+    <td><%=h service_provider.consumer_key %></td>
+    <td><%=h service_provider.consumer_secret %></td>
+    <td><%=h service_provider.request_token_url %></td>
+    <td><%=h service_provider.authorize_url %></td>
+    <td><%=h service_provider.access_token_url %></td>
+    <td><%=h service_provider.use_out_of_band %></td>
+    <td><%= link_to 'Show', service_provider %></td>
+    <td><%= link_to 'Edit', edit_service_provider_path(service_provider) %></td>
+    <td><%= link_to 'Destroy', service_provider, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New service_provider', new_service_provider_path %>

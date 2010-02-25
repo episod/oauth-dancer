@@ -1,0 +1,26 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  label: MyString
+  oauth_token: MyString
+  oauth_token_secret: MyString
+
+two:
+  label: MyString
+  oauth_token: MyString
+  oauth_token_secret: MyString
+
+
+# == Schema Information
+#
+# Table name: access_tokens
+#
+#  id                  :integer         not null, primary key
+#  label               :string(255)
+#  oauth_token         :string(255)
+#  oauth_token_secret  :string(255)
+#  service_provider_id :integer
+#  created_at          :datetime
+#  updated_at          :datetime
+#
+

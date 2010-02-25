@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README.rdoc</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README.rdoc</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>README.rdoc
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Thu Oct 02 16:15:45 -0500 2008</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1><a href="../classes/PassiveRecord.html">PassiveRecord</a></h1>
+<p>
+<a href="../classes/PassiveRecord.html">PassiveRecord</a> provides
+ActiveRecord-like behavior for static, non-database models.
+</p>
+<p>
+<a href="../classes/PassiveRecord.html">PassiveRecord</a> was developed by
+<a href="http://artofmission.com">Art of Mission, Inc.</a> for Sharp Sync,
+a new product by <a href="http://www.planningcenteronline.com/">Ministry
+Centered Technologies</a>
+</p>
+<h2>Installation</h2>
+<p>
+Download <a href="../classes/PassiveRecord.html">PassiveRecord</a> from
+Github: <a
+href="http://github.com/artofmission/passive_record">github.com/artofmission/passive_record</a>
+</p>
+<h3>Install using Git Submodules:</h3>
+<pre>
+  git submodule add http://github.com/artofmission/passive_record vendor/plugins/passive_record
+  git submodule init
+  git submodule update
+</pre>
+<h3>Install with Rails&#8217; plugin installer</h3>
+<pre>
+  ./script/plugin install git://github.com/artofmission/passive_record.git
+</pre>
+<h2>Example</h2>
+<pre>
+  class Name &lt; PassiveRecord
+    define_fields :first_name, :middle_name, :last_name
+  end
+</pre>
+<p>
+&#8230;will create a new Name model with id, address, and location
+attributes.
+</p>
+<pre>
+  class Person &lt; PassiveRecord
+    has_many :names
+  end
+
+  @person = Person.new(:names =&gt; [Name.new(:first_name =&gt; &quot;Dima&quot;, :last_name =&gt; &quot;Dozen&quot;)])
+</pre>
+<p>
+This would a Person object that has many names. You can now access the
+names hash just like you would an ActiveRecord object.
+</p>
+<pre>
+  @person.names #=&gt; [#&lt;Name:0x2031824 @last_name=&quot;Dozen&quot;, @first_name=&quot;Dima&quot;&gt;]
+</pre>
+<p>
+You can serialize a <a
+href="../classes/PassiveRecord.html">PassiveRecord</a> object into another
+database object for storage:
+</p>
+<pre>
+  class Address &lt; PassiveRecord
+    define_fields :street, :city, :state, :postal_code, :country
+  end
+
+  class Company &lt; ActiveRecord
+    serialize :address
+  end
+
+  @company.address = Address.new(:street1 =&gt; &quot;123 4th St&quot;, :city =&gt; &quot;Wellington&quot;, :country =&gt; &quot;NZ&quot;)
+</pre>
+<h2>Resources for Non-ActiveRecord models</h2>
+<ul>
+<li><a
+href="http://railscasts.com/episodes/121-non-active-record-model">railscasts.com/episodes/121-non-active-record-model</a>
+
+</li>
+</ul>
+<h2>Due Credit</h2>
+<ul>
+<li><a href="http://www.planningcenteronline.com/">Ministry Centered
+Technologies</a> created the need
+
+</li>
+<li>Ryan Heneise of <a href="http://artofmission.com/">Art of Mission, Inc.</a>
+wrote the code
+
+</li>
+</ul>
+<p>
+Copyright (c) 2008 Ryan Heneise, released under the MIT license
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

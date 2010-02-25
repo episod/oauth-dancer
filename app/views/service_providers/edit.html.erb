@@ -1,0 +1,44 @@
+<h1>Editing service_provider</h1>
+
+<% form_for(@service_provider) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :label %><br />
+    <%= f.text_field :label %>
+  </p>
+  <p>
+    <%= f.label :note %><br />
+    <%= f.text_area :note %>
+  </p>
+  <p>
+    <%= f.label :consumer_key %><br />
+    <%= f.text_field :consumer_key %>
+  </p>
+  <p>
+    <%= f.label :consumer_secret %><br />
+    <%= f.text_field :consumer_secret %>
+  </p>
+  <p>
+    <%= f.label :request_token_url %><br />
+    <%= f.text_field :request_token_url %>
+  </p>
+  <p>
+    <%= f.label :authorize_url %><br />
+    <%= f.text_field :authorize_url %>
+  </p>
+  <p>
+    <%= f.label :access_token_url %><br />
+    <%= f.text_field :access_token_url %>
+  </p>
+  <p>
+    <%= f.label :use_out_of_band %><br />
+    <%= f.check_box :use_out_of_band %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @service_provider %> |
+<%= link_to 'Back', service_providers_path %>

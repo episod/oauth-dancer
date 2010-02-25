@@ -1,0 +1,65 @@
+= PassiveRecord
+
+PassiveRecord provides ActiveRecord-like behavior for static, non-database models. 
+
+PassiveRecord was developed by {Art of Mission, Inc.}[http://artofmission.com] for Sharp Sync, a new product by {Ministry Centered Technologies}[http://www.planningcenteronline.com/]
+
+== Installation
+
+Download PassiveRecord from Github: http://github.com/artofmission/passive_record
+
+=== Install using Git Submodules: 
+
+  git submodule add http://github.com/artofmission/passive_record vendor/plugins/passive_record
+  git submodule init
+  git submodule update
+
+=== Install with Rails' plugin installer
+
+  ./script/plugin install git://github.com/artofmission/passive_record.git
+
+== Example
+
+  class Name < PassiveRecord::Base
+    define_fields :first_name, :middle_name, :last_name
+  end
+
+...will create a new Name model with id, address, and location attributes. 
+
+  class Person < PassiveRecord::Base
+    has_many :names
+  end
+  
+  @person = Person.new(:names => [Name.new(:first_name => "Dima", :last_name => "Dozen")])
+
+This would a Person object that has many names. You can now access the names hash just like you would an ActiveRecord object. 
+
+  @person.names #=> [#<Name:0x2031824 @last_name="Dozen", @first_name="Dima">]
+  
+  
+You can serialize a PassiveRecord object into another database object for storage: 
+  
+  class Address < PassiveRecord::Base
+    define_fields :street, :city, :state, :postal_code, :country
+  end
+  
+  class Company < ActiveRecord
+    serialize :address
+  end
+  
+  @company.address = Address.new(:street1 => "123 4th St", :city => "Wellington", :country => "NZ")
+
+== Resources for Non-ActiveRecord models 
+
+* http://railscasts.com/episodes/121-non-active-record-model
+
+== Due Credit
+
+* {Ministry Centered Technologies}[http://www.planningcenteronline.com/] created the need
+* Ryan Heneise of {Art of Mission, Inc.}[http://artofmission.com/] wrote the code
+
+=== Contributors
+
+* felipemesquita (http://github.com/felipemesquita)
+
+Copyright (c) 2008 Ryan Heneise, released under the MIT license
