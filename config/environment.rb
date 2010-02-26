@@ -17,6 +17,9 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on and have them installed with rake gems:install
   config.gem "oauth"
   config.gem "sqlite3-ruby", :lib => "sqlite3"
+  config.gem "coderay"
+  config.gem "rest-open-uri"
+  
   # config.gem "bj"
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "aws-s3", :lib => "aws/s3"

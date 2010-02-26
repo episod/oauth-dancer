@@ -7,4 +7,13 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+  
+  def title
+    @title || "Hold me closer"
+  end
+  
+  def set_title(title)
+    @title = title
+  end
+  
 end

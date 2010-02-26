@@ -123,3 +123,199 @@ Migrating to AddSessionTable (20100225193905)
   [4;35;1mSQL (0.7ms)[0m   [0mPRAGMA index_list("sessions")[0m
   [4;36;1mSQL (0.5ms)[0m   [0;1mPRAGMA index_info('index_sessions_on_updated_at')[0m
   [4;35;1mSQL (0.5ms)[0m   [0mPRAGMA index_info('index_sessions_on_session_id')[0m
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 09:34:53) [GET]
+  [4;36;1mServiceProvider Load (0.6ms)[0m   [0;1mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/service_providers
+Rendering service_providers/index
+Completed in 407ms (View: 285, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 09:35:41) [GET]
+  [4;35;1mServiceProvider Load (1.7ms)[0m   [0mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/service_providers
+Rendering service_providers/index
+Completed in 125ms (View: 7, DB: 3) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 09:35:47) [GET]
+  [4;36;1mServiceProvider Load (0.6ms)[0m   [0;1mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/service_providers
+Rendering service_providers/index
+Completed in 17ms (View: 12, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 09:59:29) [GET]
+  [4;36;1mServiceProvider Load (0.6ms)[0m   [0;1mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+
+ActionView::TemplateError (undefined local variable or method `title' for #<ActionView::Base:0x101dd8b58>) on line #7 of app/views/layouts/application.html.erb:
+4: <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+5: <head>
+6:   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+7:   <title>OAuth Dancer: <%= title %></title>
+8:   <%= stylesheet_link_tag 'scaffold', 'simple_beauty' %>
+9: </head>
+10: <body>
+
+    app/views/layouts/application.html.erb:7
+    app/controllers/service_providers_controller.rb:7:in `index'
+
+Rendered rescues/_trace (56.8ms)
+Rendered rescues/_request_and_response (1.1ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 09:59:58) [GET]
+  [4;35;1mServiceProvider Load (0.5ms)[0m   [0mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 13ms (View: 6, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:00:36) [GET]
+  [4;36;1mServiceProvider Load (0.4ms)[0m   [0;1mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 13ms (View: 7, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:00:41) [GET]
+  [4;35;1mServiceProvider Load (0.5ms)[0m   [0mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 111ms (View: 104, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:01:32) [GET]
+  [4;36;1mServiceProvider Load (0.6ms)[0m   [0;1mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 23ms (View: 7, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:01:47) [GET]
+  [4;35;1mServiceProvider Load (0.7ms)[0m   [0mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 13ms (View: 7, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:01:56) [GET]
+  [4;36;1mServiceProvider Load (8.6ms)[0m   [0;1mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 17ms (View: 3, DB: 9) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:02:16) [GET]
+  [4;35;1mServiceProvider Load (0.5ms)[0m   [0mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 9ms (View: 3, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:02:17) [GET]
+  [4;36;1mServiceProvider Load (0.5ms)[0m   [0;1mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 169ms (View: 3, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:02:22) [GET]
+  [4;35;1mServiceProvider Load (0.6ms)[0m   [0mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 9ms (View: 3, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:02:32) [GET]
+  [4;36;1mServiceProvider Load (0.6ms)[0m   [0;1mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 10ms (View: 4, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:02:38) [GET]
+  [4;35;1mServiceProvider Load (0.4ms)[0m   [0mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 9ms (View: 2, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:02:40) [GET]
+  [4;36;1mServiceProvider Load (0.5ms)[0m   [0;1mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 8ms (View: 2, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:02:40) [GET]
+  [4;35;1mServiceProvider Load (0.5ms)[0m   [0mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 8ms (View: 2, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:02:47) [GET]
+  [4;36;1mServiceProvider Load (0.8ms)[0m   [0;1mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 13ms (View: 3, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:02:51) [GET]
+  [4;35;1mServiceProvider Load (0.4ms)[0m   [0mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 9ms (View: 4, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:03:02) [GET]
+  [4;36;1mServiceProvider Load (0.5ms)[0m   [0;1mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 12ms (View: 2, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:03:14) [GET]
+  [4;35;1mServiceProvider Load (0.5ms)[0m   [0mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 8ms (View: 2, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:03:26) [GET]
+  [4;36;1mServiceProvider Load (1.1ms)[0m   [0;1mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 9ms (View: 3, DB: 2) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:03:37) [GET]
+  [4;35;1mServiceProvider Load (1.2ms)[0m   [0mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 13ms (View: 7, DB: 2) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:03:42) [GET]
+  [4;36;1mServiceProvider Load (0.5ms)[0m   [0;1mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 9ms (View: 3, DB: 1) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#index (for 127.0.0.1 at 2010-02-26 10:04:11) [GET]
+  [4;35;1mServiceProvider Load (9.0ms)[0m   [0mSELECT * FROM "service_providers" [0m
+Rendering template within layouts/application
+Rendering service_providers/index
+Completed in 29ms (View: 7, DB: 10) | 200 OK [http://localhost/service_providers]
+
+
+Processing ServiceProvidersController#new (for 127.0.0.1 at 2010-02-26 10:04:24) [GET]
+Rendering template within layouts/application
+Rendering service_providers/new
+Completed in 137ms (View: 126, DB: 1) | 200 OK [http://localhost/service_providers/new]
