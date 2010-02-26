@@ -28,7 +28,12 @@ ActiveRecord::Schema.define(:version => 20100225193905) do
     t.string   "request_token_url"
     t.string   "authorize_url"
     t.string   "access_token_url"
-    t.boolean  "use_out_of_band"
+    t.string   "oauth_version",                     :default => "1.0"
+    t.string   "default_response_content_type",     :default => "application/x-www-form-urlencoded; charset=utf-8"
+    t.string   "default_request_content_type",      :default => "application/x-www-form-urlencoded; charset=utf-8"
+    t.string   "oauth_scheme",                      :default => "header"
+    t.boolean  "use_out_of_band",                   :default => false
+    t.boolean  "use_post_for_authentication_steps", :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end

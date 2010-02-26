@@ -43,21 +43,21 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id.:format'
 end
 #== Route Map
-# Generated on 25 Feb 2010 11:56
+# Generated on 26 Feb 2010 14:19
 #
-#     service_provider_access_tokens GET    /service_providers/:service_provider_id/access_tokens(.:format)          {:controller=>"access_tokens", :action=>"index"}
-#                                    POST   /service_providers/:service_provider_id/access_tokens(.:format)          {:controller=>"access_tokens", :action=>"create"}
-#  new_service_provider_access_token GET    /service_providers/:service_provider_id/access_tokens/new(.:format)      {:controller=>"access_tokens", :action=>"new"}
-# edit_service_provider_access_token GET    /service_providers/:service_provider_id/access_tokens/:id/edit(.:format) {:controller=>"access_tokens", :action=>"edit"}
-#      service_provider_access_token GET    /service_providers/:service_provider_id/access_tokens/:id(.:format)      {:controller=>"access_tokens", :action=>"show"}
-#                                    PUT    /service_providers/:service_provider_id/access_tokens/:id(.:format)      {:controller=>"access_tokens", :action=>"update"}
-#                                    DELETE /service_providers/:service_provider_id/access_tokens/:id(.:format)      {:controller=>"access_tokens", :action=>"destroy"}
-#                  service_providers GET    /service_providers(.:format)                                             {:controller=>"service_providers", :action=>"index"}
-#                                    POST   /service_providers(.:format)                                             {:controller=>"service_providers", :action=>"create"}
-#               new_service_provider GET    /service_providers/new(.:format)                                         {:controller=>"service_providers", :action=>"new"}
-#              edit_service_provider GET    /service_providers/:id/edit(.:format)                                    {:controller=>"service_providers", :action=>"edit"}
-#                   service_provider GET    /service_providers/:id(.:format)                                         {:controller=>"service_providers", :action=>"show"}
-#                                    PUT    /service_providers/:id(.:format)                                         {:controller=>"service_providers", :action=>"update"}
-#                                    DELETE /service_providers/:id(.:format)                                         {:controller=>"service_providers", :action=>"destroy"}
+#     service_provider_access_tokens GET    /service_providers/:service_provider_id/access_tokens(.:format)          {:action=>"index", :controller=>"access_tokens"}
+#                                    POST   /service_providers/:service_provider_id/access_tokens(.:format)          {:action=>"create", :controller=>"access_tokens"}
+#  new_service_provider_access_token GET    /service_providers/:service_provider_id/access_tokens/new(.:format)      {:action=>"new", :controller=>"access_tokens"}
+# edit_service_provider_access_token GET    /service_providers/:service_provider_id/access_tokens/:id/edit(.:format) {:action=>"edit", :controller=>"access_tokens"}
+#      service_provider_access_token GET    /service_providers/:service_provider_id/access_tokens/:id(.:format)      {:action=>"show", :controller=>"access_tokens"}
+#                                    PUT    /service_providers/:service_provider_id/access_tokens/:id(.:format)      {:action=>"update", :controller=>"access_tokens"}
+#                                    DELETE /service_providers/:service_provider_id/access_tokens/:id(.:format)      {:action=>"destroy", :controller=>"access_tokens"}
+#                  service_providers GET    /service_providers(.:format)                                             {:action=>"index", :controller=>"service_providers"}
+#                                    POST   /service_providers(.:format)                                             {:action=>"create", :controller=>"service_providers"}
+#               new_service_provider GET    /service_providers/new(.:format)                                         {:action=>"new", :controller=>"service_providers"}
+#              edit_service_provider GET    /service_providers/:id/edit(.:format)                                    {:action=>"edit", :controller=>"service_providers"}
+#                   service_provider GET    /service_providers/:id(.:format)                                         {:action=>"show", :controller=>"service_providers"}
+#                                    PUT    /service_providers/:id(.:format)                                         {:action=>"update", :controller=>"service_providers"}
+#                                    DELETE /service_providers/:id(.:format)                                         {:action=>"destroy", :controller=>"service_providers"}
 #                                           /:controller/:action/:id                                                 
 #                                           /:controller/:action/:id(.:format)                                       

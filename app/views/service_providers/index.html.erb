@@ -12,15 +12,13 @@
         <th>Authorize url</th>
         <th>Access token url</th>
         <th>Out of band authentication?</th>
+        <th colspan="3">Actions</th>
       </tr>
     </thead>
     <tbody>
   <% @service_providers.each do |service_provider| %>
       <tr>
         <td><%=h service_provider.label %></td>
-        <td><%=h service_provider.note %></td>
-        <td><%=h service_provider.consumer_key %></td>
-        <td><%=h service_provider.consumer_secret %></td>
         <td><%=h service_provider.request_token_url %></td>
         <td><%=h service_provider.authorize_url %></td>
         <td><%=h service_provider.access_token_url %></td>

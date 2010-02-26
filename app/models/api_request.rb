@@ -22,10 +22,10 @@ class ApiRequest < PassiveRecord::Base
                         :headers => options[:headers], 
                       })
       api_request.service_provider = access_token.service_provider
-      
+      consumer = api_request.service_provider.to_oauth_consumer
     end
     
-    def ApiRequest.make_two_legged_request(url, service_provider, options => {})
+    def ApiRequest.make_two_legged_request(url, service_provider, options = {})
     end
     
 end
