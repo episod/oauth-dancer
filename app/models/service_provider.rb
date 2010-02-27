@@ -40,10 +40,7 @@ class ServiceProvider < ActiveRecord::Base
     OAuth::Consumer.new(self.consumer_key, self.consumer_secret, self.options_for_consumer(options))
   end
   
-  # supply options[:oauth_callback]
-  def get_request_token(options = {})
-    raise "Must set an OAuth Callback URL or 'oob'" unless options[:oauth_callback]
-    oauth_callback = options.delete(:oauth_callback)
+  def get_request_token(oauth_callback, options = {})
     consumer = self.to_oauth_consumer(options)
     request_token = consumer.get_request_token({:oauth_callback => oauth_callback})
     return request_token
