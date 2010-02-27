@@ -40,29 +40,22 @@ class ServiceProvider < ActiveRecord::Base
     OAuth::Consumer.new(self.consumer_key, self.consumer_secret, self.options_for_consumer(options))
   end
   
-  def get_request_token
-    consumer = self.to_oauth_consumer    
+  # supply options[:oauth_callback]
+  def get_request_token(options = {})
+    raise "Must set an OAuth Callback URL or 'oob'" unless options[:oauth_callback]
+    oauth_callback = options.delete(:oauth_callback)
+    consumer = self.to_oauth_consumer(options)
+    request_token = consumer.get_request_token({:oauth_callback => oauth_callback})
+    return request_token
   end
   
-  def get_request_token(callback_url)
-    consumer.get_request_token(:oauth_callback=>callback_url)
-  end
-
-  def create_from_request_token(user,token,secret,oauth_verifier)
-    logger.info "create_from_request_token"
-    request_token=OAuth::RequestToken.new consumer,token,secret
-    access_token=request_token.get_access_token :oauth_verifier=>oauth_verifier
-    logger.info self.inspect
-    logger.info user.inspect
-    puts self.type.to_s
-    create :user_id=>user.id,:token=>access_token.token,:secret=>access_token.secret,:type=>self.type.to_s
+  def exchange_request_token_for_access_token(request_token, oauth_verifier)
+    access_token = request_token.get_access_token(:oauth_verifier => oauth_verifier)
+    return access_token
   end
   
   
   def get_authorization_url(request_token)
-  end
-  
-  def exchange_request_token_for_access_token(request_token)
   end
   
   def autentication_http_method
