@@ -16,6 +16,7 @@ class GhostTrap
 end
 
 # These are all overrides for OAuth gems to make them more debuggable.
+# This could all be done more cleanly. But it isn't. So there.
 module OAuth::Client
   class Helper
     def signature_base_string(extra_options = {})
@@ -65,14 +66,79 @@ module OAuth
   class Consumer
     CA_FILE = nil
   end
+  
 end
 
-# Make the final, most reliable URL fully accessible.
 class Net::HTTPRequest
+  # Make the final, most reliable URL fully accessible.
   def public_request_uri(http)
     final_url = oauth_full_request_uri(http)
-    GhostTrap.trap! :full_request_url, final_url
     final_url
   end
+  
+  def signature_base_string(http, consumer = nil, token = nil, options = {})
+    options = { :request_uri      => oauth_full_request_uri(http),
+                :consumer         => consumer,
+                :token            => token,
+                :scheme           => 'header',
+                :signature_method => nil,
+                :nonce            => nil,
+                :timestamp        => nil }.merge(options)
+
+    basestring = OAuth::Client::Helper.new(self, options).signature_base_string
+    GhostTrap.trap! :signature_base_string, basestring
+    basestring
+  end
+  
+  def oauth_full_request_uri(http)
+    uri = URI.parse(self.path)
+    uri.host = http.address
+    uri.port = http.port
+
+    if http.respond_to?(:use_ssl?) && http.use_ssl?
+      uri.scheme = "https"
+    else
+      uri.scheme = "http"
+    end
+    GhostTrap.trap! :full_request_url, uri.to_s
+    uri.to_s
+  end
+  
+  def set_oauth_header
+    self['Authorization'] = @oauth_helper.header
+    GhostTrap.trap! :authorization_header, self['Authorization']
+    self['Authorization']
+  end
+  
+  def set_oauth_query_string
+    oauth_params_str = @oauth_helper.oauth_parameters.map { |k,v| [escape(k), escape(v)] * "=" }.join("&")
+
+    uri = URI.parse(path)
+    if uri.query.to_s == ""
+      uri.query = oauth_params_str
+    else
+      uri.query = uri.query + "&" + oauth_params_str
+    end
+
+    @path = uri.to_s
+
+    @path << "&oauth_signature=#{escape(oauth_helper.signature)}"
+    GhostTrap.trap! :oauth_query_string, @path
+    @path
+  end
+  
 end
+
+module OAuth
+  class Problem < OAuth::Unauthorized
+    def initialize(problem, request = nil, params = {})
+      super(request)
+      GhostTrap.trap! :oauth_problem, problem
+      GhostTrap.trap! :oauth_problem_params, params
+      @problem = problem
+      @params  = params
+    end
+  end
+end
+
 
