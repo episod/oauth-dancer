@@ -1,10 +1,11 @@
 body {
-	background: #CACACA url(/images/background.png) repeat-x;
+/*	background: #CACACA url(/images/background.png) repeat-x;*/
+	background: black;
 	font-family: "Trebuchet MS", Verdana, serif
 }
 #container {
 	margin: 0 auto;
-	width: 750px
+/*	width: 750px*/
 
 }
 #header {
@@ -21,16 +22,16 @@ body {
 #main_content {
 	margin: 0 auto;
 	width: 100%;
-	background: #FFFFFF url('/images/background_content.gif');
+	background: #FFFFFF;/* url('/images/background_content.gif');*/
 	background-repeat: repeat-y;
 } 
 #main_content_top {
 	height: 30px;
-	background: #FFFFFF url('/images/background_top.gif');
+	background: #FFFFFF;/* url('/images/background_top.gif');*/
 } 
 #main_content_bottom {
 	height: 30px;
-	background: #FFFFFF url('/images/background_bottom.gif');
+	background: #FFFFFF;/* url('/images/background_bottom.gif');*/
 }
 #footer {
 	text-align: center;
@@ -39,7 +40,7 @@ body {
 }
 .content {
 	float: left;
-	width: 510px;
+	width: 60%;
 	text-align: justify;
 	padding: 0 30px 0 30px;
 	font-size: 12px;
@@ -49,7 +50,7 @@ body {
 	width: 139px;
 	float: right;
 	padding: 0 20px 0 20px;
-	border-left: #8C8484 1px solid;
+/*	border-left: #8C8484 1px solid;*/
 	font-size: 12px
 }
 .menu ul {
@@ -117,3 +118,5 @@ a.menu_link:hover {
 	font-weight: bold;
 	font-style: italic
 }
+
+input[type="text"], textarea { width: 400px;}

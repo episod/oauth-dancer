@@ -1,0 +1,53 @@
+<table class="form">
+  <tr>
+    <th><%= f.label "Label" %></th>
+    <td><%= f.text_field :label %><br/>Example: 'Twitter', 'LinkedIn', "development", "production"</td>
+  </tr>
+  <tr>
+    <th><%= f.label "Note" %></th>
+    <td><%= f.text_area :note %></td>
+  </tr>
+  <tr>
+    <th><%= f.label "Consumer Key" %></th>
+    <td><%= f.text_field :consumer_key %></td>
+  </tr>
+  <tr>
+    <th><%= f.label "Consumer Secret" %></th>
+    <td><%= f.text_field :consumer_secret %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :request_token_url %></th>
+    <td><%= f.text_field :request_token_url %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :authorize_url %></th>
+    <td><%= f.text_field :authorize_url %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :access_token_url %></th>
+    <td><%= f.text_field :access_token_url %></td>
+  </tr>
+  <tr>
+    <th><%= f.label "OAuth Version" %></th>
+    <td><%= f.text_field :oauth_version, :default => "1.0" %><br/>Even for OAuth 1.0a, this should be "1.0"</td>
+  <tr>
+    <th><%= f.label "Use 'Out of Band'-style OAuth?" %></th>
+    <td><%= f.check_box :use_out_of_band %></td>
+  </tr>
+  <tr>
+    <th><%= f.label "Use POST instead of GET for authentication steps?" %></th>
+    <td><%= f.check_box :use_post_for_authentication_steps, :default => true %></td>
+  </tr>
+  <tr>
+    <th><%= f.label "OAuth Scheme" %></th>
+    <td><%= f.select :oauth_scheme, [:header, :query_string, :body]%></td>
+  </tr>
+  <tr>
+    <th><%= f.label :default_response_content_type %></th>
+    <td><%= f.text_field :default_response_content_type, :default => "application/x-www-form-urlencoded" %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :default_request_content_type %></th>
+    <td><%= f.text_field :default_response_content_type, :default =>  "application/x-www-form-urlencoded" %></td>
+  </tr>
+</table>
