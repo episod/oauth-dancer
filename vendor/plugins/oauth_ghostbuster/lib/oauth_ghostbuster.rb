@@ -1,4 +1,4 @@
-# Log a dance move!
+# Trap a ghost!
 class GhostTrap
   @@log = []
   
@@ -10,7 +10,7 @@ class GhostTrap
     @@log = [ "light is green" => "trap is clean" ]
   end
   
-  def DanceMoves.ghosts
+  def GhostTrap.ghosts
     @@log
   end
 end
@@ -27,7 +27,7 @@ module OAuth::Client
      GhostTrap.trap! :signature_base_string, basestring
      basestring
     end
-
+  end
 end
 
 module OAuth::RequestProxy::Net
@@ -57,7 +57,6 @@ module OAuth
       GhostTrap.trap! :signature, sig
       sig
     end
-    
   end
 end
 
@@ -94,7 +93,7 @@ module OAuth
     else
       GhostTrap.trap! :response_disposition, "something unusual happened."
       response.error!
-    ends
+    end
   end
   
   # Return the signature_base_string
