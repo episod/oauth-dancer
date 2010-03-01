@@ -1,0 +1,18 @@
+<% if @service_providers && !@service_providers.empty? %>
+  <p>You can start the dance with any of these service providers:</p>
+  <ul>
+    <% @service_providers.each do | service_provider | %>
+      <li><%= link_to service_provider.label, :action => "get_request_token", :service_provider_id => service_provider.id %>
+        <% unless service_provider.access_tokens.empty? %>
+          <p>There are also these access tokens available for making requests:</p>
+          <ul>
+            <% service_provider.access_tokens.each do | access_token | %>
+              <li><%= link_to access_token.label, :controller => "api_request", :action => "index", :access_token_id => access_token.id %></li>
+            <% end %>
+          </ul>
+        <% end%>
+      </li>
+  <% end %>
+<% else %>
+  <p>You don't have any service providers to interface with.</p>
+<% end %>
