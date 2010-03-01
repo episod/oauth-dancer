@@ -37,7 +37,7 @@ class TheDanceController < ApplicationController
     else
       GhostTrap.trap! :callback_confirmed, "The service provider did not confirm the oauth_callback"
     end
-    
+
     # Now send the user off to authorization
     send_to_authorization(@request_token)
   end
@@ -49,18 +49,15 @@ class TheDanceController < ApplicationController
     @service_provider = ServiceProvider.find params[:service_provider_id]
     if request_token_secret
       @request_token = OAuth::RequestToken.from_hash(@service_provider.to_oauth_consumer, { :oauth_token => request_token, :oauth_token_secret => request_token_secret})
-      @access_token get_access_token(@service_provider, @request_token)
-      if @
-        flash[:notice] = "#{params[:id].humanize} was successfully connected to your account"
-        go_back
-      else
-        flash[:error] = "An error happened, please try connecting to #{@service_provider.label} again"
-        redirect_to :action => "index"
-      end
+      get_access_token(@service_provider, @request_token)
+    else
+      flash[:error] = "There was a problem securing a request token for #{@service_provider.label}"
+      redirect_to :action => "index"
     end    
   end
   
   def process_out_of_band
+    # TODO: Process OOB flow
   end
   
   def send_to_authorization(request_token)
@@ -69,15 +66,26 @@ class TheDanceController < ApplicationController
     redirect_to url
   end
 
-  def take_a_bow
-  end
-
-
   def get_access_token(service_provider, request_token)
-    
+    consumer = service_provider.to_oauth_consumer
+    access_token = consumer.get_access_token(request_token)
+    store_access_token(service_provider, access_token)
   end
   
   def store_access_token(service_provider, access_token)
+    token_model = service_provider.access_tokens.find(:first, :conditions => { :oauth_token => access_token.token })
+    unless token_model
+      token_model = service_provider.access_tokens.create(:oauth_token => access_token.token, :oauth_token_secret => access_token.secret)
+      GhostTrap.trap! :store_access_token, "Stored the new access token."
+    else
+      GhostTrap.trap! :store_access_token, "Already found this access token. Skipping"
+    end
+    redirect_to :action => "take_a_bow", :access_token_id => token_model.id, :service_provider_id => service_provider.id
+  end
+
+  def take_a_bow
+    @service_provider = ServiceProvider.find(params[:service_provider_id])
+    @access_token = @service_provider.access_tokens.find(params[:access_token_id])
   end
 
 end
