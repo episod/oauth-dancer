@@ -6,6 +6,13 @@ While this tool is still in its infancy, it actually works now for most basic ki
 * It allows you to authenticate against Service Providers, starting with acquiring a request token, then authorizing, then getting an access tokens.
 * Access Tokens are persisted so you can use them again later for more requests.
 * Make arbitrary API calls against a Service Provider by specifying the URL, HTTP Method, and a POST body of any Content-Type
+* SQLite back-end makes your database portable and saves you in DB setup time
+
+h2. How To Install
+* Clone this project, then step into the directory
+* Run rake db:create:all to create your databases
+* Run rake db:migrate to migrate the database to the proper structures
+* Run ./script/server and browse to http://localhost:3000 to make it all happen
 
 h2. Future Features
 * Set HTTP headers for a request arbitrarily
