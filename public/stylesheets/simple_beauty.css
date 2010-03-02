@@ -120,3 +120,5 @@ a.menu_link:hover {
 }
 
 input[type="text"], textarea { width: 400px;}
+
+div#ghost-trap { background-color: white;}

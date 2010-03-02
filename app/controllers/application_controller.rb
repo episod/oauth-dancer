@@ -4,7 +4,7 @@
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
-  after_filter :show_ghosttrap
+  before_filter :show_ghosttrap
   
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   end
   
   def show_ghosttrap
-    puts GhostTrap.ghosts.inspect
+    @ghosts = GhostTrap.ghosts
   end
   
 end

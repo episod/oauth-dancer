@@ -42,5 +42,19 @@
     </div>
   </div>
   <div id="footer"><b>Design by</b> <a href="http://www.pikanai.com">Pikanai.com</a></div>
+  <% if @ghosts && !@ghosts.empty? %>
+    <div id="ghost-trap">
+      <table>
+        <% @ghosts.each do | ghost | %>
+          <tr>
+            <% ghost.keys.each do | key | %>
+              <td><%= key %></td>
+              <td><%= ghost[key] %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
 </body>
 </html>
