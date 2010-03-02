@@ -26,6 +26,9 @@
   <div id="footer"></div>
   <% if @ghosts && !@ghosts.empty? %>
     <div id="ghost-trap">
+      <strong>The Ghost Trap</strong>
+      <%= image_tag "ghost-trap.jpg", :width => "60px", :align => "left" %> 
+      <div style="clear:both;"></div>
       <table>
         <% @ghosts.each do | ghost | %>
           <tr>
