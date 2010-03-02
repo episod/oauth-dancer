@@ -53,11 +53,13 @@ class TheDanceController < ApplicationController
       begin
         get_access_token(@service_provider, @request_token, oauth_verifier)
       rescue Exception => e
-        puts e.inspect
+        flash[:error] = "There was a problem securing an access token for #{@service_provider.label}. Check the GhostTrap."
+        GhostTrap.trap! :access_token_error, e.inspect
       end
         
     else
-      flash[:error] = "There was a problem securing a request token for #{@service_provider.label}"
+      flash[:error] = "There was a problem securing an access token for #{@service_provider.label}"
+      GhostTrap.trap! :access_token_error, "No request token secret from the service provider."
       redirect_to :action => "index"
     end    
   end

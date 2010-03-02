@@ -7,7 +7,8 @@ class GhostTrap
   end
   
   def GhostTrap.clear!
-    @@log = [ "light is green" => "trap is clean" ]
+    # @@log = [ "light is green" => "trap is clean" ]
+    @@log = []
   end
   
   def GhostTrap.ghosts
@@ -26,13 +27,20 @@ module OAuth::RequestProxy
       GhostTrap.trap! :signature_base_string, basestring
       basestring
     end
+    
+    def secret
+      secret = "#{escape(consumer_secret)}&#{escape(token_secret)}"
+      GhostTrap.trap! :signing_secret, secret
+      secret
+    end
+    
   end
 end
     
 module OAuth::Client
   class Helper
     def signature_base_string(extra_options = {})
-      basestring = OAuth::Signature.signature_base_string(@request, { :uri        => options[:request_uri],
+      basestring = OAuth::Signature.signature_base_string(@request, { :uri => options[:request_uri],
                                                          :consumer   => options[:consumer],
                                                          :token      => options[:token],
                                                          :parameters => oauth_parameters}.merge(extra_options) )

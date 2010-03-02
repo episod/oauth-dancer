@@ -43,7 +43,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id.:format'
 end
 #== Route Map
-# Generated on 26 Feb 2010 14:19
+# Generated on 02 Mar 2010 06:38
 #
 #     service_provider_access_tokens GET    /service_providers/:service_provider_id/access_tokens(.:format)          {:action=>"index", :controller=>"access_tokens"}
 #                                    POST   /service_providers/:service_provider_id/access_tokens(.:format)          {:action=>"create", :controller=>"access_tokens"}
@@ -59,5 +59,6 @@ end
 #                   service_provider GET    /service_providers/:id(.:format)                                         {:action=>"show", :controller=>"service_providers"}
 #                                    PUT    /service_providers/:id(.:format)                                         {:action=>"update", :controller=>"service_providers"}
 #                                    DELETE /service_providers/:id(.:format)                                         {:action=>"destroy", :controller=>"service_providers"}
+#                               root        /                                                                        {:action=>"index", :controller=>"home"}
 #                                           /:controller/:action/:id                                                 
 #                                           /:controller/:action/:id(.:format)                                       
