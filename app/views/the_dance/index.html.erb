@@ -7,7 +7,7 @@
           <p>There are also these access tokens available for making requests:</p>
           <ul>
             <% service_provider.access_tokens.each do | access_token | %>
-              <li><%= link_to access_token.label, :controller => "api_request", :action => "index", :access_token_id => access_token.id %></li>
+              <li><%= link_to access_token.to_s, :controller => "api_request", :action => "index", :access_token_id => access_token.id %></li>
             <% end %>
           </ul>
         <% end%>
