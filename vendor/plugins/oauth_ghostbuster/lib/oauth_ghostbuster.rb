@@ -17,6 +17,18 @@ end
 
 # These are all overrides for OAuth gems to make them more debuggable.
 # This could all be done more cleanly. But it isn't. So there.
+
+module OAuth::RequestProxy
+  class Base
+    def signature_base_string
+      base = [method, normalized_uri, normalized_parameters]
+      basestring = base.map { |v| escape(v) }.join("&")
+      GhostTrap.trap! :signature_base_string, basestring
+      basestring
+    end
+  end
+end
+    
 module OAuth::Client
   class Helper
     def signature_base_string(extra_options = {})
