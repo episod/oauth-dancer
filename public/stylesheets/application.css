@@ -5,10 +5,10 @@ body {
 	color:white;
 }
 
-div#header, div#header h1, div#header a { color:red; font-size: 1.3em; }
-h1 { font-size: 1.3em;}
-h2 { font-size: 1.2em;}
-h3 { font-size: 1.1em; }
+div#header, div#header h1, div#header a { color:red; font-size: 1.3em; text-align:middle;}
+h1 { font-size: 1.2em;}
+h2 { font-size: 1.1em;}
+h3 { font-size: 1.0em; }
 a, a:visited, a:hover { color: white;}
 div#ghost-trap { background-color: black; color:white; margin-top: 15px;}
 
