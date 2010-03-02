@@ -1,3 +1,14 @@
-== Welcome to the OAuth Dance
+h1. Welcome to the OAuth Dance
 
-NOT USABLE YET.
+While this tool is still in its infancy, it actually works now for most basic kinds of requests you might make against an OAuth 1.0a Service Provider.
+
+* It allows you to define Service Providers, and the consumer keys and secrets associated with them.
+* It allows you to authenticate against Service Providers, starting with acquiring a request token, then authorizing, then getting an access tokens.
+* Access Tokens are persisted so you can use them again later for more requests.
+* Make arbitrary API calls against a Service Provider by specifying the URL, HTTP Method, and a POST body of any Content-Type
+
+h2. Future Features
+* Set HTTP headers for a request arbitrarily
+* Manipulate the OAuth steps to test unusual scenarios
+* Out of Band mode support
+* Two-legged OAuth support
