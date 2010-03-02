@@ -1,9 +1,15 @@
 input[type="text"], textarea { width: 400px;}
 body {
-	background: white;
-	font-family: "Trebuchet MS", Verdana, serif
+	background: black;
+	font-family: "Trebuchet MS", Verdana, serif;
+	color:white;
 }
 
+div#header, div#header h1, div#header a { color:red; font-size: 1.3em; }
+h1 { font-size: 1.3em;}
+h2 { font-size: 1.2em;}
+h3 { font-size: 1.1em; }
+a, a:visited, a:hover { color: white;}
 div#ghost-trap { background-color: black; color:white;}
 
 table { border: 0px;}
