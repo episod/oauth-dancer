@@ -8,3 +8,5 @@
     <th>Secret</th><td><%=@access_token.oauth_token_secret%></td>
   </tr>
 </table>
+<p><%= link_to "Use it in a request!", :controller => "api_request", :action => "index", :service_provider_id => @service_provider.id %></p>
+<%= image_tag "time-of-your-life.jpg" %>

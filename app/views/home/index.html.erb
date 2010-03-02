@@ -1,2 +1,7 @@
-<p>Hold me closer, OAuth Dancer...</p>
-<%= image_tag "oauth-dance.png"%>
+<div id="home-instructions" class="instructions">
+  <span>Hold me closer, OAuth Dancer...<br/></span>
+  <span>Get started by defining a <%= link_to "Service Provider", :controller => "service_providers" %><br/></span>
+  <span>Then start the <%= link_to "OAuth Dance", :controller => "the_dance" %> to step through the requestToken, authorization, and accessToken steps.<br/></span>
+  <span>Finally, <%= link_to "Make API Requests", :controller => "api_request" %> using your new access tokens.<br/></span>
+</div>
+<%# image_tag "oauth-dance.png", :height => "600px" %>
