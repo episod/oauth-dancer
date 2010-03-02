@@ -1,2 +1,11 @@
-<h1>TheDance#take_a_bow</h1>
-<p>Find me in app/views/the_dance/take_a_bow.html.erb</p>
+<h1>Take a bow!</h1>
+<p>You've completed the OAuth Dance for <%= @service_provider.label %>!</p>
+<p>Your new access token:</p>
+<table>
+  <tr>
+    <th>Token</th><td><%=@access_token.oauth_token%></td>
+  </tr><tr>
+    <th>Secret</th><td><%=@access_token.oauth_token_secret%></td>
+  </tr>
+</table>
+<p>Give it a label:</p>

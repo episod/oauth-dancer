@@ -50,7 +50,12 @@ class TheDanceController < ApplicationController
     @service_provider = ServiceProvider.find params[:service_provider_id]
     if request_token_secret
       @request_token = OAuth::RequestToken.from_hash(@service_provider.to_oauth_consumer, { :oauth_token => request_token, :oauth_token_secret => request_token_secret})
-      get_access_token(@service_provider, @request_token, oauth_verifier)
+      begin
+        get_access_token(@service_provider, @request_token, oauth_verifier)
+      rescue Exception => e
+        puts e.inspect
+      end
+        
     else
       flash[:error] = "There was a problem securing a request token for #{@service_provider.label}"
       redirect_to :action => "index"

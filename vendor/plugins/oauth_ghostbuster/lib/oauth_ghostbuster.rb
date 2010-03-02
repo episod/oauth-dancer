@@ -173,6 +173,8 @@ module OAuth
       GhostTrap.trap! :oauth_problem_params, params
       @problem = problem
       @params  = params
+      puts @problem
+      puts @params.inspect
     end
   end
 end

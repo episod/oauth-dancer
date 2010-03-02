@@ -14,13 +14,13 @@
     <td><%=h access_token.oauth_token %></td>
     <td><%=h access_token.oauth_token_secret %></td>
     <td><%=h access_token.service_provider_id %></td>
-    <td><%= link_to 'Show', access_token %></td>
-    <td><%= link_to 'Edit', edit_access_token_path(access_token) %></td>
-    <td><%= link_to 'Destroy', access_token, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%# link_to 'Show', service_provider_access_token %></td>
+    <td><%# link_to 'Edit', edit_service_provider_access_token(access_token) %></td>
+    <td><%# link_to 'Destroy', service_provider_access_token, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New access_token', new_access_token_path %>
+<%# link_to 'New access_token', new_access_token_path %>
