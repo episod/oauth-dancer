@@ -16,7 +16,7 @@ class TheDanceController < ApplicationController
     GhostTrap.trap! :oauth_callback, callback_url
     
     @consumer = @service_provider.to_oauth_consumer
-    @request_token = @consumer.get_request_token(callback_url)
+    @request_token = @consumer.get_request_token(:oauth_callback => callback_url)
     
     GhostTrap.trap! :request_token, @request_token.token
     GhostTrap.trap! :request_token_secret, @request_token.secret
@@ -46,10 +46,11 @@ class TheDanceController < ApplicationController
     GhostTrap.trap! :oauth_callback, "OAuth callback hit"
     request_token = params[:oauth_token]
     request_token_secret = session[request_token]
+    oauth_verifier = params[:oauth_verifier]
     @service_provider = ServiceProvider.find params[:service_provider_id]
     if request_token_secret
       @request_token = OAuth::RequestToken.from_hash(@service_provider.to_oauth_consumer, { :oauth_token => request_token, :oauth_token_secret => request_token_secret})
-      get_access_token(@service_provider, @request_token)
+      get_access_token(@service_provider, @request_token, oauth_verifier)
     else
       flash[:error] = "There was a problem securing a request token for #{@service_provider.label}"
       redirect_to :action => "index"
@@ -66,9 +67,9 @@ class TheDanceController < ApplicationController
     redirect_to url
   end
 
-  def get_access_token(service_provider, request_token)
+  def get_access_token(service_provider, request_token, oauth_verifier)
     consumer = service_provider.to_oauth_consumer
-    access_token = consumer.get_access_token(request_token)
+    access_token = consumer.get_access_token(request_token, { :oauth_verifier => oauth_verifier})
     store_access_token(service_provider, access_token)
   end
   

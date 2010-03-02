@@ -12,6 +12,10 @@ class ServiceProvider < ActiveRecord::Base
     }
   end
   
+  def base_host
+    uri_objects[:request_token_uri].scheme + "://" + uri_objects[:request_token_uri].host
+  end
+  
   def request_token_host
     uri_objects[:request_token_uri].host
   end
@@ -20,11 +24,11 @@ class ServiceProvider < ActiveRecord::Base
     uri_objects[:request_token_uri].path
   end
   
-  def authorization_host
+  def authorize_host
     uri_objects[:authorize_uri].host
   end
   
-  def authorization_path
+  def authorize_path
     uri_objects[:authorize_uri].path
   end
   
@@ -75,6 +79,7 @@ class ServiceProvider < ActiveRecord::Base
   def options_for_consumer(override_options = {})
     {
       :signature_method   => 'HMAC-SHA1',
+      :site => self.base_host,
       :request_token_path => self.request_token_path,
       :authorize_path     => self.authorize_path,
       :access_token_path  => self.access_token_path,
