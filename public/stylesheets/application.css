@@ -6,6 +6,9 @@ body {
 
 div#ghost-trap { background-color: black; color:white;}
 
-table { width: 100%;}
-table th { width: 430px;}
+table { border: 0px;}
+table tr { vertical-align: top;}
+table th { font-weight: bold; text-align: left; padding: 2px 2px 2px 2px;}
+table td { text-align: left; padding: 2px 2px 2px 2px;}
+
 div.api_result { margin-left: 10px; margin-bottom:10px;}
