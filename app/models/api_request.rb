@@ -13,7 +13,7 @@ class ApiRequest < PassiveRecord::Base
     belongs_to :access_token
     belongs_to :service_provider
     
-    def ApiRequest.make_request(url, access_token, options = {})
+    def ApiRequest.make_request(url, model_access_token, options = {})
       api_request = ApiRequest.new(
                       { :resource_url => url, 
                         :access_token_id => access_token.id,
@@ -23,6 +23,7 @@ class ApiRequest < PassiveRecord::Base
                       })
       api_request.service_provider = access_token.service_provider
       consumer = api_request.service_provider.to_oauth_consumer
+      access_token = model_access_token.to_oauth_access_token
     end
     
     def ApiRequest.make_two_legged_request(url, service_provider, options = {})
