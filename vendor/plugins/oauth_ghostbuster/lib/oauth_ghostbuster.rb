@@ -19,23 +19,6 @@ end
 # These are all overrides for OAuth gems to make them more debuggable.
 # This could all be done more cleanly. But it isn't. So there.
 
-module OAuth::RequestProxy
-  class Base
-    def signature_base_string
-      base = [method, normalized_uri, normalized_parameters]
-      basestring = base.map { |v| escape(v) }.join("&")
-      GhostTrap.trap! :signature_base_string, basestring
-      basestring
-    end
-    
-    def secret
-      secret = "#{escape(consumer_secret)}&#{escape(token_secret)}"
-      GhostTrap.trap! :signing_secret, secret
-      secret
-    end
-    
-  end
-end
     
 module OAuth::Client
   class Helper
@@ -57,7 +40,31 @@ module OAuth::RequestProxy::Net
         return nil unless request['Authorization'] && request['Authorization'][0,5] == 'OAuth'
         auth_params = request['Authorization']
         GhostTrap.trap! :inbound_auth_params, auth_params
-      end
+      end      
+    end
+  end
+end
+
+module OAuth::RequestProxy
+  class Base
+    def signature_base_string
+      base = [method, normalized_uri, normalized_parameters]
+      basestring = base.map { |v| escape(v) }.join("&")
+      GhostTrap.trap! :signature_base_string, basestring
+      basestring
+    end    
+  end
+end
+
+
+
+module OAuth::Signature
+  class Base
+    def secret
+      puts 'I am here'
+      s = "#{escape(consumer_secret)}&#{escape(token_secret)}"
+      GhostTrap.trap! :signing_secret, s
+      s
     end
   end
 end
@@ -79,6 +86,7 @@ module OAuth
     end
   end
 end
+
 
 # Hey, sometimes when you're testing you don't want to worry about silly stuff like this
 module OAuth

@@ -2,39 +2,61 @@ class ApiRequest < PassiveRecord::Base
     define_fields :access_token_id, 
                   :headers, 
                   :method,
-                  :resource_url, 
+                  :resource_url,
                   :signature_base_string, 
                   :signature,
                   :signing_secret, 
+                  :authorization_header,
                   :postdata,
                   :response_body,
                   :response_headers,
                   :response_code,
                   :response_message,
                   :service_provider_id
-    belongs_to :access_token
-    belongs_to :service_provider
+                      
+    def ApiRequest.request_content_types
+      [ "application/x-www-form-urlencoded; charset=utf-8", "application/json; charset=utf-8", "application/xml; charset=utf-8"]
+    end
+    
+    def response_format
+      my_format = ""
+      if self.response_headers
+        type = self.response_headers['Content-Type'] || self.response_headers['content-type']
+        if type =~ /json/
+          my_format = :json
+        elsif type =~ /xml/
+          my_format = :xml
+        else
+          my_format = :text
+        end
+      else
+        my_format = :text
+      end
+      my_format
+    end
     
     def ApiRequest.make_request(url, model_access_token, options = {})
       GhostTrap.clear!
       api_request = ApiRequest.new(
                       { :resource_url => url, 
-                        :access_token_id => access_token.id,
+                        :access_token_id => model_access_token.id,
                         :method => options[:method] || :get,
                         :postdata => options[:postdata],
                         :headers => options[:headers] || {}, 
                       })
-      api_request.service_provider = access_token.service_provider
+      api_request.service_provider_id = model_access_token.service_provider_id
       consumer = api_request.service_provider.to_oauth_consumer
       access_token = model_access_token.to_oauth_access_token
-      if [:post, :put, :delete].include?(api_request.method.downcase.to_sym)
-        response = access_token.request(api_request.method.downcase.to_sym, api_request.resource_url, api_request.postdata, api_request.headers)
+      api_request.method = api_request.method.to_s.downcase.to_sym
+      if [:post, :put, :delete].include?(api_request.method)
+        response = access_token.request(api_request.method, api_request.resource_url, api_request.postdata, api_request.headers)
       else
-        response = access_token.request(api_request.method.downcase.to_sym, api_request.resource_url, api_request.headers)
+        response = access_token.request(api_request.method, api_request.resource_url, api_request.headers)
       end
       api_request.response_body = response.body
+      api_request.response_headers = {}
       response.each do | key, value |
-        api_request.response_headers[:key] = value
+        api_request.response_headers[key] = value
       end
       api_request.response_code = response.code
       api_request.response_message = response.message
@@ -49,12 +71,23 @@ class ApiRequest < PassiveRecord::Base
           if ghost[:signing_secret]
             api_request.signing_secret = ghost[:signing_secret]
           end
+          if ghost[:authorization_header]
+            api_request.authorization_header = ghost[:authorization_header]
+          end
         end
       end
+      puts api_request.inspect
       api_request
     end
-    
+  
     def ApiRequest.make_two_legged_request(url, service_provider, options = {})
     end
+  
+    def access_token
+      @access_token ||= AccessToken.find(self.access_token_id)
+    end
     
+    def service_provider
+      @service_provider ||= ServiceProvider.find(self.service_provider_id)
+    end
 end

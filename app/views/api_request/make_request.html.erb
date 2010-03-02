@@ -1,2 +1,55 @@
-<h1>ApiRequest#make_request</h1>
-<p>Find me in app/views/api_request/make_request.html.erb</p>
+<h1>Request Disposition</h1>
+<table width="100%">
+  <tr>
+    <th colspan="2"><h3>Your Request</h3></th>
+  </tr>
+  <tr>
+    <th>Access Token</th>
+    <td><%= @api_request.access_token.to_s %></td>
+  </tr>
+  <tr>
+    <th>Full Request URI</th>
+    <td><%= @api_request.resource_url %></td>
+  </tr><tr>
+    <th>HTTP Method</th>
+    <td><%= @api_request.method.to_s %></td>
+  </tr><tr>    
+    <th>Request Body</th>
+    <td><%= @api_request.postdata %></td>
+  </tr><tr>  
+    <th>Content-Type</th>
+    <td><%= @api_request.headers['Content-Type']%></td>
+  </tr><tr>
+    <th>Headers</th>
+    <td><%= @api_request.headers.collect{|h,v| "#{h}: #{v}<br/>"}%></td>
+  </tr><tr>
+    <th colspan="2"><h3>The OAuth Dance</h3></th>
+  </tr><tr>
+    <th>Signature Base String</th>
+    <td><%= @api_request.signature_base_string %></td>
+  </tr><tr>
+    <th>Signature</th>
+    <td><%= @api_request.signature %></td>
+  </tr><tr>
+    <th>Signing Secret</th>
+    <td><%= @api_request.signing_secret %></td>
+  </tr><tr>
+    <th>Authorization Header</th>
+    <td><%= @api_request.authorization_header %></td>
+  </tr><tr>
+    <th colspan="2"><h3>The Response</h3></th>
+  </tr><tr>
+    <th>Response Code</th>
+    <td><%= @api_request.response_code %></td>
+  </tr><tr>
+    <th>Response Message</th>
+    <td><%= @api_request.response_message %></td>
+  <tr>
+    <th>Response Body</th>
+    <td><div><%= CodeRay.scan(@api_request.response_body, @api_request.response_format).html(:line_numbers => :table)%></div></td>
+  </tr>
+  <tr>
+    <th>Response Headers</th>
+    <td><%= @api_request.response_headers.collect{|h,v| "#{h}: #{v}<br/>"}%></td>
+  </tr>
+</table>

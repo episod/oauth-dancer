@@ -1,2 +1,27 @@
-<h1>ApiRequest#index</h1>
-<p>Find me in app/views/api_request/index.html.erb</p>
+<h1>Making a request for <%= @service_provider.label %></h1>
+
+<% form_tag "/api_request/make_request" do%>
+  <%= hidden_field_tag :service_provider_id, @service_provider.id %>
+  <table>
+    <tr>
+      <th>Access Token</th>
+      <td><%= select_tag :access_token_id, options_for_select(@access_tokens.collect {|at| [ at.to_s, at.id ] })%></td>
+    </tr>
+    <tr>
+      <th>HTTP Method</th>
+      <td><%= select_tag :method, options_for_select([ :get, :post, :put, :delete, :head, :trace])%></td>
+    </tr>
+    <tr>
+      <th>Resource URL</th>
+      <td><%= text_field_tag :resource_url %><br/>A fully qualified URL. Example: <em>http://api.twitter.com/1/statuses/friends_timeline.json</em></td>
+    </tr>
+    <tr>
+      <th>Request Body</th>
+      <td><%= text_area_tag :postdata, nil, :rows => 10 %><br/>Leave blank, if none.</td>
+    </tr>
+    <tr>
+      <th>Request Content-Type</th>
+      <td><%= select_tag :request_content_type, request_content_types(:default => @service_provider.default_request_content_type) %>
+  </table>
+  <%= submit_tag "Make the request!" %>
+<% end %>

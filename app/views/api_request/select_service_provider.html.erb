@@ -1,0 +1,6 @@
+<h1>Select a Service Provider</h1>
+<ul>
+  <% @service_providers.each do | provider | %>
+    <li><%= link_to provider.label, { :action => "index", :service_provider_id => provider.id }%> ( <%= provider.access_tokens.count %> access tokens )</li>
+  <% end %>
+</ul>
