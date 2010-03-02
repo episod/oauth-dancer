@@ -66,8 +66,6 @@ module OAuth::Signature
       request.signature_base_string
     end
 
-  private
-
     def token
       request.token
     end
