@@ -1,0 +1,11 @@
+input[type="text"], textarea { width: 400px;}
+body {
+	background: white;
+	font-family: "Trebuchet MS", Verdana, serif
+}
+
+div#ghost-trap { background-color: black; color:white;}
+
+table { width: 100%;}
+table th { width: 430px;}
+div.api_result { margin-left: 10px; margin-bottom:10px;}

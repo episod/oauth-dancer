@@ -1,55 +1,50 @@
 <h1>Request Disposition</h1>
-<table width="100%">
-  <tr valign="top">
-    <th colspan="2"><h3>Your Request</h3></th>
-  </tr>
-  <tr valign="top">
-    <th>Access Token</th>
-    <td><%= @api_request.access_token.to_s %></td>
-  </tr>
-  <tr valign="top">
-    <th>Full Request URI</th>
-    <td><%= @api_request.resource_url %></td>
-  </tr><tr valign="top">
-    <th>HTTP Method</th>
-    <td><%= @api_request.method.to_s %></td>
-  </tr><tr valign="top">    
-    <th>Request Body</th>
-    <td><%= @api_request.postdata %></td>
-  </tr><tr valign="top">  
-    <th>Content-Type</th>
-    <td><%= @api_request.headers['Content-Type']%></td>
-  </tr><tr valign="top">
-    <th>Headers</th>
-    <td><%= @api_request.headers.collect{|h,v| "#{h}: #{v}<br/>"}%></td>
-  </tr><tr valign="top">
-    <th colspan="2"><h3>The OAuth Dance</h3></th>
-  </tr><tr valign="top">
-    <th>Signature Base String</th>
-    <td><%= @api_request.signature_base_string %></td>
-  </tr><tr valign="top">
-    <th>Signature</th>
-    <td><%= @api_request.signature %></td>
-  </tr><tr valign="top">
-    <th>Signing Secret</th>
-    <td><%= @api_request.signing_secret %></td>
-  </tr><tr valign="top">
-    <th>Authorization Header</th>
-    <td><%= @api_request.authorization_header %></td>
-  </tr><tr valign="top">
-    <th colspan="2"><h3>The Response</h3></th>
-  </tr><tr valign="top">
-    <th>Response Code</th>
-    <td><%= @api_request.response_code %></td>
-  </tr><tr valign="top">
-    <th>Response Message</th>
-    <td><%= @api_request.response_message %></td>
-  <tr valign="top">
-    <th>Response Body</th>
-    <td><div><%= CodeRay.scan(@api_request.response_body, @api_request.response_format).html(:line_numbers => :table)%></div></td>
-  </tr>
-  <tr valign="top">
-    <th>Response Headers</th>
-    <td><%= @api_request.response_headers.collect{|h,v| "#{h}: #{v}<br/>"}%></td>
-  </tr>
+<h3>Your Request</h3>
+<strong>Access Token</strong>
+&nbsp;&nbsp;<div class="api_result"><%= @api_request.access_token.to_s %></div>
+
+<strong>Full Request URI</strong>
+<div class="api_result"><%= @api_request.resource_url %></div>
+
+<strong>HTTP Method</strong>
+<div class="api_result"><%= @api_request.method.to_s %></div>
+  
+<strong>Request Body</strong>
+<div class="api_result"><%= @api_request.postdata %></div>
+
+<strong>Content-Type</strong>
+<div class="api_result"><%= @api_request.headers['Content-Type']%></div>
+
+<strong>Headers</strong>
+<div class="api_result"><%= @api_request.headers.collect{|h,v| "#{h}: #{v}<br/>"}%></div>
+
+<h3>The OAuth Dance</h3>
+
+<strong>Signature Base String</strong>
+<div class="api_result"><%= @api_request.signature_base_string %></div>
+
+<strong>Signature</strong>
+<div class="api_result"><%= @api_request.signature %></div>
+
+<strong>Signing Secret</strong>
+<div class="api_result"><%= @api_request.signing_secret %></div>
+
+<strong>Authorization Header</strong>
+<div class="api_result"><%= @api_request.authorization_header %></div>
+
+<h3>The Response</h3>
+
+<strong>Response Code</strong>
+<div class="api_result"><%= @api_request.response_code %></div>
+
+<strong>Response Message</strong>
+<div class="api_result"><%= @api_request.response_message %></div>
+
+<strong>Response Body</strong>
+<div class="api_result"><%= CodeRay.scan(@api_request.response_body, @api_request.response_format).html(:line_numbers => :table)%></div>
+
+
+<strong>Response Headers</strong>
+<div class="api_result"><%= @api_request.response_headers.collect{|h,v| "#{h}: #{v}<br/>"}%></div>
+
 </table>

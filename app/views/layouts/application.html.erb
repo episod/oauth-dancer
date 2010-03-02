@@ -5,34 +5,25 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>OAuth Dancer: <%= title %></title>
-  <%= stylesheet_link_tag 'simple_beauty', 'coderay' %>
+  <%= stylesheet_link_tag 'application', 'coderay' %>
 </head>
 <body>
 
 <div id="container">
   <div id="header"><h1><%= link_to "OAuth Dancer", :controller => "home" %></h1></div>
-  <div id="sub_header" style="display:none;"><%= title %></div>
   <div id="main_content_top"><%= flash[:notice] %></div>
   <div id="main_content">
     <div class="content">
+      <p><%= link_to "Service Providers", { :controller => :service_providers, :action => :index }, :class => "menu_link" %> &nbsp; 
+         <%= link_to "the OAuth Dance", { :controller => :the_dance, :action => :index }, :class => "menu_link" %>&nbsp;
+         <%= link_to "Make Requests", { :controller => :api_request, :action => :index }, :class => "menu_link" %>
+      </p
+      
       <%= yield %>
 
     </div>
-    <div class="menu">
-      <div class="menu_title">Dance Moves</div>
-      <ul>
-        <li><%= link_to "Service Providers", { :controller => :service_providers, :action => :index }, :class => "menu_link" %></li>
-        <li><%= link_to "the OAuth Dance", { :controller => :the_dance, :action => :index }, :class => "menu_link" %></li>
-        <li><%= link_to "Make Requests", { :controller => :api_request, :action => :index }, :class => "menu_link" %></li>
-      </ul>
-    </div>
-
-    <div id="clear"></div>
-
-    <div id="main_content_bottom">
-    </div>
   </div>
-  <div id="footer"><b>Design by</b> <a href="http://www.pikanai.com">Pikanai.com</a></div>
+  <div id="footer"></div>
   <% if @ghosts && !@ghosts.empty? %>
     <div id="ghost-trap">
       <table>
