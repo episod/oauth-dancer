@@ -76,7 +76,6 @@ class ApiRequest < PassiveRecord::Base
           end
         end
       end
-      puts api_request.inspect
       api_request
     end
   

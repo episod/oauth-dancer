@@ -12,7 +12,11 @@ class ApiRequestController < ApplicationController
   def make_request
     @service_provider = ServiceProvider.find(params[:service_provider_id])
     @access_token = @service_provider.access_tokens.find(params[:access_token_id])
-    @api_request = ApiRequest.make_request(params[:resource_url], @access_token, options = {})
+    options = {}
+    if params[:request_content_type]
+      options[:headers] = { "Content-Type" => params[:request_content_type]}
+    end
+    @api_request = ApiRequest.make_request(params[:resource_url], @access_token, options)
   end
   
   def select_service_provider
