@@ -12,6 +12,8 @@ Today, you can at the very least use this tool to interface with the Twitter API
 
 One of the best things to use this tool for is generating "golden examples" of API requests and OAuth dances using your very own credentials. Then you can go back to the implementation you're working on, input all the variables that were at play and smash them bugs dead!
 
+Also suitable for testing against local, development, and test environments.
+
 Here are some of the features it currently supports:
   * It allows you to define Service Providers, and the consumer keys and secrets associated with them.
   * It allows you to authenticate against Service Providers, starting with acquiring a request token, then authorizing, then getting an access tokens.
