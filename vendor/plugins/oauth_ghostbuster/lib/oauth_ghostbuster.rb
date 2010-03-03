@@ -7,8 +7,7 @@ class GhostTrap
   end
   
   def GhostTrap.clear!
-    # @@log = [ "light is green" => "trap is clean" ]
-    @@log = []
+    @@log = [ "light is green" => "trap is clean" ]
   end
   
   def GhostTrap.ghosts
@@ -194,7 +193,7 @@ end
 
 module OAuth
   class Problem < OAuth::Unauthorized
-    # This will get better.
+    # TODO This will get better.
     def initialize(problem, request = nil, params = {})
       super(request)
       GhostTrap.trap! :oauth_problem, problem

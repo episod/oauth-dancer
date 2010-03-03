@@ -1,5 +1,5 @@
 class TheDanceController < ApplicationController
-  # This is the process of logging a key in
+  before_filter :clear_ghost_trap, :only => [ :index ]
   
   def index
     @service_providers = ServiceProvider.find(:all, :include => [ :access_tokens ], :order => :label )

@@ -10,7 +10,7 @@
 <body>
 
 <div id="container">
-  <div id="header" style="height:60px;"><h1><%= image_tag "dance-move.jpg", :height => "60px" %>&nbsp;&nbsp;<%= link_to "OAuth Dancer", :controller => "home" %></h1></div>
+  <div id="header" style="height:60px;"><h1><%= image_tag "dance-move.jpg", :height => "60px" %>&nbsp;&nbsp;<%= link_to "OAuth Dancer", {:controller => "home"} %></h1></div>
   <div id="main_content_top"><%= flash[:notice] %></div>
   <div id="main_content">
     <div class="content">
@@ -24,13 +24,13 @@
     </div>
   </div>
   <div id="footer"></div>
-  <% if @ghosts && !@ghosts.empty? %>
+  <% if GhostTrap.ghosts and !GhostTrap.ghosts.empty? %>
     <div id="ghost-trap">
       <strong>The Ghost Trap</strong>
       <%= image_tag "ghost-trap.jpg", :width => "60px", :align => "left" %> 
       <div style="clear:both;"></div>
       <table>
-        <% @ghosts.each do | ghost | %>
+        <% GhostTrap.ghosts.each do | ghost | %>
           <tr>
             <% ghost.keys.each do | key | %>
               <td><%= key %></td>

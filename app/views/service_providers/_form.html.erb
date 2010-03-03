@@ -32,15 +32,15 @@
     <td><%= f.text_field :oauth_version, :default => "1.0" %><br/>Even for OAuth 1.0a, this should be "1.0"</td>
   <tr>
     <th><%= f.label "Use 'Out of Band'-style OAuth?" %></th>
-    <td><%= f.check_box :use_out_of_band %></td>
+    <td><%= f.check_box :use_out_of_band %><br/><span style="not-yet">This feature isn't enabled yet.</span></td>
   </tr>
   <tr>
     <th><%= f.label "Use POST instead of GET for authentication steps?" %></th>
-    <td><%= f.check_box :use_post_for_authentication_steps, :default => true %></td>
+    <td><%= f.check_box :use_post_for_authentication_steps, :default => true %><br/><span style="not-yet">This feature isn't enabled yet.</span></td>
   </tr>
   <tr>
     <th><%= f.label "OAuth Scheme" %></th>
-    <td><%= f.select :oauth_scheme, [:header, :query_string, :body]%></td>
+    <td><%= f.select :oauth_scheme, [:header, :query_string, :body]%><br/><br/><span style="not-yet">This feature isn't enabled yet.</span></td>
   </tr>
   <tr>
     <th><%= f.label :default_response_content_type %></th>
