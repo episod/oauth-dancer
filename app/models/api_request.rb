@@ -48,10 +48,14 @@ class ApiRequest < PassiveRecord::Base
       consumer = api_request.service_provider.to_oauth_consumer
       access_token = model_access_token.to_oauth_access_token
       api_request.method = api_request.method.to_s.downcase.to_sym
-      if [:post, :put, :delete].include?(api_request.method)
-        response = access_token.request(api_request.method, api_request.resource_url, api_request.postdata, api_request.headers)
-      else
-        response = access_token.request(api_request.method, api_request.resource_url, api_request.headers)
+      response = ""
+      
+      PROXY_CONFIG.apply(:read_timeout => 5) do 
+        if [:post, :put, :delete].include?(api_request.method)
+          response = access_token.request(api_request.method, api_request.resource_url, api_request.postdata, api_request.headers)
+        else
+          response = access_token.request(api_request.method, api_request.resource_url, api_request.headers)
+        end
       end
       api_request.response_body = response.body
       api_request.response_headers = {}

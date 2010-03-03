@@ -1,0 +1,56 @@
+= HTTP Configuration
+
+This gem provides a means of configuring the Net::HTTP package to suit your environment. It also fixes an issue with Net::HTTP where threads will exit when they timeout. Even if you don't need the configuration part of the code, the timeout fix may make this gem worth your while to install. This code can also be installed as a Rails plugin.
+
+== Consistent Configuration
+
+Configurations are defined by Net::HTTP::Configuration objects. You can set a global configuration or apply a configuration to just a block of code. By using the configuration objects, you can normalize how proxies and timeouts are set across your applications and even for code you didn't write.
+
+Options are passed in as a hash:
+
+* :read_timeout => the default read timeout value
+* :open_timeout => the default open timeout value
+* :proxy_host => the host name of the proxy server
+* :proxy_port => the port of the proxy server
+* :proxy_user => the user name for the proxy server
+* :proxy_password => the password for the proxy server
+* :no_proxy => either an array or a comma delimited list of host names not to proxy
+* :proxy => a shorthand method of setting the proxy information
+
+The :no_proxy values are case insensitive and only need to match the end of the host name. So, if you have a local network that uses *.local DNS names, you can set :no_proxy => '.local' to prevent the proxy server from being used for local hosts.
+
+The :proxy option can be used to set the proxy server information in a simplified manner. You can pass the proxy information as a string in the format [user:password@]host:port. In addition, you can pass the special value of :environment to automatically read the proxy information from the environment variables HTTP_PROXY or http_proxy and the :no_proxy value from the NO_PROXY or no_proxy variables. This lets you move your environment configuration entirely out of your ruby code if desired.
+
+When a configuration is applied to a block, you can also pass in some override values at the same time. In this code, the :read_timeout will be 5 seconds instead of the default 10:
+
+  config = Net::HTTP::Configuration.new(:proxy => :environment, :read_timeout => 10, :open_timeout => 5)
+	config.apply(:read_timeout => 5) do
+		Net::HTTP.get('http://example.com/')
+	end
+
+== Adapting Code To Your Environment
+
+If your code has to live in an environment that requires a proxy server, you may have run into problems with externally developed code where the author didn't have to worry about proxies. With this code installed, you don't have to worry about breaking open the code and hacking it up to add proxy support.
+
+Similarly, if you are building a high traffic web site that makes web service calls to external hosts, you may want to set HTTP timeouts to lower values so that if the external server is running slow, your server doesn't end up eating up all its threads waiting on that server. For example, suppose you have a site that handles 10 requests per second and 1% of those requests make a web service request to another server and to handle that traffic, you have 50 mongrel servers available. If the external service goes crazy for some reason and starts taking 60 seconds to serve a response that normally takes less than 1 second, you will start loosing a mongrel server every 10 seconds and your site will be completely down in about 10 minutes. You could significantly lower this risk by setting the open and read timeouts on HTTP to be a much smaller value. You'll still end up with errors, but the site won't go down.
+
+== Fix For Timeouts
+
+One potential issue you can have with the Net::HTTP is that it handles timeouts by throwing interrupts. This is very effective however, interrupts have the unfortunate side effect of killing the current thread. This can be quite a problem. Consider this code:
+
+	loop do
+	  begin
+			begin_really_important_transaction()
+	    Net::HTTP.get('http://www.example.com/really_important_request')
+		rescue => e
+		  logger.warn(e)
+			Notifications.new(:critical).send("The really important request failed; this must be fixed immediately.")
+		ensure
+			finish_really_important_transaction()
+		end
+		sleep(300)
+	end
+
+If the HTTP request times out, the code will not execute they way you'd think. It will receive an interrupt and immediately exit. The log warning and notification will not be sent. Further, the ensure block will not even be executed which could be really bad.
+
+This code simply sets the default exception to be thrown by timeouts in the Net module to Net::NetworkTimeoutError instead of TimeoutError. Since Net::NetworkTimeoutError doesn't extend from Interrupt, your thread can go on its merry way.

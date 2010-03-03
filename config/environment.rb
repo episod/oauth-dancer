@@ -18,6 +18,7 @@ Rails::Initializer.run do |config|
   config.gem "oauth"
   config.gem "sqlite3-ruby", :lib => "sqlite3"
   config.gem "coderay"
+  config.gem "http_configuration" # for proxying..
   # config.gem "rest-open-uri"
   
   # config.gem "bj"
@@ -43,4 +44,10 @@ Rails::Initializer.run do |config|
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
 end
+
+# Configure a HTTP Proxy here. Set to nil for no proxy.
+# HTTP_PROXY = "http://localhost:8888"
+HTTP_PROXY = nil
+PROXY_CONFIG = Net::HTTP::Configuration.new(:proxy => HTTP_PROXY, :read_timeout => 500, :open_timeout => 500)
+
 
