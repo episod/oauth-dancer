@@ -1,5 +1,5 @@
 class ServiceProvider < ActiveRecord::Base
-  has_many :access_tokens, :dependent => :destroy
+  has_many :access_tokens, :dependent => :destroy, :order => "created_at ASC"
   validates_uniqueness_of :label, :on => :create, :message => "must be unique"
   validates_presence_of :label, :on => :create, :message => "can't be blank"
   validates_presence_of :consumer_key, :on => :create, :message => "can't be blank"

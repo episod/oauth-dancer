@@ -1,18 +1,24 @@
 <% if @service_providers && !@service_providers.empty? %>
   <p>You can start the dance with any of these service providers:</p>
-  <ul>
+  <div>
     <% @service_providers.each do | service_provider | %>
-      <li><%= link_to service_provider.label, :action => "get_request_token", :service_provider_id => service_provider.id %>
+      <div style="margin-left: 10px">
+        <p>
+          <%= button_to "Sign in with #{service_provider.label}", :action => "get_request_token", :service_provider_id => service_provider.id %>
+        </p>
         <% unless service_provider.access_tokens.empty? %>
-          <p>There are also these access tokens available for making requests:</p>
-          <ul>
-            <% service_provider.access_tokens.each do | access_token | %>
-              <li><%= link_to access_token.to_s, :controller => "api_request", :action => "index", :access_token_id => access_token.id %></li>
-            <% end %>
-          </ul>
-        <% end%>
-      </li>
-  <% end %>
+          <p><a href="#" title="Click to expand" onclick="$('#tokens_<%= service_provider.id %>').slideToggle('fast');"><%= service_provider.access_tokens.count %> access tokens</a> for use in API requests</p>
+          <div id="tokens_<%= service_provider.id %>" style="display:none;margin-left:8px">
+            <ul>
+              <% service_provider.access_tokens.each do | access_token | %>
+                <li><%= link_to access_token.to_s, {:controller => "api_request", :action => "index", :access_token_id => access_token.id, :service_provider_id => service_provider.id }, :title => "Click to start using this access token" %></li>
+              <% end %>  
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 <% else %>
   <p>You don't have any service providers to interface with.</p>
 <% end %>

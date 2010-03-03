@@ -5,7 +5,7 @@
   <table>
     <tr valign="top">
       <th>Access Token</th>
-      <td><%= select_tag :access_token_id, options_for_select(@access_tokens.collect {|at| [ at.to_s, at.id ] })%></td>
+      <td><%= select_tag :access_token_id, options_for_select(@access_tokens.collect {|at| [ at.to_s, at.id ] }, params[:access_token_id] ? params[:access_token_id].to_i : nil )%></td>
     </tr>
     <tr valign="top">
       <th>HTTP Method</th>
