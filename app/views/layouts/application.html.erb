@@ -11,7 +11,7 @@
 <body>
 
 <div id="container">
-  <div id="header" style="height:60px;"><h1><%= image_tag "oauth-dancer.jpg", :height => "50px" %>&nbsp;&nbsp;<%= link_to "OAuth Dancer",
+  <div id="header" style="height:60px;"><h1><%= link_to image_tag( "oauth-dancer.jpg", :height => "50px"),{:controller => "home"} %>&nbsp;&nbsp;<%= link_to "OAuth Dancer",
    {:controller => "home"} %></h1> 
   </div>
   <div style="font-size: 12px;position:absolute;top:20px;left:65px;">
