@@ -26,17 +26,18 @@ How To Install
   * Run ./script/server and browse to http://localhost:3000 to make it all happen
 
 Upcoming Features
-* Set HTTP headers for a request arbitrarily
-* Manipulate the OAuth steps to test unusual scenarios
-* Out of Band mode support
-* Two-legged OAuth support
-* XAuth support
+  * Set HTTP headers for a request arbitrarily
+  * Querystring-based OAuth support
+  * Manipulate the OAuth steps to test unusual scenarios
+  * Out of Band mode support
+  * Two-legged OAuth support
+  * XAuth support
 
 Some "newer" OAuth features are already supported if you turn your head and squint your eye "just right."
 
 Be good with this tool. Don't use it for bad purposes. Don't host it on the internet trying to collect the OAuth secrets of poor souls who don't know better. This is the policy. By downloading this, you agree that you won't do anything I'd disapprove of with this tool.
 
-"Hold me closer, OAuth dancer. Now it's in you, always with you, an OAuth Dancer for your hand..."
+"Hold me closer, OAuth Dancer. Now it's in you, always with you, an OAuth Dancer for your hand..."
 
 Taylor Singletary
 http://www.twitter.com/episod

@@ -18,7 +18,7 @@ Rails::Initializer.run do |config|
   config.gem "oauth"
   config.gem "sqlite3-ruby", :lib => "sqlite3"
   config.gem "coderay"
-  config.gem "rest-open-uri"
+  # config.gem "rest-open-uri"
   
   # config.gem "bj"
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"

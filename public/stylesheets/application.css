@@ -1,3 +1,4 @@
+a[class="menu_link"], div.main_content_top { background:white;color:black !important;padding:5px 5px 5px 5px;}
 input[type="text"], textarea { width: 400px;}
 body {
 	background: black;

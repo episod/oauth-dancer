@@ -10,15 +10,18 @@
 <body>
 
 <div id="container">
-  <div id="header" style="height:60px;"><h1><%= image_tag "dance-move.jpg", :height => "60px" %>&nbsp;&nbsp;<%= link_to "OAuth Dancer", {:controller => "home"} %></h1></div>
+  <div id="header" style="height:60px;"><h1><%= image_tag "dance-move.jpg", :height => "60px" %>&nbsp;&nbsp;<%= link_to "OAuth Dancer",
+   {:controller => "home"} %></h1> 
+  </div>
+  <div style="font-size: 12px;position:absolute;top:23px;left:58px;">
+   <%= link_to "Service Providers", { :controller => :service_providers, :action => :index }, :class => "menu_link" %> &nbsp;
+   <%= link_to "the OAuth Dance", { :controller => :the_dance, :action => :index }, :class => "menu_link" %>&nbsp;
+   <%= link_to "Make Requests", { :controller => :api_request, :action => :index }, :class => "menu_link" %></div>
+   <div style="clear:both;">
   <div id="main_content_top"><%= flash[:notice] %></div>
   <div id="main_content">
-    <div class="content">
-      <p><%= link_to "Service Providers", { :controller => :service_providers, :action => :index }, :class => "menu_link" %> &nbsp; 
-         <%= link_to "the OAuth Dance", { :controller => :the_dance, :action => :index }, :class => "menu_link" %>&nbsp;
-         <%= link_to "Make Requests", { :controller => :api_request, :action => :index }, :class => "menu_link" %>
-      </p
-      
+    
+    <div class="content" style="margin-top:10px">
       <%= yield %>
 
     </div>
