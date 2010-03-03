@@ -1,21 +1,43 @@
-h1. Welcome to the OAuth Dance
+Welcome to the OAuth Dance!
 
-While this tool is still in its infancy, it actually works now for most basic kinds of requests you might make against an OAuth 1.0a Service Provider.
+This tool is for everyone who ever wanted to jump out of a window thanks to OAuth.
+This tool is for everyone who likes to look at more debug information on API REST requests than you can shake a stick at.
+This tool is for you.
 
-* It allows you to define Service Providers, and the consumer keys and secrets associated with them.
-* It allows you to authenticate against Service Providers, starting with acquiring a request token, then authorizing, then getting an access tokens.
-* Access Tokens are persisted so you can use them again later for more requests.
-* Make arbitrary API calls against a Service Provider by specifying the URL, HTTP Method, and a POST body of any Content-Type
-* SQLite back-end makes your database portable and saves you in DB setup time
+This is a Ruby on Rails application that you run on your own machine. It uses a SQLite database to be portable and very easy to setup.
 
-h2. How To Install
-* Clone this project, then step into the directory
-* Run rake db:create:all to create your databases
-* Run rake db:migrate to migrate the database to the proper structures
-* Run ./script/server and browse to http://localhost:3000 to make it all happen
+The tool is young, and doesn't contain tests. I'm not perfect, but I know tools like this very well. When something breaks, I'll try to fix it quickly.
 
-h2. Future Features
+Today, you can at the very least use this tool to interface with the Twitter API and the LinkedIn API. Any OAuth 1.0a compliant service provider should do.
+
+One of the best things to use this tool for is generating "golden examples" of API requests and OAuth dances using your very own credentials. Then you can go back to the implementation you're working on, input all the variables that were at play and smash them bugs dead!
+
+Here are some of the features it currently supports:
+  * It allows you to define Service Providers, and the consumer keys and secrets associated with them.
+  * It allows you to authenticate against Service Providers, starting with acquiring a request token, then authorizing, then getting an access tokens.
+  * Access Tokens are persisted so you can use them again later for more requests.
+  * Make arbitrary API calls against a Service Provider by specifying the URL, HTTP Method, and a POST body of any Content-Type
+  * SQLite back-end makes your database portable and saves you in DB setup time
+
+How To Install
+  * Clone this project, then step into the oauth-dance
+  * Run rake db:create:all to create your databases
+  * Run rake db:migrate to migrate the database to the proper structures
+  * Run ./script/server and browse to http://localhost:3000 to make it all happen
+
+Upcoming Features
 * Set HTTP headers for a request arbitrarily
 * Manipulate the OAuth steps to test unusual scenarios
 * Out of Band mode support
 * Two-legged OAuth support
+* XAuth support
+
+Some "newer" OAuth features are already supported if you turn your head and squint your eye "just right."
+
+Be good with this tool. Don't use it for bad purposes. Don't host it on the internet trying to collect the OAuth secrets of poor souls who don't know better. This is the policy. By downloading this, you agree that you won't do anything I'd disapprove of with this tool.
+
+"Hold me closer, OAuth dancer. Now its in you, always with you, an OAuth Dancer for your hand..."
+
+Taylor Singletary
+http://www.twitter.com/episod
+http://www.linkedin.com/in/taylorsingletary
