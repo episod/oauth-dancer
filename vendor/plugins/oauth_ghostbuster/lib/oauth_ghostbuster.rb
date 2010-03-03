@@ -61,7 +61,6 @@ end
 module OAuth::Signature
   class Base
     def secret
-      puts 'I am here'
       s = "#{escape(consumer_secret)}&#{escape(token_secret)}"
       GhostTrap.trap! :signing_secret, s
       s
@@ -195,6 +194,7 @@ end
 
 module OAuth
   class Problem < OAuth::Unauthorized
+    # This will get better.
     def initialize(problem, request = nil, params = {})
       super(request)
       GhostTrap.trap! :oauth_problem, problem
@@ -206,5 +206,3 @@ module OAuth
     end
   end
 end
-
-
