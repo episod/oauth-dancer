@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>OAuth Dancer: <%= title %></title>
+  <%= stylesheet_link_tag 'application', 'coderay' %>
+  <%= javascript_include_tag :defaults %>
+  <style>
+  body, p, ol, ul, td {
+    font-family: verdana, arial, helvetica, sans-serif;
+    font-size:   13px;
+    line-height: 18px;
+  }
+
+  pre {
+    background-color: #black;
+    color:white;
+    padding: 10px;
+    font-size: 11px;
+  }
+  </style>
+</head>
+<body>
+
+<div id="container">
+  <div id="header" style="height:60px;"><h1><%= image_tag "oauth-dancer.jpg", :height => "50px" %>&nbsp;&nbsp;<%= link_to "OAuth Dancer",
+   {:controller => "home"} %></h1> 
+  </div>
+  <div style="font-size: 12px;position:absolute;top:20px;left:65px;">
+   <%= link_to "Service Providers", { :controller => :service_providers, :action => :index }, :class => "menu_link" %> &nbsp;
+   <%= link_to "the OAuth Dance", { :controller => :the_dance, :action => :index }, :class => "menu_link" %>&nbsp;
+   <%= link_to "Make Requests", { :controller => :api_request, :action => :index }, :class => "menu_link" %></div>
+   <div style="clear:both;">
+  <div id="main_content_top"><%= flash[:notice] %></div>
+  <div id="main_content">
+    
+    <div class="content" style="margin-top:10px">
+      <%= image_tag "dance-move.jpg", :width => "80px" %>
+      <div class="dialog">
+        <h1>Something failed.</h1>
+        <p>Check the ghost trap for any hints.</p>
+      </div>
+      <%= @contents %>
+
+    </div>
+  </div>
+  <div id="footer"></div>
+  <% if GhostTrap.ghosts and !GhostTrap.ghosts.empty? %>
+    <div id="ghost-trap" style="position:fixed;bottom:0px;">
+      <a href="#" style="text-decoration:none;color:red;" title="Click to open/close the Ghost Trap" onclick="$('#ghost-table').slideToggle('fast')"><strong style="padding-left:10px;">The Ghost Trap</a></strong> (<%= GhostTrap.ghosts.count %>) &mdash; This captures interesting information about requests you are making.
+      <a href="#" title="Click to open/close the Ghost Trap" onclick="$('#ghost-table').slideToggle('fast')"><%= image_tag("ghost-trap.jpg", :alt => "Click to open/close the Ghost Trap", :width => "60px", :align => "left") %></a>
+      <div style="clear:both;"></div>
+      <div id="ghost-table" style="display:block;">
+        <table style="margin-top:10px;">
+          <% GhostTrap.ghosts.each do | ghost | %>
+            <tr>
+              <% ghost.keys.each do | key | %>
+                <th><%= key %></th>
+                <td width="10px;">:</td>
+                <td style="margin-left:10px"><%= ghost[key] %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  <% end %>
+</body>
+</html>

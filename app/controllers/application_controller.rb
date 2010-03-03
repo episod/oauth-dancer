@@ -20,4 +20,9 @@ class ApplicationController < ActionController::Base
     GhostTrap.clear!
   end
   
+  protected
+    def rescues_path(template_name)
+      "#{RAILS_ROOT}/app/views/rescues/#{template_name}.erb"
+    end
+  
 end

@@ -13,7 +13,7 @@ h3 { font-size: 1.0em; }
 a, a:visited, a:hover { color: white;}
 div#ghost-trap { background-color: black; color:white; margin-top: 15px;}
 
-table { border: 1px solid #d4d4d4;}
+table { border: 0px solid #d4d4d4;}
 table tr { vertical-align: top;}
 table th { font-weight: bold; text-align: left; padding: 2px 2px 2px 2px;}
 table td { text-align: left; padding: 2px 2px 2px 2px;}
