@@ -40,7 +40,7 @@
               <% ghost.keys.each do | key | %>
                 <th><%= key %></th>
                 <td width="10px;">:</td>
-                <td style="margin-left:10px"><%= ghost[key] %></td>
+                <td style="margin-left:10px"><%=h ghost[key] %></td>
               <% end %>
             </tr>
           <% end %>

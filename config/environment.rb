@@ -46,8 +46,8 @@ Rails::Initializer.run do |config|
 end
 
 # Configure a HTTP Proxy here. Set to nil for no proxy.
-# HTTP_PROXY = "http://localhost:8888"
-HTTP_PROXY = nil
+HTTP_PROXY = "http://localhost:8888"
+# HTTP_PROXY = nil
 PROXY_CONFIG = Net::HTTP::Configuration.new(:proxy => HTTP_PROXY, :read_timeout => 500, :open_timeout => 500)
 
 

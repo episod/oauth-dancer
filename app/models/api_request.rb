@@ -15,7 +15,7 @@ class ApiRequest < PassiveRecord::Base
                   :service_provider_id
                       
     def ApiRequest.request_content_types
-      [ "application/x-www-form-urlencoded; charset=utf-8", "application/json; charset=utf-8", "application/xml; charset=utf-8"]
+      [ "application/x-www-form-urlencoded", "application/json", "text/xml"]
     end
     
     def response_format
@@ -36,9 +36,11 @@ class ApiRequest < PassiveRecord::Base
     end
     
     def postdata(want_pristine = false)
-      if self.headers['Content-Type'] =~ /url/ || !want_pristine
+      if want_pristine
+        @postdata
+      elsif self.headers['Contnent-Type'] =~ /url/
+        puts 'here'
         parsed = CGI.parse(@postdata)
-        parsed
       else
         @postdata
       end

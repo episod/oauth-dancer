@@ -10,7 +10,7 @@
 <div class="api_result"><%= @api_request.method.to_s %></div>
   
 <strong>Request Body</strong>
-<div class="api_result"><%= @api_request.postdata(true) %></div>
+<div class="api_result"><%=h @api_request.postdata(true) %></div>
 
 <strong>Content-Type</strong>
 <div class="api_result"><%= @api_request.headers['Content-Type']%></div>
