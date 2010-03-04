@@ -21,7 +21,21 @@
     </tr>
     <tr valign="top">
       <th>Request Content-Type</th>
-      <td><%= select_tag :request_content_type, request_content_types(:default => @service_provider.default_request_content_type) %>
+      <td><%= select_tag :request_content_type, request_content_types(:default => @service_provider.default_request_content_type) %></td>
+    </tr>
+    <tr valign="top">
+      <th>Additional Request Headers</th>
+      <td>
+        <table>
+          <% 1.upto(4) do | i | -%>
+            <tr>
+              <td><%= text_field_tag "header_key_#{i}" %><br/>Key</td>
+              <td><%= text_field_tag "header_value_#{i}" %><br/>Value</td>
+            </tr>
+          <% end -%>
+        </table>
+      </td>
+    </tr>
   </table>
   <%= submit_tag "Make the request!" %>
 <% end %>

@@ -20,6 +20,21 @@ class ApplicationController < ActionController::Base
     GhostTrap.clear!
   end
   
+  def process_headers(number, params)
+    process_kvs("header", number, params)
+  end
+  
+  def process_kvs(pre_label, number, params)
+    parameters = { }
+    1.upto(number) do | i |
+      if params["#{pre_label}_value_#{i}"] 
+        next if params["#{pre_label}_value_#{i}"] == ""
+        parameters[params["#{pre_label}_key_#{i}"]] = params["#{pre_label}_value_#{i}"]
+      end
+    end
+    parameters    
+  end
+  
   protected
     def rescues_path(template_name)
       "#{RAILS_ROOT}/app/views/rescues/#{template_name}.erb"

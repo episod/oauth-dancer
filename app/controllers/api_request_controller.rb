@@ -16,6 +16,10 @@ class ApiRequestController < ApplicationController
     if params[:request_content_type]
       options[:headers] = { "Content-Type" => params[:request_content_type]}
     end
+    some_headers = process_headers(4, params)
+    options[:headers].merge!(some_headers)
+    @these_headers = {} unless @these_headers
+    
     options[:method] = params[:method]
     options[:postdata] = params[:request_body]  
     @api_request = ApiRequest.make_request(params[:resource_url], @access_token, options)
