@@ -39,7 +39,6 @@ class ApiRequest < PassiveRecord::Base
       if want_pristine
         @postdata
       elsif self.headers['Contnent-Type'] =~ /url/
-        puts 'here'
         parsed = CGI.parse(@postdata)
       else
         @postdata
