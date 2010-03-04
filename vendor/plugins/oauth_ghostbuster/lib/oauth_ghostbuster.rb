@@ -22,6 +22,7 @@ end
 module OAuth::Client
   class Helper
     def signature_base_string(extra_options = {})
+      GhostTrap.trap! :oauth_parameters, oauth_parameters
       basestring = OAuth::Signature.signature_base_string(@request, { :uri => options[:request_uri],
                                                          :consumer   => options[:consumer],
                                                          :token      => options[:token],

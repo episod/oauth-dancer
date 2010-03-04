@@ -17,7 +17,7 @@ class ApiRequestController < ApplicationController
       options[:headers] = { "Content-Type" => params[:request_content_type]}
     end
     options[:method] = params[:method]
-    options[:postdata] = params[:postdata],    
+    options[:postdata] = params[:request_body]  
     @api_request = ApiRequest.make_request(params[:resource_url], @access_token, options)
   end
   

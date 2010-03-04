@@ -35,6 +35,15 @@ class ApiRequest < PassiveRecord::Base
       my_format
     end
     
+    def postdata(want_pristine = false)
+      if self.headers['Content-Type'] =~ /url/ || !want_pristine
+        parsed = CGI.parse(@postdata)
+        parsed
+      else
+        @postdata
+      end
+    end
+    
     def ApiRequest.make_request(url, model_access_token, options = {})
       GhostTrap.clear!
       api_request = ApiRequest.new(
@@ -44,6 +53,9 @@ class ApiRequest < PassiveRecord::Base
                         :postdata => options[:postdata],
                         :headers => options[:headers] || {}, 
                       })
+      if api_request.postdata
+        GhostTrap.trap! :request_postdata, api_request.postdata
+      end
       api_request.service_provider_id = model_access_token.service_provider_id
       consumer = api_request.service_provider.to_oauth_consumer
       access_token = model_access_token.to_oauth_access_token

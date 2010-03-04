@@ -22,16 +22,16 @@
   <div id="main_content_top"><%= flash[:notice] %></div>
   <div id="main_content">
     
-    <div class="content" style="margin-top:10px">
+    <div class="content" style="margin-top:10px;margin-bottom:30px;">
       <%= yield %>
 
     </div>
   </div>
   <div id="footer"></div>
   <% if GhostTrap.ghosts and !GhostTrap.ghosts.empty? %>
-    <div id="ghost-trap" style="position:fixed;bottom:0px;">
+    <div id="ghost-trap" style="position:fixed;bottom:0px;padding-top:10px">
+      <a href="#" title="Click to open/close the Ghost Trap" onclick="$('#ghost-table').slideToggle('fast')"><%= image_tag("ghost-trap.jpg", :alt => "Click to open/close the Ghost Trap", :width => "30px", :align => "left") %></a>
       <a href="#" style="text-decoration:none;color:red;" title="Click to open/close the Ghost Trap" onclick="$('#ghost-table').slideToggle('fast')"><strong style="padding-left:10px;">The Ghost Trap</a></strong> (<%= GhostTrap.ghosts.count %>) &mdash; This captures interesting information about requests you are making.
-      <a href="#" title="Click to open/close the Ghost Trap" onclick="$('#ghost-table').slideToggle('fast')"><%= image_tag("ghost-trap.jpg", :alt => "Click to open/close the Ghost Trap", :width => "60px", :align => "left") %></a>
       <div style="clear:both;"></div>
       <div id="ghost-table" style="display:none;">
         <table style="margin-top:10px;">
