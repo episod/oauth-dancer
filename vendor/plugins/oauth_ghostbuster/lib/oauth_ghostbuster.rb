@@ -91,45 +91,42 @@ end
 module OAuth
   class Consumer
     CA_FILE = nil
-  end
-  
-  def token_request(http_method, path, token = nil, request_options = {}, *arguments)
-    response = request(http_method, path, token, request_options, *arguments)
-    GhostTrap.trap! :response, response
-    GhostTrap.trap! :response_body, response.body
-    GhostTrap.trap! :response_code, response_code.code.to_i
-    case response.code.to_i
+    def token_request(http_method, path, token = nil, request_options = {}, *arguments)
+      response = request(http_method, path, token, request_options, *arguments)
+      GhostTrap.trap! :response_body, response.body
+      GhostTrap.trap! :response_code, response.code.to_i
+      case response.code.to_i
 
-    when (200..299)
-      GhostTrap.trap! :response_disposition, "success"
-      # symbolize keys
-      # TODO this could be considered unexpected behavior; symbols or not?
-      # TODO this also drops subsequent values from multi-valued keys
-      CGI.parse(response.body).inject({}) do |h,(k,v)|
-        h[k.to_sym] = v.first
-        h[k]        = v.first
-        h
+      when (200..299)
+        GhostTrap.trap! :response_disposition, "success"
+        # symbolize keys
+        # TODO this could be considered unexpected behavior; symbols or not?
+        # TODO this also drops subsequent values from multi-valued keys
+        CGI.parse(response.body).inject({}) do |h,(k,v)|
+          h[k.to_sym] = v.first
+          h[k]        = v.first
+          h
+        end
+      when (300..399)
+        GhostTrap.trap! :response_disposition, "redirected"      
+        # this is a redirect
+        response.error!
+      when (400..499)
+        GhostTrap.trap! :response_disposition, "unauthorized, unfound, bad request, or otherwise. think deeply."      
+        raise OAuth::Unauthorized, response
+      else
+        GhostTrap.trap! :response_disposition, "something unusual happened."
+        response.error!
       end
-    when (300..399)
-      GhostTrap.trap! :response_disposition, "redirected"      
-      # this is a redirect
-      response.error!
-    when (400..499)
-      GhostTrap.trap! :response_disposition, "unauthorized, unfound, bad request, or otherwise. think deeply."      
-      raise OAuth::Unauthorized, response
-    else
-      GhostTrap.trap! :response_disposition, "something unusual happened."
-      response.error!
+    end
+  
+    # Return the signature_base_string
+    def signature_base_string(request, token = nil, request_options = {})
+      basestring = request.signature_base_string(http, self, token, options.merge(request_options))
+      GhostTrap.trap! :signature_base_string, basestring
+      basestring
     end
   end
-  
-  # Return the signature_base_string
-  def signature_base_string(request, token = nil, request_options = {})
-    basestring = request.signature_base_string(http, self, token, options.merge(request_options))
-    GhostTrap.trap! :signature_base_string, basestring
-    basestring
-  end
-  
 end
 
 class Net::HTTPRequest
