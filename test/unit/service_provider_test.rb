@@ -10,6 +10,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: service_providers
@@ -30,5 +31,6 @@ end
 #  use_post_for_authentication_steps :boolean         default(TRUE)
 #  created_at                        :datetime
 #  updated_at                        :datetime
+#  use_xauth                         :boolean         default(FALSE)
 #
 

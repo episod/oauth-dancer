@@ -4,7 +4,11 @@
     <% @service_providers.each do | service_provider | %>
       <div style="margin-left: 10px">
         <p>
-          <%= button_to "Sign in with #{service_provider.label}", :action => "get_request_token", :service_provider_id => service_provider.id %>
+          <% unless service_provider.use_xauth? %>
+            <%= button_to "Sign in with #{service_provider.label}", :action => "get_request_token", :service_provider_id => service_provider.id %>
+          <% else %>
+            <%= button_to "Sign in with #{service_provider.label} using xAuth", :action => "xauth_collect", :service_provider_id => service_provider.id %>
+          <% end %>
         </p>
         <% unless service_provider.access_tokens.empty? %>
           <p><a href="#" title="Click to expand" onclick="$('#tokens_<%= service_provider.id %>').slideToggle('fast');"><%= service_provider.access_tokens.count %> access tokens</a> for use in API requests</p>

@@ -30,6 +30,11 @@
   <tr>
     <th><%= f.label "OAuth Version" %></th>
     <td><%= f.text_field :oauth_version, :default => "1.0" %><br/>Even for OAuth 1.0a, this should be "1.0"</td>
+  </tr>
+  <tr>
+    <th><%= f.label "Use xAuth?" %></th>
+    <td><%= f.check_box :use_xauth %><br/></td>
+  </tr>
   <tr>
     <th><%= f.label "Use 'Out of Band'-style OAuth?" %></th>
     <td><%= f.check_box :use_out_of_band %><br/><span style="not-yet">This feature isn't enabled yet.</span></td>

@@ -1,0 +1,16 @@
+<h1>Provide <%=@service_provider.label%> login credentials</h1>
+
+<% form_tag "/the_dance/get_access_token_with_xauth" do%>
+  <%= hidden_field_tag :service_provider_id, @service_provider.id %>
+  <table>
+    <tr>
+      <th>Login</th>
+      <td><%= text_field_tag :login %></td>
+    </tr>
+    <tr>
+      <th>Password</th>
+      <td><%= password_field_tag :password %></td>
+    </tr>
+  </table>
+  <%= submit_tag "Login with xAuth" %>
+<% end %>

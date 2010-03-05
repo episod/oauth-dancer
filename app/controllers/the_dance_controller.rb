@@ -5,6 +5,10 @@ class TheDanceController < ApplicationController
     @service_providers = ServiceProvider.find(:all, :include => [ :access_tokens ], :order => :label )
   end
 
+  def xauth_collect
+    @service_provider = ServiceProvider.find(params[:service_provider_id])
+  end
+  
   def get_request_token
     @service_provider = ServiceProvider.find(params[:service_provider_id])
     callback_url = ""
@@ -78,6 +82,20 @@ class TheDanceController < ApplicationController
     consumer = service_provider.to_oauth_consumer
     access_token = consumer.get_access_token(request_token, { :oauth_verifier => oauth_verifier})
     store_access_token(service_provider, access_token)
+  end
+  
+  def get_access_token_with_xauth
+    GhostTrap.trap! :xauth_mode, "using xAuth to sign in"
+    @service_provider = ServiceProvider.find(params[:service_provider_id])
+    consumer = @service_provider.to_oauth_consumer
+    options = {}
+    options[:x_auth_username] = params[:login]
+    options[:x_auth_password] = params[:password]
+    options[:x_auth_mode] = "client_auth"
+    url = @service_provider.access_token_path
+    response = consumer.token_request(:post, url, nil, {}, options)
+    @access_token = OAuth::AccessToken.from_hash(consumer, response)
+    store_access_token(@service_provider, @access_token)
   end
   
   def store_access_token(service_provider, access_token)

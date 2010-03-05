@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100225193905) do
+ActiveRecord::Schema.define(:version => 20100305213015) do
 
   create_table "access_tokens", :force => true do |t|
     t.string   "label"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20100225193905) do
     t.boolean  "use_post_for_authentication_steps", :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "use_xauth",                         :default => false
   end
 
   create_table "sessions", :force => true do |t|
