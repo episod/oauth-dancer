@@ -13,7 +13,11 @@ class ServiceProvider < ActiveRecord::Base
   end
   
   def base_host
-    uri_objects[:request_token_uri].scheme + "://" + uri_objects[:request_token_uri].host
+    host = uri_objects[:request_token_uri].scheme + "://" + uri_objects[:request_token_uri].host 
+    unless [80, 443].include?(uri_objects[:request_token_uri].port)
+      host = host + ":" + uri_objects[:request_token_uri].port.to_s
+    end
+    host
   end
   
   def request_token_host
