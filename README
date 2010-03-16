@@ -22,6 +22,7 @@ Here are some of the features it currently supports:
   * SQLite back-end makes your database portable and saves you in DB setup time
   * XAuth support
   * Set HTTP headers for a request arbitrarily
+  * Two-legged OAuth with no access or request tokens
     
 How To Install
   * Clone this project, then step into the oauth-dance
@@ -34,7 +35,6 @@ Upcoming Features
   * Querystring-based OAuth support
   * Manipulate the OAuth steps to test unusual scenarios
   * Out of Band mode support
-  * Two-legged OAuth support
 
 Some "newer" OAuth features are already supported if you turn your head and squint your eye "just right."
 

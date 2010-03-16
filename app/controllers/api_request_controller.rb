@@ -11,7 +11,12 @@ class ApiRequestController < ApplicationController
 
   def make_request
     @service_provider = ServiceProvider.find(params[:service_provider_id])
-    @access_token = @service_provider.access_tokens.find(params[:access_token_id])
+    @is_two_legged = params[:access_token_id] == "two-legged"
+
+    unless @is_two_legged
+      @access_token = @service_provider.access_tokens.find(params[:access_token_id])
+    end
+    
     options = {}
     if params[:request_content_type]
       options[:headers] = { "Content-Type" => params[:request_content_type]}
@@ -21,8 +26,14 @@ class ApiRequestController < ApplicationController
     @these_headers = {} unless @these_headers
     
     options[:method] = params[:method]
-    options[:postdata] = params[:request_body]  
-    @api_request = ApiRequest.make_request(params[:resource_url], @access_token, options)
+    options[:postdata] = params[:request_body]
+    unless @is_two_legged
+      GhostTrap.trap! :three_legged, "We are dancing on three legs."
+      @api_request = ApiRequest.make_request(params[:resource_url], @access_token, options)
+    else
+      GhostTrap.trap! :two_legged, "We are dancing on two legs."
+      @api_request = ApiRequest.make_two_legged_request(params[:resource_url], @service_provider, options)
+    end
   end
   
   def select_service_provider

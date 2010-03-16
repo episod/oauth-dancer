@@ -55,8 +55,11 @@ class ServiceProvider < ActiveRecord::Base
     return access_token
   end
   
-  
-  def get_authorization_url(request_token)
+  def to_two_legged_token(consumer = nil)
+    if !consumer
+      consumer = self.to_oauth_consumer
+    end
+    OAuth::TwoLeggedMockToken.new(consumer)
   end
   
   def autentication_http_method

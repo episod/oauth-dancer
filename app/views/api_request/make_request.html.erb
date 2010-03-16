@@ -1,8 +1,12 @@
 <h1>Request Disposition</h1>
 <h3>Your Request</h3>
 <strong>Access Token</strong>
-&nbsp;&nbsp;<div class="api_result"><%= @api_request.access_token.to_s %></div>
-
+&nbsp;&nbsp;<div class="api_result">
+<% unless @is_two_legged -%>
+  <%= @api_request.access_token.to_s %></div>
+<% else -%>
+  Two-legged OAuth; None.
+<% end -%>
 <strong>Full Request URI</strong>
 <div class="api_result"><%= @api_request.resource_url %></div>
 

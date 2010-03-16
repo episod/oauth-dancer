@@ -5,7 +5,10 @@
   <table>
     <tr valign="top">
       <th>Access Token</th>
-      <td><%= select_tag :access_token_id, options_for_select(@access_tokens.collect {|at| [ at.to_s, at.id ] }, params[:access_token_id] ? params[:access_token_id].to_i : nil )%></td>
+      <td>
+        <%= select_tag :access_token_id, access_tokens_for_select %>
+        <p>Make two-legged requests by selecting "two-legged request."</p>
+      </td>
     </tr>
     <tr valign="top">
       <th>HTTP Method</th>
