@@ -236,6 +236,10 @@ module Net
       end
 
       req.set_body_internal body
+      request_headers = []
+      req.each_header{|k,v|request_headers << "#{k}: #{v}"}
+      GhostTrap.trap! :request_headers, request_headers.join("\n")
+      
       begin_transport req
         req.exec @socket, @curr_http_version, edit_path(req.path)
         begin
@@ -245,7 +249,9 @@ module Net
           yield res if block_given?
         }
       end_transport req, res
-
+      response_headers = []
+      res.each_header{|k,v|response_headers << "#{k}: #{v}"}
+      GhostTrap.trap! :response_headers, response_headers.join("\n")
       res
     rescue => exception
       D "Conn close because of error #{exception}"

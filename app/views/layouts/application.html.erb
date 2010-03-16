@@ -29,7 +29,7 @@
   </div>
   <div id="footer"></div>
   <% if GhostTrap.ghosts and !GhostTrap.ghosts.empty? %>
-    <div id="ghost-trap" style="position:fixed;bottom:0px;padding-top:10px">
+    <div id="ghost-trap" style="position:fixed;bottom:0px;padding-top:10px;width:95%;overflow:auto">
       <a href="#" title="Click to open/close the Ghost Trap" onclick="$('#ghost-table').slideToggle('fast')"><%= image_tag("ghost-trap.jpg", :alt => "Click to open/close the Ghost Trap", :width => "30px", :align => "left") %></a>
       <a href="#" style="text-decoration:none;color:red;" title="Click to open/close the Ghost Trap" onclick="$('#ghost-table').slideToggle('fast')"><strong style="padding-left:10px;">The Ghost Trap</a></strong> (<%= GhostTrap.ghosts.count %>) &mdash; This captures interesting information about requests you are making.
       <div style="clear:both;"></div>
@@ -40,7 +40,7 @@
               <% ghost.keys.each do | key | %>
                 <th><%= key %></th>
                 <td width="10px;">:</td>
-                <td style="margin-left:10px"><%=h ghost[key] %></td>
+                <td style="margin-left:10px"><%=h(ghost[key]).gsub("<br/>","\n") %></td>
               <% end %>
             </tr>
           <% end %>

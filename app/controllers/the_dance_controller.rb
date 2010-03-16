@@ -20,7 +20,8 @@ class TheDanceController < ApplicationController
     GhostTrap.trap! :oauth_callback, callback_url
     
     @consumer = @service_provider.to_oauth_consumer
-    @request_token = @consumer.get_request_token(:oauth_callback => callback_url)
+    # headers = { '' => "application/x-www-form-urlencoded"}
+    @request_token = @consumer.get_request_token({:oauth_callback => callback_url}) 
     
     GhostTrap.trap! :request_token, @request_token.token
     GhostTrap.trap! :request_token_secret, @request_token.secret
