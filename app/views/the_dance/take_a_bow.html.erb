@@ -9,4 +9,5 @@
   </tr>
 </table>
 <p><%= link_to "Use it in a request!", :controller => "api_request", :action => "index", :service_provider_id => @service_provider.id %></p>
+<p><%= link_to "&laquo; Jump back to get_request_token", :action => "get_request_token", :service_provider_id => @service_provider.id %></p>
 <%= image_tag "time-of-your-life.jpg" %>

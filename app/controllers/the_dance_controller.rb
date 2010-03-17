@@ -1,5 +1,5 @@
 class TheDanceController < ApplicationController
-  before_filter :clear_ghost_trap, :only => [ :index ]
+  before_filter :clear_ghost_trap, :only => [ :index, :get_request_token ]
   
   def index
     @service_providers = ServiceProvider.find(:all, :include => [ :access_tokens ], :order => :label )
@@ -20,8 +20,8 @@ class TheDanceController < ApplicationController
     GhostTrap.trap! :oauth_callback, callback_url
     
     @consumer = @service_provider.to_oauth_consumer
-    # headers = { '' => "application/x-www-form-urlencoded"}
-    @request_token = @consumer.get_request_token({:oauth_callback => callback_url}) 
+    headers = { } # optional headers to attach to the request
+    @request_token = @consumer.get_request_token({:oauth_callback => callback_url}, nil, headers) 
     
     GhostTrap.trap! :request_token, @request_token.token
     GhostTrap.trap! :request_token_secret, @request_token.secret
