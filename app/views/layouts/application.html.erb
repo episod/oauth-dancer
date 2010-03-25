@@ -12,7 +12,7 @@
 
 <div id="container">
   <div id="header" style="height:60px;"><h1><%= link_to image_tag( "oauth-dancer.jpg", :height => "50px"),{:controller => "home"} %>&nbsp;&nbsp;<%= link_to "OAuth Dancer",
-   {:controller => "home"} %></h1> 
+   {:controller => "home"} %></h1>
   </div>
   <div style="font-size: 12px;position:absolute;top:20px;left:65px;">
    <%= link_to "Service Providers", { :controller => :service_providers, :action => :index }, :class => "menu_link" %> &nbsp;
@@ -21,7 +21,7 @@
    <div style="clear:both;">
   <div id="main_content_top"><%= flash[:notice] %></div>
   <div id="main_content">
-    
+
     <div class="content" style="margin-top:10px;margin-bottom:50px;">
       <%= yield %>
 
@@ -31,7 +31,7 @@
   <% if GhostTrap.ghosts and !GhostTrap.ghosts.empty? %>
     <div id="ghost-trap" style="position:fixed;bottom:0px;padding-top:10px;width:95%;overflow:auto">
       <a href="#" title="Click to open/close the Ghost Trap" onclick="$('#ghost-table').slideToggle('fast')"><%= image_tag("ghost-trap.jpg", :alt => "Click to open/close the Ghost Trap", :width => "30px", :align => "left") %></a>
-      <a href="#" style="text-decoration:none;color:red;" title="Click to open/close the Ghost Trap" onclick="$('#ghost-table').slideToggle('fast')"><strong style="padding-left:10px;">The Ghost Trap</a></strong> (<%= GhostTrap.ghosts.count %>) &mdash; This captures interesting information about requests you are making.
+      <a href="#" style="text-decoration:none;color:red;" title="Click to open/close the Ghost Trap" onclick="$('#ghost-table').slideToggle('fast')"><strong style="padding-left:10px;">The Ghost Trap</a></strong> (<%= GhostTrap.ghosts.size %>) &mdash; This captures interesting information about requests you are making.
       <div style="clear:both;"></div>
       <div id="ghost-table" style="display:none;">
         <table style="margin-top:10px;">
