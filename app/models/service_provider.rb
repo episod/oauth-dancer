@@ -3,69 +3,79 @@ class ServiceProvider < ActiveRecord::Base
   validates_uniqueness_of :label, :on => :create, :message => "must be unique"
   validates_presence_of :label, :on => :create, :message => "can't be blank"
   validates_presence_of :consumer_key, :on => :create, :message => "can't be blank"
-  
+
   def uri_objects
     {
-      :request_token_uri => URI.parse(self.request_token_url), 
+      :request_token_uri => URI.parse(self.request_token_url),
       :access_token_uri => URI.parse(self.access_token_url),
       :authorize_uri => URI.parse(self.authorize_url)
     }
   end
-  
-  def base_host
-    host = uri_objects[:request_token_uri].scheme + "://" + uri_objects[:request_token_uri].host 
-    unless [80, 443].include?(uri_objects[:request_token_uri].port)
-      host = host + ":" + uri_objects[:request_token_uri].port.to_s
+
+  def base_host(context_for_base_host = :request_token)
+    uri_ref = :request_token_uri
+    case context_for_base_host
+    when :request_token
+      uri_ref = :request_token_uri
+    when :access_token
+      uri_ref = :access_token_uri
+    when :authorize
+      uri_ref = :access_token_uri
+    end
+
+    host = uri_objects[uri_ref].scheme + "://" + uri_objects[uri_ref].host
+    unless [80, 443].include?(uri_objects[uri_ref].port)
+      host = host + ":" + uri_objects[uri_ref].port.to_s
     end
     host
   end
-  
+
   def request_token_host
     uri_objects[:request_token_uri].host
   end
-  
+
   def request_token_path
     uri_objects[:request_token_uri].path
   end
-  
+
   def authorize_host
     uri_objects[:authorize_uri].host
   end
-  
+
   def authorize_path
     uri_objects[:authorize_uri].path
   end
-  
+
   def access_token_host
     uri_objects[:access_token_uri].host
   end
-  
+
   def access_token_path
     uri_objects[:access_token_uri].path
   end
-  
+
   def to_oauth_consumer(options = {})
     OAuth::Consumer.new(self.consumer_key, self.consumer_secret, self.options_for_consumer(options))
   end
-  
+
   def get_request_token(oauth_callback, options = {})
     consumer = self.to_oauth_consumer(options)
     request_token = consumer.get_request_token({:oauth_callback => oauth_callback})
     return request_token
   end
-  
+
   def exchange_request_token_for_access_token(request_token, oauth_verifier)
     access_token = request_token.get_access_token(:oauth_verifier => oauth_verifier)
     return access_token
   end
-  
+
   def to_two_legged_token(consumer = nil)
     if !consumer
       consumer = self.to_oauth_consumer
     end
     OAuth::TwoLeggedMockToken.new(consumer)
   end
-  
+
   def autentication_http_method
     if self.use_post_for_authentication_steps?
       return :post
@@ -73,7 +83,7 @@ class ServiceProvider < ActiveRecord::Base
       return :get
     end
   end
-  
+
   def authentication_scheme
     scheme = self.oauth_scheme
     if scheme
@@ -82,11 +92,12 @@ class ServiceProvider < ActiveRecord::Base
       return :header
     end
   end
-  
+
   def options_for_consumer(override_options = {})
+    context_for_base_host = override_options.delete(:context) || :request_token
     {
       :signature_method   => 'HMAC-SHA1',
-      :site => self.base_host,
+      :site => self.base_host(context_for_base_host),
       :request_token_path => self.request_token_path,
       :authorize_path     => self.authorize_path,
       :access_token_path  => self.access_token_path,
@@ -95,7 +106,7 @@ class ServiceProvider < ActiveRecord::Base
       :oauth_version => self.oauth_version || "1.0"
     }.merge(override_options)
   end
-  
+
 end
 
 
