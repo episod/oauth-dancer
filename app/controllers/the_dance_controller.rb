@@ -29,6 +29,11 @@ class TheDanceController < ApplicationController
     # temporarily store the request_token in the session
     session[@request_token.token] = @request_token.secret
 
+    if @request_token.has_xoauth_request_auth_url?
+      GhostTrap.trap! :auth_url_forward, "The service provider has indicated a different URL for authorization with xoauth_request_auth_url"
+      GhostTrap.trap! :xoauth_request_auth_url, @request_token.xoauth_request_auth_url
+    end
+
     # We'll be picking up this flow later in out of band requests.
     if @service_provider.use_out_of_band?
       GhostTrap.trap! :out_of_band, "Setup session for out of band processing."
@@ -44,7 +49,7 @@ class TheDanceController < ApplicationController
     end
 
     # Now send the user off to authorization
-    send_to_authorization(@request_token)
+    send_to_authorization(@request_token, @request_token.xoauth_request_auth_url || nil)
   end
 
   def process_callback
@@ -73,11 +78,22 @@ class TheDanceController < ApplicationController
     # TODO: Process OOB flow
   end
 
-  def send_to_authorization(request_token)
+  def send_to_authorization(request_token, xoauth_override = nil)
     # make sure to use the specific authorize URL specified by the app.
     url = request_token.authorize_url
     uri = URI.parse(url)
-    uri.host = @service_provider.authorize_host
+    params = uri.query
+    if @service_provider.authorize_host.to_s == uri.host.to_s
+      uri.host = @service_provider.authorize_host
+    end
+    if @xoauth_override
+      new_host_uri = URI.parse(xoauth_override)
+      uri.host = new_host_uri.host
+      uri.path = new_host_uri.path
+      if new_host_uri.query && !new_host_uri.query.empty?
+        uri.query = uri.query + "&" + new_host_uri.query
+      end
+    end
     url = uri.to_s
     GhostTrap.trap! :authorize_url, "Redirecting to #{url}"
     redirect_to url

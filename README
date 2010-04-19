@@ -23,7 +23,8 @@ Here are some of the features it currently supports:
   * XAuth support
   * Set HTTP headers for a request arbitrarily
   * Two-legged OAuth with no access or request tokens
-    
+  * Follows xoauth_request_auth_url params given in a request tokens step
+
 How To Install
   * Clone this project, then step into the oauth-dance
   * Run rake db:create:all to create your databases

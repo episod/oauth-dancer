@@ -1,15 +1,15 @@
 # Trap a ghost!
 class GhostTrap
   @@log = []
-  
+
   def GhostTrap.trap!(key, value)
     @@log << { key => value }
   end
-  
+
   def GhostTrap.clear!
     @@log = [ "light is green" => "trap is clean" ]
   end
-  
+
   def GhostTrap.ghosts
     @@log
   end
@@ -18,7 +18,7 @@ end
 # These are all overrides for OAuth gems to make them more debuggable.
 # This could all be done more cleanly. But it isn't. So there.
 
-    
+
 module OAuth::Client
   class Helper
     def signature_base_string(extra_options = {})
@@ -40,7 +40,7 @@ module OAuth::RequestProxy::Net
         return nil unless request['Authorization'] && request['Authorization'][0,5] == 'OAuth'
         auth_params = request['Authorization']
         GhostTrap.trap! :inbound_auth_params, auth_params
-      end      
+      end
     end
   end
 end
@@ -52,7 +52,7 @@ module OAuth::RequestProxy
       basestring = base.map { |v| escape(v) }.join("&")
       GhostTrap.trap! :signature_base_string, basestring
       basestring
-    end    
+    end
   end
 end
 
@@ -76,7 +76,7 @@ module OAuth
       GhostTrap.trap! :signature_base_string, basestring
       basestring
     end
-    
+
     # Knowing all variables and the signature allows you to understand everything.
     def self.sign(request, options = {}, &block)
       sig = self.build(request, options, &block).signature
@@ -108,24 +108,37 @@ module OAuth
           h
         end
       when (300..399)
-        GhostTrap.trap! :response_disposition, "redirected"      
+        GhostTrap.trap! :response_disposition, "redirected"
         # this is a redirect
         response.error!
       when (400..499)
-        GhostTrap.trap! :response_disposition, "unauthorized, unfound, bad request, or otherwise. think deeply."      
+        GhostTrap.trap! :response_disposition, "unauthorized, unfound, bad request, or otherwise. think deeply."
         raise OAuth::Unauthorized, response
       else
         GhostTrap.trap! :response_disposition, "something unusual happened."
         response.error!
       end
     end
-  
+
     # Return the signature_base_string
     def signature_base_string(request, token = nil, request_options = {})
       basestring = request.signature_base_string(http, self, token, options.merge(request_options))
       GhostTrap.trap! :signature_base_string, basestring
       basestring
     end
+  end
+
+  # The RequestToken is used for the initial Request.
+  # This is normally created by the Consumer object.
+  class RequestToken < ConsumerToken
+    def has_xoauth_request_auth_url?
+      params[:xoauth_request_auth_url] ? true : false
+    end
+
+    def xoauth_request_auth_url
+      params[:xoauth_request_auth_url]
+    end
+
   end
 end
 
@@ -135,7 +148,7 @@ class Net::HTTPRequest
     final_url = oauth_full_request_uri(http)
     final_url
   end
-  
+
   def signature_base_string(http, consumer = nil, token = nil, options = {})
     options = { :request_uri      => oauth_full_request_uri(http),
                 :consumer         => consumer,
@@ -149,7 +162,7 @@ class Net::HTTPRequest
     GhostTrap.trap! :signature_base_string, basestring
     basestring
   end
-  
+
   def oauth_full_request_uri(http)
     uri = URI.parse(self.path)
     uri.host = http.address
@@ -163,13 +176,13 @@ class Net::HTTPRequest
     GhostTrap.trap! :full_request_url, uri.to_s
     uri.to_s
   end
-  
+
   def set_oauth_header
     self['Authorization'] = @oauth_helper.header
     GhostTrap.trap! :authorization_header, self['Authorization']
     self['Authorization']
   end
-  
+
   def set_oauth_query_string
     oauth_params_str = @oauth_helper.oauth_parameters.map { |k,v| [escape(k), escape(v)] * "=" }.join("&")
 
@@ -186,7 +199,7 @@ class Net::HTTPRequest
     GhostTrap.trap! :oauth_query_string, @path
     @path
   end
-  
+
 end
 
 module OAuth
@@ -239,7 +252,7 @@ module Net
       request_headers = []
       req.each_header{|k,v|request_headers << "#{k}: #{v}"}
       GhostTrap.trap! :request_headers, request_headers.join("\n")
-      
+
       begin_transport req
         req.exec @socket, @curr_http_version, edit_path(req.path)
         begin
