@@ -39,6 +39,21 @@
         </table>
       </td>
     </tr>
+    <tr valign="top">
+      <th>Overrides</th>
+      <td>
+        <table>
+          <tr>
+            <th>oauth_timestamp</th>
+            <td><%= text_field_tag "oauth_timestamp", Time.now.to_i.to_s %></td>
+          </tr>
+          <tr>
+            <th>oauth_nonce</th>
+            <td><%= text_field_tag "oauth_nonce" %></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
   </table>
   <%= submit_tag "Make the request!" %>
 <% end %>
