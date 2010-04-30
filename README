@@ -24,6 +24,7 @@ Here are some of the features it currently supports:
   * Set HTTP headers for a request arbitrarily
   * Two-legged OAuth with no access or request tokens
   * Follows xoauth_request_auth_url params given in a request tokens step
+  * Override oauth_nonce and oauth_timestamp on API requests to recreate scenarios
 
 How To Install
   * Clone this project, then step into the oauth-dance
