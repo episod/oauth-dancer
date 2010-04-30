@@ -1,6 +1,7 @@
 # Trap a ghost!
 class GhostTrap
   @@log = []
+  @@trapper_keeper = {}
 
   def GhostTrap.trap!(key, value)
     @@log << { key => value }
@@ -13,6 +14,19 @@ class GhostTrap
   def GhostTrap.ghosts
     @@log
   end
+
+  def GhostTrap.keep!(key, value)
+    puts "Storing #{key} : #{value}"
+    @@trapper_keeper[key] = value
+  end
+
+  def GhostTrap.pluck!(key)
+    puts "Getting #{key} : #{@@trapper_keeper[key]}"
+    v = @@trapper_keeper[key]
+    @@trapper_keeper[key] = nil
+    v
+  end
+
 end
 
 # These are all overrides for OAuth gems to make them more debuggable.
@@ -271,6 +285,27 @@ module Net
       # backporting fix - TS
       @socket.close if @socket and not @socket.closed?
       raise exception
+    end
+  end
+end
+
+module OAuth
+  module Helper
+
+    # Generate a random key of up to +size+ bytes. The value returned is Base64 encoded with non-word
+    # characters removed.
+    def generate_key(size=32)
+      alternate_nonce = GhostTrap.pluck!(:oauth_nonce)
+      return alternate_nonce if alternate_nonce
+      Base64.encode64(OpenSSL::Random.random_bytes(size)).gsub(/\W/, '')
+    end
+
+    alias_method :generate_nonce, :generate_key
+
+    def generate_timestamp #:nodoc:
+      alternate_timestamp = GhostTrap.pluck!(:oauth_timestamp)
+      return alternate_timestamp if alternate_timestamp
+      Time.now.to_i.to_s
     end
   end
 end
