@@ -19,8 +19,9 @@ Rails::Initializer.run do |config|
   config.gem "sqlite3-ruby", :lib => "sqlite3"
   config.gem "coderay"
   config.gem "http_configuration" # for proxying..
+  config.gem "json"
   # config.gem "rest-open-uri"
-  
+
   # config.gem "bj"
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "aws-s3", :lib => "aws/s3"
@@ -51,3 +52,5 @@ HTTP_PROXY = nil
 PROXY_CONFIG = Net::HTTP::Configuration.new(:proxy => HTTP_PROXY, :read_timeout => 500, :open_timeout => 500)
 
 
+module OAuth
+end
