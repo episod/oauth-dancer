@@ -74,9 +74,35 @@ class TheDanceController < ApplicationController
     end
   end
 
-  def process_out_of_band
-    # TODO: Process OOB flow
+  def oob
+    GhostTrap.trap! :oob_mode, "Waiting to collect OAuth veirfier in OOB mode"
+    session[:oob] = false
+    if request.post?
+      rt = session[:oob_token]
+      rs = session[:oob_secret]
+      id = session[:oob_id]
+      session[:oob_secret] = nil
+      session[:oob_token] = nil
+      session[:oob_id] = nil
+      @service_provider = ServiceProvider.find id
+      @request_token = OAuth::RequestToken.from_hash(@service_provider.to_oauth_consumer, { :oauth_token => rt, :oauth_token_secret => rs})
+      begin
+        get_access_token(@service_provider, @request_token )
+      rescue
+      end
+      redirect_to :controller => "oauth_consumers", :action => "callback", :oauth_token => rt, :oauth_token_secret => rs, :oauth_verifier => params[:oauth_verifier], :id => id
+    end
   end
+
+  def cancel_oob
+    session[:oob] = false
+    session[:oob_secret] = nil
+    session[:oob_token] = nil
+    session[:oob_id] = nil
+    flash[:notice] = "Cancelled OOB mode"
+    redirect_to :controller => "home", :action => "index"
+  end
+
 
   def send_to_authorization(request_token, xoauth_override = nil)
     # make sure to use the specific authorize URL specified by the app.

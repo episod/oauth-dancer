@@ -261,12 +261,10 @@ module Net
           req.proxy_basic_auth proxy_user(), proxy_pass()
         end
       end
-
       req.set_body_internal body
       request_headers = []
       req.each_header{|k,v|request_headers << "#{k}: #{v}"}
       GhostTrap.trap! :request_headers, request_headers.join("\n")
-
       begin_transport req
         req.exec @socket, @curr_http_version, edit_path(req.path)
         begin
