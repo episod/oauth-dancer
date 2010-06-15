@@ -7,8 +7,12 @@ class GhostTrap
     @@log << { key => value }
   end
 
-  def GhostTrap.clear!
-    @@log = [ "light is green" => "trap is clean" ]
+  def GhostTrap.clear!(silence = false)
+    unless silence
+      @@log = [ "light is green" => "trap is clean" ]
+    else
+      @@log = []
+    end
   end
 
   def GhostTrap.ghosts
@@ -16,12 +20,12 @@ class GhostTrap
   end
 
   def GhostTrap.keep!(key, value)
-    puts "Storing #{key} : #{value}"
+    # puts "Storing #{key} : #{value}"
     @@trapper_keeper[key] = value
   end
 
   def GhostTrap.pluck!(key)
-    puts "Getting #{key} : #{@@trapper_keeper[key]}"
+    # puts "Getting #{key} : #{@@trapper_keeper[key]}"
     v = @@trapper_keeper[key]
     @@trapper_keeper[key] = nil
     v
@@ -262,6 +266,7 @@ module Net
         end
       end
       req.set_body_internal body
+      GhostTrap.trap! :body_internal, req.body
       request_headers = []
       req.each_header{|k,v|request_headers << "#{k}: #{v}"}
       GhostTrap.trap! :request_headers, request_headers.join("\n")
