@@ -139,6 +139,17 @@ class TheDanceController < ApplicationController
     options[:x_auth_username] = params[:login]
     options[:x_auth_password] = params[:password]
     options[:x_auth_mode] = "client_auth"
+    # options[:oauth_nonce] = params[:oauth_nonce] if params[:oauth_nonce]
+    # options[:oauth_timestamp] = params[:oauth_timestamp] if params[:oauth_timestamp]
+    if params[:oauth_timestamp]
+      GhostTrap.trap! :oauth_timestamp, "Using a hardcoded timestamp: #{params[:oauth_timestamp]}"
+      GhostTrap.keep! :oauth_timestamp, params[:oauth_timestamp]
+    end
+    if params[:oauth_nonce]
+      GhostTrap.trap! :oauth_nonce, "Using a hardcoded nonce: #{params[:oauth_nonce]}"
+      GhostTrap.keep! :oauth_nonce, params[:oauth_nonce]
+    end
+
     url = @service_provider.access_token_path
     response = consumer.token_request(:post, url, nil, {}, options)
     @access_token = OAuth::AccessToken.from_hash(consumer, response)

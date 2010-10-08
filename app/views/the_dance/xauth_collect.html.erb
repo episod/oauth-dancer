@@ -11,6 +11,14 @@
       <th>Password</th>
       <td><%= password_field_tag :password %></td>
     </tr>
+    <tr>
+      <th>oauth_nonce</th>
+      <td><%= text_field_tag :oauth_nonce %></td>
+    </tr>
+    <tr>
+      <th>oauth_timestamp</th>
+      <td><%= text_field_tag :oauth_timestamp %></td>
+    </tr>
   </table>
   <%= submit_tag "Login with xAuth" %>
 <% end %>
