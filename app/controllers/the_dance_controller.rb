@@ -75,6 +75,7 @@ class TheDanceController < ApplicationController
   end
 
   def oob
+    # Not yet ready
     GhostTrap.trap! :oob_mode, "Waiting to collect OAuth veirfier in OOB mode"
     session[:oob] = false
     if request.post?
@@ -95,6 +96,7 @@ class TheDanceController < ApplicationController
   end
 
   def cancel_oob
+    # Not yet ready
     session[:oob] = false
     session[:oob_secret] = nil
     session[:oob_token] = nil
