@@ -16,7 +16,7 @@
             <ul>
               <% service_provider.access_tokens.each do | access_token | %>
                 <li><%= link_to access_token.to_s, {:controller => "api_request", :action => "index", :access_token_id => access_token.id, :service_provider_id => service_provider.id }, :title => "Click to start using this access token" %></li>
-              <% end %>  
+              <% end %>
             </ul>
           </div>
         <% end %>

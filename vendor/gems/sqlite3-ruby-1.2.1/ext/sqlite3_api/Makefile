@@ -36,13 +36,13 @@ LIBRUBY_A = lib$(RUBY_SO_NAME)-static.a
 LIBRUBYARG_SHARED = -l$(RUBY_SO_NAME)
 LIBRUBYARG_STATIC = -l$(RUBY_SO_NAME)-static
 
-CFLAGS   =  -fno-common -O -pipe -I/opt/local/include  -fno-common -pipe -fno-common 
+CFLAGS   =  -fno-common -O -pipe -I/opt/local/include  -fno-common -pipe -fno-common
 CPPFLAGS = -I. -I$(topdir) -I$(hdrdir) -I$(srcdir) -DHAVE_SQLITE3_H -I/usr/local/include -O -pipe -I/opt/local/include
-CXXFLAGS = $(CFLAGS) 
-DLDFLAGS = -L/opt/local/lib  
+CXXFLAGS = $(CFLAGS)
+DLDFLAGS = -L/opt/local/lib
 LDSHARED = cc -dynamic -bundle -undefined suppress -flat_namespace
 AR = ar
-EXEEXT = 
+EXEEXT =
 
 RUBY_INSTALL_NAME = ruby
 RUBY_SO_NAME = ruby
@@ -61,25 +61,25 @@ COPY = cp
 
 #### End of system configuration section. ####
 
-preload = 
+preload =
 
 libpath = /usr/local/lib $(libdir)
 LIBPATH =  -L"/usr/local/lib" -L"$(libdir)"
-DEFFILE = 
+DEFFILE =
 
-CLEANFILES = 
-DISTCLEANFILES = 
+CLEANFILES =
+DISTCLEANFILES =
 
-extout = 
-extout_prefix = 
-target_prefix = 
-LOCAL_LIBS = 
-LIBS = $(LIBRUBYARG_SHARED) -lsqlite3  -lpthread -ldl -lobjc  
+extout =
+extout_prefix =
+target_prefix =
+LOCAL_LIBS =
+LIBS = $(LIBRUBYARG_SHARED) -lsqlite3  -lpthread -ldl -lobjc
 SRCS = sqlite3_api_wrap.c
 OBJS = sqlite3_api_wrap.o
 TARGET = sqlite3_api
 DLLIB = $(TARGET).bundle
-STATIC_LIB = 
+STATIC_LIB =
 
 RUBYCOMMONDIR = $(sitedir)$(target_prefix)
 RUBYLIBDIR    = $(sitelibdir)$(target_prefix)

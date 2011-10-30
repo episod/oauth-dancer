@@ -65,7 +65,7 @@ module CodeRay
       :variable => 'v',
       :value => 'vl',
       :xml_text => 'xt',
-      
+
       :insert => 'ins',
       :delete => 'del',
       :change => 'chg',

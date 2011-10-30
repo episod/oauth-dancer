@@ -30,20 +30,20 @@ module CodeRay
     # Tokens:
     #
     #   require 'coderay'
-    #   
+    #
     #   c_scanner = CodeRay::Scanners[:c].new "if (*p == '{') nest++;"
-    #   
+    #
     #   for text, kind in c_scanner
     #     puts text if kind == :operator
     #   end
-    #   
+    #
     #   # prints: (*==)++;
     #
     # OK, this is a very simple example :)
     # You can also use +map+, +any?+, +find+ and even +sort_by+,
     # if you want.
     class Scanner < StringScanner
-      
+
       extend Plugin
       plugin_host Scanners
 
@@ -56,7 +56,7 @@ module CodeRay
       #
       # Define @default_options for subclasses.
       DEFAULT_OPTIONS = { :stream => false }
-      
+
       KINDS_NOT_LOC = [:comment, :doctype]
 
       class << self
@@ -78,7 +78,7 @@ module CodeRay
           end
           code.to_unix
         end
-        
+
         def file_extension extension = nil
           if extension
             @file_extension = extension.to_s
@@ -116,7 +116,7 @@ module CodeRay
       def initialize code='', options = {}, &block
         raise "I am only the basic Scanner class. I can't scan "\
           "anything. :( Use my subclasses." if self.class == Scanner
-        
+
         @options = self.class::DEFAULT_OPTIONS.merge options
 
         super Scanner.normify(code)
@@ -174,7 +174,7 @@ module CodeRay
       def tokens
         @cached_tokens ||= tokenize
       end
-      
+
       # Whether the scanner is in streaming mode.
       def streaming?
         !!@options[:stream]
@@ -195,7 +195,7 @@ module CodeRay
       def line
         string[0..pos].count("\n") + 1
       end
-      
+
       def column pos = self.pos
         return 0 if pos <= 0
         string = string()
@@ -205,11 +205,11 @@ module CodeRay
         end
         pos - (string.rindex(?\n, pos) || 0)
       end
-      
+
       def marshal_dump
         @options
       end
-      
+
       def marshal_load options
         @options = options
       end

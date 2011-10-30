@@ -1,34 +1,34 @@
---- !ruby/object:Gem::Specification 
+--- !ruby/object:Gem::Specification
 name: coderay
-version: !ruby/object:Gem::Version 
+version: !ruby/object:Gem::Version
   prerelease: false
-  segments: 
+  segments:
   - 0
   - 9
   - 1
   version: 0.9.1
 platform: ruby
-authors: 
+authors:
 - murphy
-autorequire: 
+autorequire:
 bindir: bin
 cert_chain: []
 
 date: 2009-12-31 00:00:00 -08:00
-default_executable: 
+default_executable:
 dependencies: []
 
 description: "  CodeRay is a Ruby library for syntax highlighting.\n  I try to make CodeRay easy to use and intuitive, but at the same time\n  fully featured, complete, fast and efficient.\n\n  Usage is simple:\n    CodeRay.scan(code, :ruby).div\n"
 email: murphy@rubychan.de
-executables: 
+executables:
 - coderay
 - coderay_stylesheet
 extensions: []
 
-extra_rdoc_files: 
+extra_rdoc_files:
 - ./lib/README
 - ./FOLDERS
-files: 
+files:
 - ./lib/coderay/duo.rb
 - ./lib/coderay/encoder.rb
 - ./lib/coderay/encoders/_map.rb
@@ -99,35 +99,35 @@ has_rdoc: true
 homepage: http://coderay.rubychan.de
 licenses: []
 
-post_install_message: 
-rdoc_options: 
+post_install_message:
+rdoc_options:
 - -SNw2
 - -mlib/README
 - -a
 - -t CodeRay Documentation
-require_paths: 
+require_paths:
 - lib
-required_ruby_version: !ruby/object:Gem::Requirement 
-  requirements: 
+required_ruby_version: !ruby/object:Gem::Requirement
+  requirements:
   - - ">="
-    - !ruby/object:Gem::Version 
-      segments: 
+    - !ruby/object:Gem::Version
+      segments:
       - 1
       - 8
       - 2
       version: 1.8.2
-required_rubygems_version: !ruby/object:Gem::Requirement 
-  requirements: 
+required_rubygems_version: !ruby/object:Gem::Requirement
+  requirements:
   - - ">="
-    - !ruby/object:Gem::Version 
-      segments: 
+    - !ruby/object:Gem::Version
+      segments:
       - 0
       version: "0"
 requirements: []
 
 rubyforge_project: coderay
 rubygems_version: 1.3.6
-signing_key: 
+signing_key:
 specification_version: 3
 summary: CodeRay is a fast syntax highlighter engine for many languages.
 test_files: []

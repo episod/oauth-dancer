@@ -8,11 +8,11 @@ context 'Rack::Auth::Basic' do
   def realm
     'WallysWorld'
   end
-  
+
   def unprotected_app
     lambda { |env| [ 200, {'Content-Type' => 'text/plain'}, ["Hi #{env['REMOTE_USER']}"] ] }
   end
-  
+
   def protected_app
     app = Rack::Auth::Basic.new(unprotected_app) { |username, password| 'Boss' == username }
     app.realm = realm
@@ -57,7 +57,7 @@ context 'Rack::Auth::Basic' do
       response.body.to_s.should.equal 'Hi Boss'
     end
   end
-  
+
   specify 'should return 400 Bad Request if different auth scheme used' do
     request 'HTTP_AUTHORIZATION' => 'Digest params' do |response|
       response.should.be.a.client_error

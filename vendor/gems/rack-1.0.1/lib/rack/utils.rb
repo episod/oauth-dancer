@@ -27,7 +27,7 @@ module Rack
     module_function :unescape
 
     DEFAULT_SEP = /[&;] */n
-    
+
     # Stolen from Mongrel, with some small modifications:
     # Parses a query string by breaking it up at the '&'
     # and ';' characters.  You can also use this to parse
@@ -378,7 +378,7 @@ module Rack
                       :name => name, :tempfile => body, :head => head}
             elsif !filename && content_type
               body.rewind
-              
+
               # Generic multipart cases, not coming from a form
               data = {:type => content_type,
                       :name => name, :tempfile => body, :head => head}

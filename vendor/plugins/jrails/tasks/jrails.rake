@@ -21,5 +21,5 @@ namespace :jrails do
       puts "files removed successfully."
     end
   end
-  
+
 end

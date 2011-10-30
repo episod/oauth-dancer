@@ -18,7 +18,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # Sample resource route with sub-resources:
   #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-  
+
   # Sample resource route with more complex sub-resources
   #   map.resources :products do |products|
   #     products.resources :comments
@@ -60,5 +60,5 @@ end
 #                                    PUT    /service_providers/:id(.:format)                                         {:action=>"update", :controller=>"service_providers"}
 #                                    DELETE /service_providers/:id(.:format)                                         {:action=>"destroy", :controller=>"service_providers"}
 #                               root        /                                                                        {:action=>"index", :controller=>"home"}
-#                                           /:controller/:action/:id                                                 
-#                                           /:controller/:action/:id(.:format)                                       
+#                                           /:controller/:action/:id
+#                                           /:controller/:action/:id(.:format)

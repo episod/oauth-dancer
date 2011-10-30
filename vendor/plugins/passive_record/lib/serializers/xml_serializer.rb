@@ -13,7 +13,7 @@ module PassiveRecordModule
       # Including aditional methods:
       #   Post < PassiveRecord
       #     define_attributes [:title, :content, :created_by]
-      #     
+      #
       #     def complete_title
       #       "#{self.title} by #{self.created_by}"
       #     end
@@ -55,7 +55,7 @@ module PassiveRecordModule
           end
           methods_hashed
         end
-      
+
         def includes_of(record, includes)
           if includes.nil?
             return {}

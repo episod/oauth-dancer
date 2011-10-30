@@ -6,7 +6,7 @@ module Scanners
 
     include Streamable
     register_for :html
-    
+
     KINDS_NOT_LOC = [
       :comment, :doctype, :preprocessor,
       :tag, :attribute_name, :operator,

@@ -4,10 +4,10 @@ begin
 require 'rack/handler/thin'
 require 'testrequest'
 require 'timeout'
-  
+
 context "Rack::Handler::Thin" do
   include TestRequest::Helpers
-  
+
   setup do
     @app = Rack::Lint.new(TestRequest.new)
     @server = nil

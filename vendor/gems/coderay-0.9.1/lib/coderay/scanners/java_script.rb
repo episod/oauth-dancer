@@ -17,13 +17,13 @@ module Scanners
     PREDEFINED_CONSTANTS = %w[
       false null true undefined
     ]
-    
+
     MAGIC_VARIABLES = %w[ this arguments ]  # arguments was introduced in JavaScript 1.4
-    
+
     KEYWORDS_EXPECTING_VALUE = WordList.new.add %w[
       case delete in instanceof new return throw typeof with
     ]
-    
+
     # Reserved for future use.
     RESERVED_WORDS = %w[
       abstract boolean byte char class debugger double enum export extends
@@ -31,7 +31,7 @@ module Scanners
       private protected public short static super synchronized throws transient
       volatile
     ]
-    
+
     IDENT_KIND = WordList.new(:ident).
       add(RESERVED_WORDS, :reserved).
       add(PREDEFINED_CONSTANTS, :pre_constant).
@@ -63,7 +63,7 @@ module Scanners
 
         kind = nil
         match = nil
-        
+
         case state
 
         when :initial
@@ -88,13 +88,13 @@ module Scanners
             elsif scan(/\d+/)
               kind = :integer
             end
-          
+
           elsif value_expected && match = scan(/<([[:alpha:]]\w*) (?: [^\/>]*\/> | .*?<\/\1>)/xim)
             # FIXME: scan over nested tags
             xml_scanner.tokenize match
             value_expected = false
             next
-            
+
           elsif match = scan(/ [-+*=<>?:;,!&^|(\[{~%]+ | \.(?!\d) /x)
             value_expected = true
             last_operator = match[-1]
@@ -123,7 +123,7 @@ module Scanners
             end
             function_expected = (kind == :keyword) && (match == 'function')
             key_expected = false
-          
+
           elsif match = scan(/["']/)
             if key_expected && check(KEY_CHECK_PATTERN[match])
               state = :key
@@ -195,7 +195,7 @@ module Scanners
             [[match, kind], line], tokens
         end
         raise_inspect 'Empty token', tokens unless match
-        
+
         tokens << [match, kind]
 
       end
@@ -219,6 +219,6 @@ module Scanners
     end
 
   end
-  
+
 end
 end

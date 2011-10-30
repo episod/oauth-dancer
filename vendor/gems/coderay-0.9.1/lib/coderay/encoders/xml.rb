@@ -33,7 +33,7 @@ module Encoders
       @doc.write @out, options[:pretty], options[:transitive], true
       @out
     end
-    
+
     def text_token text, kind
       if kind == :space
         token = @node

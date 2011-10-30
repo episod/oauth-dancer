@@ -86,7 +86,7 @@
     Database#prepare method. It returns a Statement object, and you can
     then invoke #execute on that to get the ResultSet:
 
-    
+
     <pre>
       stmt = db.prepare( "select * from person" )
 
@@ -184,7 +184,7 @@
 
     You can also bind explicitly using the Statement object itself. Just pass
     additional parameters to the Statement#execute statement:
-    
+
 
     <pre>
       db.prepare( "select * from table where a = :name and b = ?" ) do |stmt|
@@ -209,7 +209,7 @@
     </pre>
 
 - "How do I discover metadata about a query?": >-
-  
+
     If you ever want to know the names or types of the columns in a result
     set, you can do it in several ways.
 
@@ -351,7 +351,7 @@
     as selects, but in general the Database#execute method will be most
     convenient:
 
-    
+
     <pre>
       db.execute( "insert into table values ( ?, ? )", *bind_vars )
     </pre>

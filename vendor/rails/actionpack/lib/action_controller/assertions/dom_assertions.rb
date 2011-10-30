@@ -12,7 +12,7 @@ module ActionController
           end
         end
       end
-      
+
       # Test two HTML strings for equivalency (e.g., identical up to reordering of attributes)
       #
       # ==== Examples
@@ -31,7 +31,7 @@ module ActionController
           assert_block(full_message) { expected_dom == actual_dom }
         end
       end
-      
+
       # The negated form of +assert_dom_equal+.
       #
       # ==== Examples

@@ -75,15 +75,15 @@ module CodeRay
       def finish(options)
         super
       end
-    
+
       def token text, type = :plain
         case text
-      
+
         when nil
-          # raise 'Token with nil as text was given: %p' % [[text, type]] 
-      
+          # raise 'Token with nil as text was given: %p' % [[text, type]]
+
         when String
-        
+
           if color = (@subcolors || TOKEN_COLORS)[type]
             color = color[:self] || return if Hash === color
 
@@ -92,7 +92,7 @@ module CodeRay
           else
             @out << text
           end
-      
+
         # token groups, eg. strings
         when :open
           @opened[0] = type
@@ -116,12 +116,12 @@ module CodeRay
             @subcolors = nil
             @opened.pop
           end
-      
+
         # whole lines to be highlighted, eg. a added/modified/deleted lines in a diff
         when :begin_line
-        
-        when :end_line        
-      
+
+        when :end_line
+
         else
           raise 'unknown token kind: %p' % [text]
         end

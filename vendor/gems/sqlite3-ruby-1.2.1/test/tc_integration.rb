@@ -27,8 +27,8 @@ module Integration
 
     # == TC_OpenClose =========================================================
 
-    test_case = Class.new( Test::Unit::TestCase ) do 
-      define_method( "test_create_close" ) do 
+    test_case = Class.new( Test::Unit::TestCase ) do
+      define_method( "test_create_close" ) do
         begin
           db = SQLite3::Database.new( "test-create.db",
             :driver => driver )
@@ -39,7 +39,7 @@ module Integration
         end
       end
 
-      define_method( "test_open_close" ) do 
+      define_method( "test_open_close" ) do
         begin
           File.open( "test-open.db", "w" ) { |f| }
           assert File.exist?( "test-open.db" )
@@ -51,7 +51,7 @@ module Integration
         end
       end
 
-      define_method( "test_bad_open" ) do 
+      define_method( "test_bad_open" ) do
         assert_raise( SQLite3::CantOpenException ) do
           SQLite3::Database.new( ".", :driver => driver )
         end
@@ -61,7 +61,7 @@ module Integration
 
     # == TC_Database ==========================================================
 
-    test_case = Class.new( Test::Unit::TestCase ) do 
+    test_case = Class.new( Test::Unit::TestCase ) do
       define_method( "setup" ) do
         @db = SQLite3::Database.new( "test.db", :driver=>driver )
         @db.transaction do
@@ -244,7 +244,7 @@ module Integration
           assert [ "a", "b" ], row unless called == 0
           called += 1
         end
-        assert_equal 1, called 
+        assert_equal 1, called
       end
 
       define_method( "test_execute2_no_block_with_bind_no_match" ) do
@@ -679,7 +679,7 @@ module Integration
 
     # == TC_Statement =========================================================
 
-    test_case = Class.new( Test::Unit::TestCase ) do 
+    test_case = Class.new( Test::Unit::TestCase ) do
       define_method( "setup" ) do
         @db = SQLite3::Database.new( "test.db", :driver=>driver )
         @db.transaction do
@@ -876,7 +876,7 @@ module Integration
 
     # == TC_ResultSet =========================================================
 
-    test_case = Class.new( Test::Unit::TestCase ) do 
+    test_case = Class.new( Test::Unit::TestCase ) do
       define_method( "setup" ) do
         @db = SQLite3::Database.new( "test.db", :driver=>driver )
         @db.transaction do

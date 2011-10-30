@@ -88,17 +88,17 @@ module Scanners
       | x[0-9A-Fa-f]{1,2}
       | .?
     /mx
-    
+
     CONTROL_META_ESCAPE = /
       (?: M-|C-|c )
       (?: \\ (?: M-|C-|c ) )*
       (?: [^\\] | \\ #{SIMPLE_ESCAPE} )?
     /mox
-    
+
     ESCAPE = /
       #{CONTROL_META_ESCAPE} | #{SIMPLE_ESCAPE}
     /mox
-    
+
     CHARACTER = /
       \?
       (?:
@@ -130,7 +130,7 @@ module Scanners
       .*?
       (?: \Z | (?=^\#CODE) )
     /mx
-    
+
     # Checks for a valid value to follow. This enables
     # value_expected in method calls without parentheses.
     VALUE_FOLLOWS = /
@@ -188,7 +188,7 @@ module Scanners
           delim_pattern << Regexp.escape(closing_paren)
         end
         delim_pattern << '\\\\' unless delim == '\\'
-        
+
         special_escapes =
           case interpreted
           when :regexp_symbols
@@ -196,7 +196,7 @@ module Scanners
           when :words
             '| \s'
           end
-        
+
         h[k] =
           if interpreted and not delim == '#'
             / (?= [#{delim_pattern}] | \# [{$@] #{special_escapes} ) /mx

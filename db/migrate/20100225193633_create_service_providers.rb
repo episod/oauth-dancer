@@ -12,7 +12,7 @@ class CreateServiceProviders < ActiveRecord::Migration
       t.string :default_response_content_type, :default => "application/x-www-form-urlencoded; charset=utf-8"
       t.string :default_request_content_type, :default => "application/x-www-form-urlencoded; charset=utf-8"
       t.string :oauth_scheme, :default => "header"
-      t.boolean :use_out_of_band, :default => false 
+      t.boolean :use_out_of_band, :default => false
       t.boolean :use_post_for_authentication_steps, :default => true
       t.timestamps
     end

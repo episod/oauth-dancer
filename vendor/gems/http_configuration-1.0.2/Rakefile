@@ -20,7 +20,7 @@ Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-spec = Gem::Specification.new do |s| 
+spec = Gem::Specification.new do |s|
   s.name = "http_configuration"
   s.version = "1.0.2"
   s.author = "Brian Durand"
@@ -37,7 +37,7 @@ spec = Gem::Specification.new do |s|
   s.email = 'brian@embellishedvisions.com'
   s.requirements = 'rspec 1.0.8 or higher is needed to run the tests'
 end
- 
-Rake::GemPackageTask.new(spec) do |pkg| 
-  pkg.need_tar = true 
+
+Rake::GemPackageTask.new(spec) do |pkg|
+  pkg.need_tar = true
 end

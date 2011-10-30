@@ -5,7 +5,7 @@ class AccessToken < ActiveRecord::Base
     consumer = self.service_provider.to_oauth_consumer
     OAuth::AccessToken.from_hash(consumer, { :oauth_token => self.oauth_token, :oauth_token_secret => self.oauth_token_secret})
   end
-  
+
   def to_s(with_service_provider = false)
     string = "#{self.label} (#{self.oauth_token[0..5]})"
     if with_service_provider

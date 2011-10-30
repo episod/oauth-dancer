@@ -12,7 +12,7 @@ module Scanners
       :key, :value, :operator, :color, :float,
       :error, :important,
     ]
-    
+
     module RE
       NonASCII = /[\x80-\xFF]/
       Hex = /[0-9a-fA-F]/
@@ -51,7 +51,7 @@ module Scanners
     end
 
     def scan_tokens tokens, options
-      
+
       value_expected = nil
       states = [:initial]
 
@@ -85,7 +85,7 @@ module Scanners
               kind = :directive
               states.push :media_before_name
             end
-          
+
           when :block
             if scan(/(?>#{RE::Ident})(?!\()/ox)
               if value_expected
@@ -100,13 +100,13 @@ module Scanners
               kind = :type
               states[-1] = :media_after_name
             end
-          
+
           when :media_after_name
             if scan(/\{/)
               kind = :operator
               states[-1] = :media
             end
-          
+
           when :comment
             if scan(/(?:[^*\s]|\*(?!\/))+/)
               kind = :comment

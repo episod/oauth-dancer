@@ -7,7 +7,7 @@ module Scanners
 
     include Streamable
     register_for :groovy
-    
+
     # TODO: Check this!
     GROOVY_KEYWORDS = %w[
       as assert def in
@@ -16,15 +16,15 @@ module Scanners
       case instanceof new return throw typeof while as assert in
     ]
     GROOVY_MAGIC_VARIABLES = %w[ it ]
-    
+
     IDENT_KIND = Java::IDENT_KIND.dup.
       add(GROOVY_KEYWORDS, :keyword).
       add(GROOVY_MAGIC_VARIABLES, :local_variable)
-    
+
     ESCAPE = / [bfnrtv$\n\\'"] | x[a-fA-F0-9]{1,2} | [0-7]{1,3} /x
     UNICODE_ESCAPE =  / u[a-fA-F0-9]{4} /x  # no 4-byte unicode chars? U[a-fA-F0-9]{8}
     REGEXP_ESCAPE =  / [bfnrtv\n\\'"] | x[a-fA-F0-9]{1,2} | [0-7]{1,3} | \d | [bBdDsSwW\/] /x
-    
+
     # TODO: interpretation inside ', ", /
     STRING_CONTENT_PATTERN = {
       "'" => /(?>\\[^\\'\n]+|[^\\'\n]+)+/,
@@ -33,7 +33,7 @@ module Scanners
       '"""' => /(?>[^\\$"]+|"(?!""))+/,
       '/' => /[^\\$\/\n]+/,
     }
-    
+
     def scan_tokens tokens, options
 
       state = :initial
@@ -47,7 +47,7 @@ module Scanners
 
         kind = nil
         match = nil
-        
+
         case state
 
         when :initial
@@ -59,19 +59,19 @@ module Scanners
               value_expected = true unless value_expected
             end
             next
-          
+
           elsif scan(%r! // [^\n\\]* (?: \\. [^\n\\]* )* | /\* (?: .*? \*/ | .* ) !mx)
             value_expected = true
             after_def = false
             kind = :comment
-          
+
           elsif bol? && scan(/ \#!.* /x)
             kind = :doctype
-          
+
           elsif import_clause && scan(/ (?!as) #{IDENT} (?: \. #{IDENT} )* (?: \.\* )? /ox)
             after_def = value_expected = false
             kind = :include
-          
+
           elsif match = scan(/ #{IDENT} | \[\] /ox)
             kind = IDENT_KIND[match]
             value_expected = (kind == :keyword) && KEYWORDS_EXPECTING_VALUE[match]
@@ -90,12 +90,12 @@ module Scanners
               import_clause = match == 'import'
               after_def = true if match == 'def'
             end
-          
+
           elsif scan(/;/)
             import_clause = after_def = false
             value_expected = true
             kind = :operator
-          
+
           elsif scan(/\{/)
             class_name_follows = after_def = false
             value_expected = true
@@ -103,7 +103,7 @@ module Scanners
             if !inline_block_stack.empty?
               inline_block_paren_depth += 1
             end
-          
+
           # TODO: ~'...', ~"..." and ~/.../ style regexps
           elsif match = scan(/ \.\.<? | \*?\.(?!\d)@? | \.& | \?:? | [,?:(\[] | -[->] | \+\+ |
               && | \|\| | \*\*=? | ==?~ | <=?>? | [-+*%^~&|>=!]=? | <<<?=? | >>>?=? /x)
@@ -111,7 +111,7 @@ module Scanners
             value_expected = :regexp if match == '~'
             after_def = false
             kind = :operator
-          
+
           elsif match = scan(/ [)\]}] /x)
             value_expected = after_def = false
             if !inline_block_stack.empty? && match == '}'
@@ -123,7 +123,7 @@ module Scanners
                 next
               end
             end
-          
+
           elsif check(/[\d.]/)
             after_def = value_expected = false
             if scan(/0[xX][0-9A-Fa-f]+/)
@@ -142,7 +142,7 @@ module Scanners
             tokens << [:open, :string]
             string_delimiter = match
             kind = :delimiter
-          
+
           # TODO: record.'name'
           elsif match = scan(/["']/)
             after_def = value_expected = false
@@ -166,7 +166,7 @@ module Scanners
             after_def = false
             value_expected = true
             kind = :operator
-          
+
           else
             getch
             kind = :error
@@ -176,7 +176,7 @@ module Scanners
         when :string, :regexp, :multiline_string
           if scan(STRING_CONTENT_PATTERN[string_delimiter])
             kind = :content
-            
+
           elsif match = scan(state == :multiline_string ? /'''|"""/ : /["'\/]/)
             tokens << [match, :delimiter]
             if state == :regexp
@@ -190,7 +190,7 @@ module Scanners
             after_def = value_expected = false
             state = :initial
             next
-          
+
           elsif (state == :string || state == :multiline_string) &&
               (match = scan(/ \\ (?: #{ESCAPE} | #{UNICODE_ESCAPE} ) /mox))
             if string_delimiter[0] == ?' && !(match == "\\\\" || match == "\\'")
@@ -200,7 +200,7 @@ module Scanners
             end
           elsif state == :regexp && scan(/ \\ (?: #{REGEXP_ESCAPE} | #{UNICODE_ESCAPE} ) /mox)
             kind = :char
-          
+
           elsif match = scan(/ \$ #{IDENT} /mox)
             tokens << [:open, :inline]
             tokens << ['$', :inline_delimiter]
@@ -215,19 +215,19 @@ module Scanners
             inline_block_paren_depth = 1
             state = :initial
             next
-          
+
           elsif scan(/ \$ /mx)
             kind = :content
-          
+
           elsif scan(/ \\. /mx)
             kind = :content
-          
+
           elsif scan(/ \\ | \n /x)
             tokens << [:close, state]
             kind = :error
             after_def = value_expected = false
             state = :initial
-          
+
           else
             raise_inspect "else case \" reached; %p not handled." % peek(1), tokens
           end
@@ -243,9 +243,9 @@ module Scanners
             [[match, kind], line], tokens
         end
         raise_inspect 'Empty token', tokens unless match
-        
+
         last_token = match unless [:space, :comment, :doctype].include? kind
-        
+
         tokens << [match, kind]
 
       end

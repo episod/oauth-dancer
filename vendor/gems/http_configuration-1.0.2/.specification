@@ -1,8 +1,8 @@
---- !ruby/object:Gem::Specification 
+--- !ruby/object:Gem::Specification
 name: http_configuration
-version: !ruby/object:Gem::Version 
+version: !ruby/object:Gem::Version
   prerelease: false
-  segments: 
+  segments:
   - 1
   - 0
   - 2
@@ -10,54 +10,54 @@ version: !ruby/object:Gem::Version
 platform: ruby
 authors: []
 
-autorequire: 
+autorequire:
 bindir: bin
 cert_chain: []
 
 date: 2010-04-19 00:00:00 -07:00
-default_executable: 
+default_executable:
 dependencies: []
 
-description: 
-email: 
+description:
+email:
 executables: []
 
 extensions: []
 
 extra_rdoc_files: []
 
-files: 
+files:
 - lib
 - lib/http_configuration.rb
 has_rdoc: true
-homepage: 
+homepage:
 licenses: []
 
-post_install_message: 
+post_install_message:
 rdoc_options: []
 
-require_paths: 
+require_paths:
 - lib
-required_ruby_version: !ruby/object:Gem::Requirement 
-  requirements: 
+required_ruby_version: !ruby/object:Gem::Requirement
+  requirements:
   - - ">="
-    - !ruby/object:Gem::Version 
-      segments: 
+    - !ruby/object:Gem::Version
+      segments:
       - 0
       version: "0"
-required_rubygems_version: !ruby/object:Gem::Requirement 
-  requirements: 
+required_rubygems_version: !ruby/object:Gem::Requirement
+  requirements:
   - - ">="
-    - !ruby/object:Gem::Version 
-      segments: 
+    - !ruby/object:Gem::Version
+      segments:
       - 0
       version: "0"
 requirements: []
 
-rubyforge_project: 
+rubyforge_project:
 rubygems_version: 1.3.6
-signing_key: 
+signing_key:
 specification_version: 3
-summary: 
+summary:
 test_files: []
 

@@ -44,7 +44,7 @@ context "Rack::Recursive" do
       get("/app2")
 
     res.should.be.ok
-    res.body.should.equal "App2App1"    
+    res.body.should.equal "App2App1"
   end
 
   specify "should raise error on requests not below the app" do

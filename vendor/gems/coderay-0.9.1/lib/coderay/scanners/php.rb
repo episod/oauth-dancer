@@ -1,27 +1,27 @@
 module CodeRay
 module Scanners
-  
+
   load :html
-  
+
   # Original by Stefan Walk.
   class PHP < Scanner
-    
+
     register_for :php
     file_extension 'php'
-    
+
     KINDS_NOT_LOC = HTML::KINDS_NOT_LOC
-    
+
     def setup
       @html_scanner = CodeRay.scanner :html, :tokens => @tokens, :keep_tokens => true, :keep_state => true
     end
-    
+
     def reset_instance
       super
       @html_scanner.reset
     end
-    
+
     module Words
-      
+
       # according to http://www.php.net/manual/en/reserved.keywords.php
       KEYWORDS = %w[
         abstract and array as break case catch class clone const continue declare default do else elseif
@@ -30,16 +30,16 @@ module Scanners
         throw try use var while xor
         cfunction old_function
       ]
-      
+
       TYPES = %w[ int integer float double bool boolean string array object resource ]
-      
+
       LANGUAGE_CONSTRUCTS = %w[
         die echo empty exit eval include include_once isset list
         require require_once return print unset
       ]
-      
+
       CLASSES = %w[ Directory stdClass __PHP_Incomplete_Class exception php_user_filter Closure ]
-      
+
       # according to http://php.net/quickref.php on 2009-04-21;
       # all functions with _ excluded (module functions) and selected additional functions
       BUILTIN_FUNCTIONS = %w[
@@ -131,12 +131,12 @@ module Scanners
         pcntl_wifsignaled pcntl_wifstopped pcntl_wstopsig pcntl_wtermsig
       ]
       # TODO: more built-in PHP functions?
-      
+
       EXCEPTIONS = %w[
         E_ERROR E_WARNING E_PARSE E_NOTICE E_CORE_ERROR E_CORE_WARNING E_COMPILE_ERROR E_COMPILE_WARNING
         E_USER_ERROR E_USER_WARNING E_USER_NOTICE E_DEPRECATED E_USER_DEPRECATED E_ALL E_STRICT
       ]
-      
+
       CONSTANTS = %w[
         null true false self parent
         __LINE__ __DIR__ __FILE__ __LINE__
@@ -169,13 +169,13 @@ module Scanners
         LOG_LOCAL1 LOG_LOCAL2 LOG_LOCAL3 LOG_LOCAL4 LOG_LOCAL5 LOG_LOCAL6 LOG_LOCAL7 LOG_PID LOG_CONS LOG_ODELAY
         LOG_NDELAY LOG_NOWAIT LOG_PERROR
       ]
-      
+
       PREDEFINED = %w[
         $GLOBALS $_SERVER $_GET $_POST $_FILES $_REQUEST $_SESSION $_ENV
         $_COOKIE $php_errormsg $HTTP_RAW_POST_DATA $http_response_header
         $argc $argv
       ]
-      
+
       IDENT_KIND = CaseIgnoringWordList.new(:ident).
         add(KEYWORDS, :reserved).
         add(TYPES, :pre_type).
@@ -184,30 +184,30 @@ module Scanners
         add(CLASSES, :pre_constant).
         add(EXCEPTIONS, :exception).
         add(CONSTANTS, :pre_constant)
-      
+
       VARIABLE_KIND = WordList.new(:local_variable).
         add(PREDEFINED, :predefined)
     end
-    
+
     module RE
-      
+
       PHP_START = /
         <script\s+[^>]*?language\s*=\s*"php"[^>]*?> |
         <script\s+[^>]*?language\s*=\s*'php'[^>]*?> |
         <\?php\d? |
         <\?(?!xml)
       /xi
-      
+
       PHP_END = %r!
         </script> |
         \?>
       !xi
-      
+
       HTML_INDICATOR = /<!DOCTYPE html|<(?:html|body|div|p)[> ]/i
-      
+
       IDENTIFIER = /[a-z_\x7f-\xFF][a-z0-9_\x7f-\xFF]*/i
       VARIABLE = /\$#{IDENTIFIER}/
-      
+
       OPERATOR = /
         \.(?!\d)=? |      # dot that is not decimal point, string concatenation
         && | \|\| |       # logic
@@ -220,11 +220,11 @@ module Scanners
         [=!]=?=? | <> |   # comparison and assignment
         <<=? | >>=? | [<>]=?  # comparison and shift
       /x
-      
+
     end
-    
+
     def scan_tokens tokens, options
-      
+
       if check(RE::PHP_START) ||  # starts with <?
        (match?(/\s*<\S/) && exist?(RE::PHP_START)) || # starts with tag and contains <?
        exist?(RE::HTML_INDICATOR) ||
@@ -235,21 +235,21 @@ module Scanners
         # is just PHP, so start with PHP surrounded by HTML
         states = [:initial, :php]
       end
-      
+
       label_expected = true
       case_expected = false
-      
+
       heredoc_delimiter = nil
       delimiter = nil
       modifier = nil
-      
+
       until eos?
-        
+
         match = nil
         kind = nil
-        
+
         case states.last
-        
+
         when :initial  # HTML
           if scan RE::PHP_START
             kind = :inline_delimiter
@@ -260,15 +260,15 @@ module Scanners
             @html_scanner.tokenize match unless match.empty?
             next
           end
-        
+
         when :php
           if match = scan(/\s+/)
             tokens << [match, :space]
             next
-          
+
           elsif scan(%r! (?m: \/\* (?: .*? \*\/ | .* ) ) | (?://|\#) .*? (?=#{RE::PHP_END}|$) !xo)
             kind = :comment
-          
+
           elsif match = scan(RE::IDENTIFIER)
             kind = Words::IDENT_KIND[match]
             if kind == :ident && label_expected && check(/:(?!:)/)
@@ -292,19 +292,19 @@ module Scanners
                 next
               end
             end
-          
+
           elsif scan(/(?:\d+\.\d*|\d*\.\d+)(?:e[-+]?\d+)?|\d+e[-+]?\d+/i)
             label_expected = false
             kind = :float
-          
+
           elsif scan(/0x[0-9a-fA-F]+/)
             label_expected = false
             kind = :hex
-          
+
           elsif scan(/\d+/)
             label_expected = false
             kind = :integer
-          
+
           elsif scan(/'/)
             tokens << [:open, :string]
             if modifier
@@ -313,7 +313,7 @@ module Scanners
             end
             kind = :delimiter
             states.push :sqstring
-          
+
           elsif match = scan(/["`]/)
             tokens << [:open, :string]
             if modifier
@@ -323,16 +323,16 @@ module Scanners
             delimiter = match
             kind = :delimiter
             states.push :dqstring
-          
+
           elsif match = scan(RE::VARIABLE)
             label_expected = false
             kind = Words::VARIABLE_KIND[match]
-          
+
           elsif scan(/\{/)
             kind = :operator
             label_expected = true
             states.push :php
-          
+
           elsif scan(/\}/)
             if states.size == 1
               kind = :error
@@ -349,15 +349,15 @@ module Scanners
                 label_expected = true
               end
             end
-          
+
           elsif scan(/@/)
             label_expected = false
             kind = :exception
-          
+
           elsif scan RE::PHP_END
             kind = :inline_delimiter
             states = [:initial]
-          
+
           elsif match = scan(/<<<(?:(#{RE::IDENTIFIER})|"(#{RE::IDENTIFIER})"|'(#{RE::IDENTIFIER})')/o)
             tokens << [:open, :string]
             warn 'heredoc in heredoc?' if heredoc_delimiter
@@ -365,7 +365,7 @@ module Scanners
             kind = :delimiter
             states.push self[3] ? :sqstring : :dqstring
             heredoc_delimiter = /#{heredoc_delimiter}(?=;?$)/
-          
+
           elsif match = scan(/#{RE::OPERATOR}/o)
             label_expected = match == ';'
             if case_expected
@@ -373,13 +373,13 @@ module Scanners
               case_expected = false
             end
             kind = :operator
-          
+
           else
             getch
             kind = :error
-          
+
           end
-        
+
         when :sqstring
           if scan(heredoc_delimiter ? /[^\\\n]+/ : /[^'\\]+/)
             kind = :content
@@ -408,7 +408,7 @@ module Scanners
           elsif scan(/\\/)
             kind = :error
           end
-        
+
         when :dqstring
           if scan(heredoc_delimiter ? /[^${\\\n]+/ : (delimiter == '"' ? /[^"${\\]+/ : /[^`${\\]+/))
             kind = :content
@@ -477,7 +477,7 @@ module Scanners
           elsif scan(/\$/)
             kind = :content
           end
-        
+
         when :class_expected
           if scan(/\s+/)
             kind = :space
@@ -488,7 +488,7 @@ module Scanners
             states.pop
             next
           end
-        
+
         when :function_expected
           if scan(/\s+/)
             kind = :space
@@ -501,26 +501,26 @@ module Scanners
             states.pop
             next
           end
-        
+
         else
           raise_inspect 'Unknown state!', tokens, states
         end
-        
+
         match ||= matched
         if $DEBUG and not kind
           raise_inspect 'Error token %p in line %d' %
             [[match, kind], line], tokens, states
         end
         raise_inspect 'Empty token', tokens, states unless match
-        
+
         tokens << [match, kind]
-        
+
       end
-      
+
       tokens
     end
-    
+
   end
-  
+
 end
 end

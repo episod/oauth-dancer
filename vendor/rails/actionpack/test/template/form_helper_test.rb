@@ -705,7 +705,7 @@ class FormHelperTest < ActionView::TestCase
 
     assert_dom_equal expected, output_buffer
   end
-  
+
   def test_nested_fields_for_with_existing_records_on_a_nested_attributes_one_to_one_association_with_explicit_hidden_field_placement
     @post.author = Author.new(321)
 
@@ -716,7 +716,7 @@ class FormHelperTest < ActionView::TestCase
         concat af.text_field(:name)
       end
     end
-    
+
     expected = '<form action="http://www.example.com" method="post">' +
                '<input name="post[title]" size="30" type="text" id="post_title" value="Hello World" />' +
                '<input id="post_author_attributes_id" name="post[author_attributes][id]" type="hidden" value="321" />' +
@@ -761,7 +761,7 @@ class FormHelperTest < ActionView::TestCase
         end
       end
     end
-    
+
     expected = '<form action="http://www.example.com" method="post">' +
                '<input name="post[title]" size="30" type="text" id="post_title" value="Hello World" />' +
                '<input id="post_comments_attributes_0_id" name="post[comments_attributes][0][id]" type="hidden" value="1" />' +

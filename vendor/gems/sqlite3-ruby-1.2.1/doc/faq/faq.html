@@ -232,7 +232,7 @@
 
 <pre>
   db.prepare( "select * from table where a = :name and b = ?" ) do |stmt|
-    stmt.execute "value", "name" =&gt; "bob" 
+    stmt.execute "value", "name" =&gt; "bob"
   end
 </pre>
 

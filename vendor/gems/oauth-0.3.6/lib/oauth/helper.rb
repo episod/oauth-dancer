@@ -5,7 +5,7 @@ module OAuth
   module Helper
     extend self
 
-    # Escape +value+ by URL encoding all non-reserved character. 
+    # Escape +value+ by URL encoding all non-reserved character.
     #
     # See Also: {OAuth core spec version 1.0, section 5.1}[http://oauth.net/core/1.0#rfc.section.5.1]
     def escape(value)
@@ -52,7 +52,7 @@ module OAuth
     #   hash = parse_header(headers['Authorization'] || headers['WWW-Authenticate'])
     #   hash['oauth_timestamp']
     #     #=>"1234567890"
-    # 
+    #
     def parse_header(header)
       # decompose
       params = header[6,header.length].split(/[,=]/)

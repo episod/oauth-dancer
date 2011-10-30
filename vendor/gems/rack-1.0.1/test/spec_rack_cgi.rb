@@ -3,7 +3,7 @@ require 'testrequest'
 
 context "Rack::Handler::CGI" do
   include TestRequest::Helpers
-  
+
   setup do
     @host = '0.0.0.0'
     @port = 9203

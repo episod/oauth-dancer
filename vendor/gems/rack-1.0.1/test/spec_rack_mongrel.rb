@@ -6,14 +6,14 @@ require 'rack/urlmap'
 require 'rack/lint'
 require 'testrequest'
 require 'timeout'
-  
+
 Thread.abort_on_exception = true
 $tcp_defer_accept_opts = nil
 $tcp_cork_opts = nil
 
 context "Rack::Handler::Mongrel" do
   include TestRequest::Helpers
-  
+
   setup do
     server = Mongrel::HttpServer.new(@host='0.0.0.0', @port=9201)
     server.register('/test',

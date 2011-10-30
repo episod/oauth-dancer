@@ -1,38 +1,38 @@
 module CodeRay
 module Scanners
-  
+
   class JSON < Scanner
-    
+
     include Streamable
-    
+
     register_for :json
     file_extension 'json'
-    
+
     KINDS_NOT_LOC = [
       :float, :char, :content, :delimiter,
       :error, :integer, :operator, :value,
     ]
-    
+
     CONSTANTS = %w( true false null )
     IDENT_KIND = WordList.new(:key).add(CONSTANTS, :value)
-    
+
     ESCAPE = / [bfnrt\\"\/] /x
     UNICODE_ESCAPE =  / u[a-fA-F0-9]{4} /x
-    
+
     def scan_tokens tokens, options
-      
+
       state = :initial
       stack = []
       string_delimiter = nil
       key_expected = false
-      
+
       until eos?
-        
+
         kind = nil
         match = nil
-        
+
         case state
-        
+
         when :initial
           if match = scan(/ \s+ | \\\n /x)
             tokens << [match, :space]
@@ -62,7 +62,7 @@ module Scanners
             getch
             kind = :error
           end
-          
+
         when :string, :key
           if scan(/[^\\"]+/)
             kind = :content
@@ -82,31 +82,31 @@ module Scanners
           else
             raise_inspect "else case \" reached; %p not handled." % peek(1), tokens
           end
-          
+
         else
           raise_inspect 'Unknown state', tokens
-          
+
         end
-        
+
         match ||= matched
         if $DEBUG and not kind
           raise_inspect 'Error token %p in line %d' %
             [[match, kind], line], tokens
         end
         raise_inspect 'Empty token', tokens unless match
-        
+
         tokens << [match, kind]
-        
+
       end
-      
+
       if [:string, :key].include? state
         tokens << [:close, state]
       end
-      
+
       tokens
     end
-    
+
   end
-  
+
 end
 end

@@ -2,21 +2,21 @@
 # =============================================================================
 # Copyright (c) 2004, Jamis Buck (jgb3@email.byu.edu)
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
-# 
+#
 #     * Redistributions of source code must retain the above copyright notice,
 #       this list of conditions and the following disclaimer.
-# 
+#
 #     * Redistributions in binary form must reproduce the above copyright
 #       notice, this list of conditions and the following disclaimer in the
 #       documentation and/or other materials provided with the distribution.
-# 
+#
 #     * The names of its contributors may not be used to endorse or promote
 #       products derived from this software without specific prior written
 #       permission.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 # AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -53,7 +53,7 @@ module SQLite3 ; module Driver ; module Native
         cb.proc = block
         cb.data = data
         result = API.sqlite3_busy_handler( db, API::Sqlite3_ruby_busy_handler, cb )
-        # Reference the Callback object so that 
+        # Reference the Callback object so that
         # it is not deleted by the GC
         @busy_handler[db] = cb
       else

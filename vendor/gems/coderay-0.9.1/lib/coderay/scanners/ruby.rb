@@ -21,7 +21,7 @@ module Scanners
     file_extension 'rb'
 
     helper :patterns
-    
+
     if not defined? EncodingError
       EncodingError = Class.new Exception
     end
@@ -36,9 +36,9 @@ module Scanners
       depth = nil
       inline_block_stack = []
       unicode = string.respond_to?(:encoding) && string.encoding.name == 'UTF-8'
-      
+
       patterns = Patterns  # avoid constant lookup
-      
+
       until eos?
         match = nil
         kind = nil
@@ -133,7 +133,7 @@ module Scanners
             value_expected = true if match.index(?\n)
             tokens << [match, kind]
             next
-            
+
           elsif match = scan(/\\?\n/)
             kind = :space
             if match == "\n"
@@ -151,11 +151,11 @@ module Scanners
             end
             tokens << [match, kind]
             next
-          
+
           elsif bol? && match = scan(/\#!.*/)
             tokens << [match, :doctype]
             next
-            
+
           elsif match = scan(/\#.*/) or
             ( bol? and match = scan(/#{patterns::RUBYDOC_OR_DATA}/o) )
               kind = :comment
@@ -179,7 +179,7 @@ module Scanners
                 end
               end
               value_expected = :set if check(/#{patterns::VALUE_FOLLOWS}/o)
-            
+
             elsif last_token_dot and match = scan(/#{patterns::METHOD_NAME_OPERATOR}|\(/o)
               kind = :ident
               value_expected = :set if check(/#{patterns::VALUE_FOLLOWS}/o)
@@ -344,7 +344,7 @@ module Scanners
           elsif state == :alias_expected
             match = scan(unicode ? /(#{patterns::METHOD_NAME_OR_SYMBOL})([ \t]+)(#{patterns::METHOD_NAME_OR_SYMBOL})/uo :
                                    /(#{patterns::METHOD_NAME_OR_SYMBOL})([ \t]+)(#{patterns::METHOD_NAME_OR_SYMBOL})/o)
-            
+
             if match
               tokens << [self[1], (self[1][0] == ?: ? :symbol : :method)]
               tokens << [self[2], :space]
@@ -364,12 +364,12 @@ module Scanners
 
           end
 # }}}
-          
+
           unless kind == :error
             value_expected = value_expected == :set
             last_token_dot = last_token_dot == :set
           end
-          
+
           if $DEBUG and not kind
             raise_inspect 'Error token %p in line %d' %
               [[match, kind], line], tokens, state

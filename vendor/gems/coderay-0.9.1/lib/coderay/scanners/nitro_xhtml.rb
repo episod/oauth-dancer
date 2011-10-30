@@ -13,7 +13,7 @@ module Scanners
     title 'Nitro XHTML'
 
     KINDS_NOT_LOC = HTML::KINDS_NOT_LOC
-    
+
     NITRO_RUBY_BLOCK = /
       <\?r
       (?>
@@ -115,13 +115,13 @@ module Scanners
 
         elsif entity = scan(/#{NITRO_ENTITY}/o)
           tokens << [entity, :entity]
-        
+
         elsif scan(/%/)
           tokens << [matched, :error]
 
         else
           raise_inspect 'else-case reached!', tokens
-          
+
         end
 
       end

@@ -1,8 +1,8 @@
 module CodeRay
 module Scanners
-  
+
   module Java::BuiltinTypes  # :nodoc:
-    
+
     List = %w[
       AbstractAction AbstractBorder AbstractButton AbstractCellEditor AbstractCollection
       AbstractColorChooserPanel AbstractDocument AbstractExecutorService AbstractInterruptibleChannel
@@ -412,8 +412,8 @@ module Scanners
       XPathFactoryConfigurationException XPathFunction XPathFunctionException XPathFunctionResolver
       XPathVariableResolver ZipEntry ZipException ZipFile ZipInputStream ZipOutputStream ZoneView
     ]
-    
+
   end
-  
+
 end
 end

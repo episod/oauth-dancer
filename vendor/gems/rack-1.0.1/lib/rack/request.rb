@@ -92,7 +92,7 @@ module Rack
     PARSEABLE_DATA_MEDIA_TYPES = [
       'multipart/related',
       'multipart/mixed'
-    ]  
+    ]
 
     # Determine whether the request body contains form-data by checking
     # the request media_type against registered form-data media-types:
@@ -214,11 +214,11 @@ module Rack
 
       url
     end
-    
+
     def path
       script_name + path_info
     end
-    
+
     def fullpath
       query_string.empty? ? path : "#{path}?#{query_string}"
     end
