@@ -46,10 +46,10 @@ module CodeRay
   #
   # Tokens' subclass TokenStream allows streaming to save memory.
   class Tokens < Array
-    
+
     # The Scanner instance that created the tokens.
     attr_accessor :scanner
-    
+
     # Whether the object is a TokenStream.
     #
     # Returns false.
@@ -157,7 +157,7 @@ module CodeRay
     def optimize!
       replace optimize
     end
-    
+
     # Ensure that all :open tokens have a correspondent :close one.
     #
     # TODO: Test this!
@@ -187,13 +187,13 @@ module CodeRay
       tokens << token while token = opened.pop
       tokens
     end
-    
+
     def fix!
       replace fix
     end
-    
+
     # TODO: Scanner#split_into_lines
-    # 
+    #
     # Makes sure that:
     # - newlines are single tokens
     #   (which means all other token are single-line)
@@ -303,11 +303,11 @@ module CodeRay
     # Example:
     #
     #   require 'coderay'
-    #   
+    #
     #   token_stream = CodeRay::TokenStream.new do |kind, text|
     #     puts 'kind: %s, text size: %d.' % [kind, text.size]
     #   end
-    #   
+    #
     #   token_stream << [:regexp, '/\d+/']
     #   #-> kind: rexpexp, text size: 5.
     #
@@ -356,7 +356,7 @@ __END__
 require 'test/unit'
 
 class TokensTest < Test::Unit::TestCase
-  
+
   def test_creation
     assert CodeRay::Tokens < Array
     tokens = nil
@@ -365,7 +365,7 @@ class TokensTest < Test::Unit::TestCase
     end
     assert_kind_of Array, tokens
   end
-  
+
   def test_adding_tokens
     tokens = CodeRay::Tokens.new
     assert_nothing_raised do
@@ -374,7 +374,7 @@ class TokensTest < Test::Unit::TestCase
     end
     assert_equal tokens.size, 2
   end
-  
+
   def test_dump_undump
     tokens = CodeRay::Tokens.new
     assert_nothing_raised do
@@ -387,5 +387,5 @@ class TokensTest < Test::Unit::TestCase
     end
     assert_equal tokens, tokens2
   end
-  
+
 end

@@ -12,7 +12,7 @@ context "Rack::Handler" do
     Rack::Handler.get('mongrel').should.equal Rack::Handler::Mongrel
     Rack::Handler.get('webrick').should.equal Rack::Handler::WEBrick
   end
-  
+
   specify "handler that doesn't exist should raise a NameError" do
     lambda {
       Rack::Handler.get('boom')
@@ -27,7 +27,7 @@ context "Rack::Handler" do
     Rack::Handler.register('rock_lobster', 'RockLobster')
     Rack::Handler.get('rock_lobster').should.equal RockLobster
   end
-  
+
   specify "should not need registration for properly coded handlers even if not already required" do
     begin
       $:.push "test/unregistered_handler"

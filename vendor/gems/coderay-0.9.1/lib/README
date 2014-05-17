@@ -40,7 +40,7 @@ CodeRay needs Ruby 1.8.6 or later. It also runs with Ruby 1.9.1+ and JRuby 1.1+.
 (Forgive me, but this is not highlighted.)
 
  require 'coderay'
- 
+
  tokens = CodeRay.scan "puts 'Hello, world!'", :ruby
  page = tokens.html :line_numbers => :inline, :wrap => :page
  puts page
@@ -92,7 +92,7 @@ Please report errors in this documentation to <murphy rubychan de>.
 * The folks at redmine.org - thank you for using and fixing CodeRay!
 * matz and all Ruby gods and gurus
 * The inventors of: the computer, the internet, the true color display, HTML &
-  CSS, VIM, Ruby, pizza, microwaves, guitars, scouting, programming, anime, 
+  CSS, VIM, Ruby, pizza, microwaves, guitars, scouting, programming, anime,
   manga, coke and green ice tea.
 
 Where would we be without all those people?

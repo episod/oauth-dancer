@@ -41,7 +41,7 @@ module JSON
           [^*/]|        # normal chars
           /[^*]|        # slashes that do not start a nested comment
           \*[^/]|       # asterisks that do not end this comment
-          /(?=\*/)      # single slash before this comment's end 
+          /(?=\*/)      # single slash before this comment's end
          )*
            \*/               # the End of this comment
            |[ \t\r\n]+       # whitespaces: space, horicontal tab, lf, cr
@@ -160,7 +160,7 @@ module JSON
         ?n  => "\n",
         ?r  => "\r",
         ?t  => "\t",
-        ?u  => nil, 
+        ?u  => nil,
       })
 
       def parse_string

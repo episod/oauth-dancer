@@ -1,87 +1,87 @@
---- !ruby/object:Gem::Specification 
+--- !ruby/object:Gem::Specification
 name: oauth
-version: !ruby/object:Gem::Version 
+version: !ruby/object:Gem::Version
   prerelease: false
-  segments: 
+  segments:
   - 0
   - 3
   - 6
   version: 0.3.6
 platform: ruby
-authors: 
+authors:
 - Pelle Braendgaard
 - Blaine Cook
 - Larry Halff
 - Jesse Clark
 - Jon Crosby
 - Seth Fitzsimmons
-autorequire: 
+autorequire:
 bindir: bin
 cert_chain: []
 
 date: 2009-09-14 00:00:00 -07:00
 default_executable: oauth
-dependencies: 
-- !ruby/object:Gem::Dependency 
+dependencies:
+- !ruby/object:Gem::Dependency
   name: ruby-hmac
   prerelease: false
-  requirement: &id001 !ruby/object:Gem::Requirement 
-    requirements: 
+  requirement: &id001 !ruby/object:Gem::Requirement
+    requirements:
     - - ">="
-      - !ruby/object:Gem::Version 
-        segments: 
+      - !ruby/object:Gem::Version
+        segments:
         - 0
         - 3
         - 1
         version: 0.3.1
   type: :runtime
   version_requirements: *id001
-- !ruby/object:Gem::Dependency 
+- !ruby/object:Gem::Dependency
   name: newgem
   prerelease: false
-  requirement: &id002 !ruby/object:Gem::Requirement 
-    requirements: 
+  requirement: &id002 !ruby/object:Gem::Requirement
+    requirements:
     - - ">="
-      - !ruby/object:Gem::Version 
-        segments: 
+      - !ruby/object:Gem::Version
+        segments:
         - 1
         - 5
         - 2
         version: 1.5.2
   type: :development
   version_requirements: *id002
-- !ruby/object:Gem::Dependency 
+- !ruby/object:Gem::Dependency
   name: actionpack
   prerelease: false
-  requirement: &id003 !ruby/object:Gem::Requirement 
-    requirements: 
+  requirement: &id003 !ruby/object:Gem::Requirement
+    requirements:
     - - ">="
-      - !ruby/object:Gem::Version 
-        segments: 
+      - !ruby/object:Gem::Version
+        segments:
         - 0
         version: "0"
   type: :development
   version_requirements: *id003
-- !ruby/object:Gem::Dependency 
+- !ruby/object:Gem::Dependency
   name: rack
   prerelease: false
-  requirement: &id004 !ruby/object:Gem::Requirement 
-    requirements: 
+  requirement: &id004 !ruby/object:Gem::Requirement
+    requirements:
     - - ">="
-      - !ruby/object:Gem::Version 
-        segments: 
+      - !ruby/object:Gem::Version
+        segments:
         - 0
         version: "0"
   type: :development
   version_requirements: *id004
-- !ruby/object:Gem::Dependency 
+- !ruby/object:Gem::Dependency
   name: hoe
   prerelease: false
-  requirement: &id005 !ruby/object:Gem::Requirement 
-    requirements: 
+  requirement: &id005 !ruby/object:Gem::Requirement
+    requirements:
     - - ">="
-      - !ruby/object:Gem::Version 
-        segments: 
+      - !ruby/object:Gem::Version
+        segments:
         - 2
         - 3
         - 3
@@ -90,16 +90,16 @@ dependencies:
   version_requirements: *id005
 description: OAuth Core Ruby implementation
 email: oauth-ruby@googlegroups.com
-executables: 
+executables:
 - oauth
 extensions: []
 
-extra_rdoc_files: 
+extra_rdoc_files:
 - History.txt
 - License.txt
 - Manifest.txt
 - website/index.txt
-files: 
+files:
 - History.txt
 - License.txt
 - Manifest.txt
@@ -188,34 +188,34 @@ has_rdoc: true
 homepage: http://oauth.rubyforge.org
 licenses: []
 
-post_install_message: 
-rdoc_options: 
+post_install_message:
+rdoc_options:
 - --main
 - README.txt
-require_paths: 
+require_paths:
 - lib
-required_ruby_version: !ruby/object:Gem::Requirement 
-  requirements: 
+required_ruby_version: !ruby/object:Gem::Requirement
+  requirements:
   - - ">="
-    - !ruby/object:Gem::Version 
-      segments: 
+    - !ruby/object:Gem::Version
+      segments:
       - 0
       version: "0"
-required_rubygems_version: !ruby/object:Gem::Requirement 
-  requirements: 
+required_rubygems_version: !ruby/object:Gem::Requirement
+  requirements:
   - - ">="
-    - !ruby/object:Gem::Version 
-      segments: 
+    - !ruby/object:Gem::Version
+      segments:
       - 0
       version: "0"
 requirements: []
 
 rubyforge_project: oauth
 rubygems_version: 1.3.6
-signing_key: 
+signing_key:
 specification_version: 3
 summary: OAuth Core Ruby implementation
-test_files: 
+test_files:
 - test/cases/spec/1_0-final/test_construct_request_url.rb
 - test/cases/spec/1_0-final/test_normalize_request_parameters.rb
 - test/cases/spec/1_0-final/test_parameter_encodings.rb

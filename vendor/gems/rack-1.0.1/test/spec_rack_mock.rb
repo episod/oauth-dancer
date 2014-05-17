@@ -5,13 +5,13 @@ require 'rack/response'
 
 app = lambda { |env|
   req = Rack::Request.new(env)
-  
+
   env["mock.postdata"] = env["rack.input"].read
   if req.GET["error"]
     env["rack.errors"].puts req.GET["error"]
     env["rack.errors"].flush
   end
-  
+
   Rack::Response.new(env.to_yaml,
                      req.GET["status"] || 200,
                      "Content-Type" => "text/yaml").finish

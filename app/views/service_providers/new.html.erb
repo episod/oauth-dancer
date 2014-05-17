@@ -3,7 +3,7 @@
 <% form_for(@service_provider) do |f| %>
   <%= f.error_messages %>
   <%= render :partial => "form", :locals => {:f => f} %>
-  
+
   <p>
     <%= f.submit 'Create' %>
   </p>

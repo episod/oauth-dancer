@@ -4,11 +4,11 @@ module Scanners
   class CPlusPlus < Scanner
 
     include Streamable
-    
+
     register_for :cpp
     file_extension 'cpp'
     title 'C++'
-    
+
     # http://www.cppreference.com/wiki/keywords/start
     RESERVED_WORDS = [
       'and', 'and_eq', 'asm', 'bitand', 'bitor', 'break',
@@ -60,7 +60,7 @@ module Scanners
 
         kind = nil
         match = nil
-        
+
         case state
 
         when :initial
@@ -107,7 +107,7 @@ module Scanners
 
           elsif scan(/\$/)
             kind = :ident
-          
+
           elsif match = scan(/L?"/)
             tokens << [:open, :string]
             if match[0] == ?L
@@ -183,7 +183,7 @@ module Scanners
             next
 
           end
-        
+
         when :class_name_expected
           if scan(/ [A-Za-z_][A-Za-z_0-9]* /x)
             kind = :class
@@ -198,7 +198,7 @@ module Scanners
             state = :initial
 
           end
-          
+
         else
           raise_inspect 'Unknown state', tokens
 

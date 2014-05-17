@@ -15,7 +15,7 @@ module Encoders
   #  puts CodeRay.scan('Some /code/', :ruby).html(:wrap => :span)
   #  #-> <span class="CodeRay"><span class="co">Some</span> /code/</span>
   #  puts CodeRay.scan('Some /code/', :ruby).span  #-> the same
-  #  
+  #
   #  puts CodeRay.scan('Some code', :ruby).html(
   #    :wrap => nil,
   #    :line_numbers => :inline,
@@ -42,7 +42,7 @@ module Encoders
   # Default: nil
   #
   # === :title
-  # 
+  #
   # The title of the HTML page (works only when :wrap is set to :page.)
   #
   # Default: 'CodeRay output'
@@ -63,10 +63,10 @@ module Encoders
   # Default: 10
   #
   # === :highlight_lines
-  # 
+  #
   # Highlights certain line numbers.
   # Can be any Enumerable, typically just an Array or Range, of numbers.
-  # 
+  #
   # Bolding is deactivated when :highlight_lines is set. It only makes sense
   # in combination with :line_numbers.
   #
@@ -239,10 +239,10 @@ module Encoders
 
     def token text, type = :plain
       case text
-      
+
       when nil
-        # raise 'Token with nil as text was given: %p' % [[text, type]] 
-      
+        # raise 'Token with nil as text was given: %p' % [[text, type]]
+
       when String
         if text =~ /#{HTML_ESCAPE_PATTERN}/o
           text = text.gsub(/#{HTML_ESCAPE_PATTERN}/o) { |m| @HTML_ESCAPE[m] }
@@ -253,8 +253,8 @@ module Encoders
         else
           @out << text
         end
-        
-      
+
+
       # token groups, eg. strings
       when :open
         @opened[0] = type
@@ -271,7 +271,7 @@ module Encoders
           @out << '</span>'
           @opened.pop
         end
-      
+
       # whole lines to be highlighted, eg. a deleted line in a diff
       when :begin_line
         @opened[0] = type
@@ -292,10 +292,10 @@ module Encoders
           @out << '</div>'
           @opened.pop
         end
-      
+
       else
         raise 'unknown token kind: %p' % [text]
-        
+
       end
     end
 

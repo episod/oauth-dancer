@@ -20,12 +20,12 @@ table td { text-align: left; padding: 2px 2px 2px 2px;}
 
 div.api_result { margin-left: 10px; margin-bottom:10px;}
 
-div#home-instructions { 
-	position: relative; 
+div#home-instructions {
+	position: relative;
 	background: black url("/images/oauth-dance.jpg") no-repeat fixed top left;
 	width: 100%;
 	height: 595px;
-	color:white; 
+	color:white;
 
 }
 

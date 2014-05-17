@@ -30,10 +30,10 @@ context "Rack::Response" do
       response.write "bar"
       response.write "baz"
     end
-    
+
     parts = []
     body.each { |part| parts << part }
-    
+
     parts.should.equal ["foo", "bar", "baz"]
   end
 
@@ -46,7 +46,7 @@ context "Rack::Response" do
 
   specify "can set cookies" do
     response = Rack::Response.new
-    
+
     response.set_cookie "foo", "bar"
     response["Set-Cookie"].should.equal "foo=bar"
     response.set_cookie "foo2", "bar2"
@@ -57,7 +57,7 @@ context "Rack::Response" do
 
   specify "formats the Cookie expiration date accordingly to RFC 2109" do
     response = Rack::Response.new
-    
+
     response.set_cookie "foo", {:value => "bar", :expires => Time.now+10}
     response["Set-Cookie"].should.match(
       /expires=..., \d\d-...-\d\d\d\d \d\d:\d\d:\d\d .../)
@@ -130,7 +130,7 @@ context "Rack::Response" do
     str.should.equal "foo"
     status.should.equal 404
   end
- 
+
   specify "doesn't return invalid responses" do
     r = Rack::Response.new(["foo", "bar"], 204)
     status, header, body = r.finish

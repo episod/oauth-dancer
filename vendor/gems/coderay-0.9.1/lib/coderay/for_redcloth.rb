@@ -1,17 +1,17 @@
 module CodeRay
-  
+
   # A little hack to enable CodeRay highlighting in RedCloth.
-  # 
+  #
   # Usage:
   #  require 'coderay'
   #  require 'coderay/for_redcloth'
   #  RedCloth.new('@[ruby]puts "Hello, World!"@').to_html
-  # 
+  #
   # Make sure you have RedCloth 4.0.3 activated, for example by calling
   #  require 'rubygems'
   # before RedCloth is loaded and before calling CodeRay.for_redcloth.
   module ForRedCloth
-    
+
     def self.install
       gem 'RedCloth', '>= 4.0.3' rescue nil
       require 'redcloth'
@@ -77,9 +77,9 @@ module CodeRay
     module TextileDoc  # :nodoc:
       attr_accessor :filter_coderay
     end
-    
+
   end
-  
+
 end
 
 CodeRay::ForRedCloth.install

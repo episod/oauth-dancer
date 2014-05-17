@@ -1,13 +1,13 @@
 ($:.unshift '../..'; require 'coderay') unless defined? CodeRay
 module CodeRay
 module Encoders
-  
+
   # = JSON Encoder
   class JSON < Encoder
-    
+
     register_for :json
     FILE_EXTENSION = 'json'
-    
+
   protected
     def setup options
       begin
@@ -18,21 +18,21 @@ module Encoders
       end
       @out = []
     end
-    
+
     def text_token text, kind
       { :type => 'text', :text => text, :kind => kind }
     end
-    
+
     def block_token action, kind
       { :type => 'block', :action => action, :kind => kind }
     end
-    
+
     def finish options
       @out.to_json
     end
-    
+
   end
-  
+
 end
 end
 
@@ -48,7 +48,7 @@ $:.delete '.'
 require 'rubygems' if RUBY_VERSION < '1.9'
 
 class JSONEncoderTest < Test::Unit::TestCase
-  
+
   def test_json_output
     tokens = CodeRay.scan <<-RUBY, :ruby
 puts "Hello world!"
@@ -65,5 +65,5 @@ puts "Hello world!"
       {"type"=>"text", "text"=>"\n", "kind"=>"space"}
     ], JSON.load(tokens.json)
   end
-  
+
 end

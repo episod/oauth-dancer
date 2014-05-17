@@ -9,7 +9,7 @@ module ApiRequestHelper
     end
     buffer
   end
-  
+
   def access_tokens_for_select
     options = @access_tokens.collect{|at| [ at.to_s, at.id ]}
     options << [ "Two-Legged Request", "two-legged" ]

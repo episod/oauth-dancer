@@ -4,7 +4,7 @@ module Scanners
   class C < Scanner
 
     include Streamable
-    
+
     register_for :c
     file_extension 'c'
 
@@ -52,7 +52,7 @@ module Scanners
 
         kind = nil
         match = nil
-        
+
         case state
 
         when :initial
@@ -97,7 +97,7 @@ module Scanners
 
           elsif scan(/\$/)
             kind = :ident
-          
+
           elsif match = scan(/L?"/)
             tokens << [:open, :string]
             if match[0] == ?L

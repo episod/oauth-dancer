@@ -6,7 +6,7 @@ module Scanners
     include Streamable
     register_for :java
     helper :builtin_types
-    
+
     # http://java.sun.com/docs/books/tutorial/java/nutsandbolts/_keywords.html
     KEYWORDS = %w[
       assert break case catch continue default do else
@@ -25,7 +25,7 @@ module Scanners
       abstract extends final implements native private protected public
       static strictfp synchronized throws transient volatile
     ]
-    
+
     IDENT_KIND = WordList.new(:ident).
       add(KEYWORDS, :keyword).
       add(RESERVED, :reserved).
@@ -44,7 +44,7 @@ module Scanners
       '/' => /[^\\\/]+/,
     }
     IDENT = /[a-zA-Z_][A-Za-z_0-9]*/
-    
+
     def scan_tokens tokens, options
 
       state = :initial
@@ -55,7 +55,7 @@ module Scanners
 
         kind = nil
         match = nil
-        
+
         case state
 
         when :initial
@@ -63,14 +63,14 @@ module Scanners
           if match = scan(/ \s+ | \\\n /x)
             tokens << [match, :space]
             next
-          
+
           elsif match = scan(%r! // [^\n\\]* (?: \\. [^\n\\]* )* | /\* (?: .*? \*/ | .* ) !mx)
             tokens << [match, :comment]
             next
-          
+
           elsif import_clause && scan(/ #{IDENT} (?: \. #{IDENT} )* /ox)
             kind = :include
-          
+
           elsif match = scan(/ #{IDENT} | \[\] /ox)
             kind = IDENT_KIND[match]
             if last_token_dot
@@ -82,18 +82,18 @@ module Scanners
               import_clause = true if match == 'import'
               class_name_follows = true if match == 'class' || match == 'interface'
             end
-          
+
           elsif scan(/ \.(?!\d) | [,?:()\[\]}] | -- | \+\+ | && | \|\| | \*\*=? | [-+*\/%^~&|<>=!]=? | <<<?=? | >>>?=? /x)
             kind = :operator
-          
+
           elsif scan(/;/)
             import_clause = false
             kind = :operator
-          
+
           elsif scan(/\{/)
             class_name_follows = false
             kind = :operator
-          
+
           elsif check(/[\d.]/)
             if scan(/0[xX][0-9A-Fa-f]+/)
               kind = :hex
@@ -156,9 +156,9 @@ module Scanners
             [[match, kind], line], tokens
         end
         raise_inspect 'Empty token', tokens unless match
-        
+
         last_token_dot = match == '.'
-        
+
         tokens << [match, kind]
 
       end

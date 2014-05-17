@@ -1,18 +1,18 @@
 ($:.unshift '../..'; require 'coderay') unless defined? CodeRay
 module CodeRay
 module Encoders
-  
+
   load :token_class_filter
-  
+
   class CommentFilter < TokenClassFilter
-    
+
     register_for :comment_filter
-    
+
     DEFAULT_OPTIONS = superclass::DEFAULT_OPTIONS.merge \
       :exclude => [:comment]
-    
+
   end
-  
+
 end
 end
 
@@ -26,7 +26,7 @@ __END__
 require 'test/unit'
 
 class CommentFilterTest < Test::Unit::TestCase
-  
+
   def test_filtering_comments
     tokens = CodeRay.scan <<-RUBY, :ruby
 #!/usr/bin/env ruby
@@ -39,5 +39,5 @@ puts "Hello world!"
 puts "Hello world!"
     RUBY_FILTERED
   end
-  
+
 end

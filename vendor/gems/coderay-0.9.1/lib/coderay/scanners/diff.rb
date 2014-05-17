@@ -1,19 +1,19 @@
 module CodeRay
 module Scanners
-  
+
   class Diff < Scanner
-    
+
     register_for :diff
     title 'diff output'
-    
+
     def scan_tokens tokens, options
-      
+
       line_kind = nil
       state = :initial
-      
+
       until eos?
         kind = match = nil
-        
+
         if match = scan(/\n/)
           if line_kind
             tokens << [:end_line, line_kind]
@@ -22,9 +22,9 @@ module Scanners
           tokens << [match, :space]
           next
         end
-        
+
         case state
-        
+
         when :initial
           if match = scan(/--- |\+\+\+ |=+|_+/)
             tokens << [:begin_line, line_kind = :head]
@@ -72,7 +72,7 @@ module Scanners
           else
             raise_inspect 'else case rached'
           end
-        
+
         when :added
           if match = scan(/   \+/)
             tokens << [:begin_line, line_kind = :insert]
@@ -84,22 +84,22 @@ module Scanners
             next
           end
         end
-        
+
         match ||= matched
         if $DEBUG and not kind
           raise_inspect 'Error token %p in line %d' %
             [[match, kind], line], tokens
         end
         raise_inspect 'Empty token', tokens unless match
-        
+
         tokens << [match, kind]
       end
-      
+
       tokens << [:end_line, line_kind] if line_kind
       tokens
     end
-    
+
   end
-  
+
 end
 end

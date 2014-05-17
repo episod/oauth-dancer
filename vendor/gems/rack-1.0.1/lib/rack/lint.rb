@@ -243,7 +243,7 @@ module Rack
       assert("rack.input #{input} is not opened in binary mode") {
         input.binmode?
       } if input.respond_to?(:binmode?)
-      
+
       ## The input stream must respond to +gets+, +each+, +read+ and +rewind+.
       [:gets, :each, :read, :rewind].each { |method|
         assert("rack.input #{input} does not respond to ##{method}") {
@@ -300,9 +300,9 @@ module Rack
             args[1].kind_of?(String)
           }
         end
-        
+
         v = @input.read(*args)
-        
+
         assert("rack.input#read didn't return nil or a String") {
           v.nil? or v.instance_of? String
         }
@@ -311,7 +311,7 @@ module Rack
             !v.nil?
           }
         end
-        
+
         v
       end
 
@@ -325,7 +325,7 @@ module Rack
           yield line
         }
       end
-      
+
       ## * +rewind+ must be called without arguments. It rewinds the input
       ##   stream back to the beginning. It must not raise Errno::ESPIPE:
       ##   that is, it may not be a pipe or a socket. Therefore, handler

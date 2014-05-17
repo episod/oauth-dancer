@@ -150,7 +150,7 @@ class OptimisticLockingTest < ActiveRecord::TestCase
       end
     end
   end
-  
+
   def test_quote_table_name
     ref = references(:michael_magician)
     ref.favourite = !ref.favourite

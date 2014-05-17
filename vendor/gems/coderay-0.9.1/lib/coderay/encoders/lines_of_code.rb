@@ -1,26 +1,26 @@
 ($:.unshift '../..'; require 'coderay') unless defined? CodeRay
 module CodeRay
 module Encoders
-  
+
   # Counts the LoC (Lines of Code). Returns an Integer >= 0.
-  # 
+  #
   # Alias: :loc
-  # 
+  #
   # Everything that is not comment, markup, doctype/shebang, or an empty line,
   # is considered to be code.
-  # 
+  #
   # For example,
   # * HTML files not containing JavaScript have 0 LoC
   # * in a Java class without comments, LoC is the number of non-empty lines
-  # 
+  #
   # A Scanner class should define the token kinds that are not code in the
   # KINDS_NOT_LOC constant, which defaults to [:comment, :doctype].
   class LinesOfCode < Encoder
-    
+
     register_for :lines_of_code
-    
+
     NON_EMPTY_LINE = /^\s*\S.*$/
-    
+
     def compile tokens, options
       if scanner = tokens.scanner
         kinds_not_loc = scanner.class::KINDS_NOT_LOC
@@ -31,13 +31,13 @@ module Encoders
       code = tokens.token_class_filter :exclude => kinds_not_loc
       @loc = code.text.scan(NON_EMPTY_LINE).size
     end
-    
+
     def finish options
       @loc
     end
-    
+
   end
-  
+
 end
 end
 
@@ -51,7 +51,7 @@ __END__
 require 'test/unit'
 
 class LinesOfCodeTest < Test::Unit::TestCase
-  
+
   def test_creation
     assert CodeRay::Encoders::LinesOfCode < CodeRay::Encoders::Encoder
     filter = nil
@@ -64,7 +64,7 @@ class LinesOfCodeTest < Test::Unit::TestCase
     end
     assert_kind_of CodeRay::Encoders::LinesOfCode, filter
   end
-  
+
   def test_lines_of_code
     tokens = CodeRay.scan <<-RUBY, :ruby
 #!/usr/bin/env ruby
@@ -76,7 +76,7 @@ puts "Hello world!"
     assert_equal 1, tokens.lines_of_code
     assert_equal 1, tokens.loc
   end
-  
+
   def test_filtering_block_tokens
     tokens = CodeRay::Tokens.new
     tokens << ["Hello\n", :world]
@@ -86,5 +86,5 @@ puts "Hello world!"
     assert_equal 2, tokens.lines_of_code
     assert_equal 2, tokens.loc
   end
-  
+
 end

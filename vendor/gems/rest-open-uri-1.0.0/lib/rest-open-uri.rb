@@ -104,9 +104,9 @@ module OpenURI
   }
 
   # xxx: I'd like a better way of representing this trivial mapping.
-  Methods = { 
+  Methods = {
     :copy => Net::HTTP::Copy,
-    :delete => Net::HTTP::Delete,    
+    :delete => Net::HTTP::Delete,
     :get => Net::HTTP::Get,
     :head => Net::HTTP::Head,
     :lock => Net::HTTP::Lock,
@@ -118,7 +118,7 @@ module OpenURI
     :put => Net::HTTP::Put,
     :trace => Net::HTTP::Trace,
     :unlock => Net::HTTP::Unlock,
-  }  
+  }
 
 
   def OpenURI.check_options(options) # :nodoc:
@@ -131,7 +131,7 @@ module OpenURI
 
     m = options[:method]
     if m && !Methods[m]
-      raise ArgumentError, "unrecognized HTTP method symbol: #{m}" 
+      raise ArgumentError, "unrecognized HTTP method symbol: #{m}"
     end
   end
 
@@ -493,7 +493,7 @@ module OpenURI
     #    :proxy => true
     #    :proxy => false
     #    :proxy => nil
-    #   
+    #
     #  If :proxy option is specified, the value should be String, URI,
     #  boolean or nil.
     #  When String or URI is given, it is treated as proxy URI.
@@ -515,14 +515,14 @@ module OpenURI
     # [:content_length_proc]
     #  Synopsis:
     #    :content_length_proc => lambda {|content_length| ... }
-    # 
+    #
     #  If :content_length_proc option is specified, the option value procedure
     #  is called before actual transfer is started.
     #  It takes one argument which is expected content length in bytes.
-    # 
+    #
     #  If two or more transfer is done by HTTP redirection, the procedure
     #  is called only one for a last transfer.
-    # 
+    #
     #  When expected content length is unknown, the procedure is called with
     #  nil.
     #  It is happen when HTTP response has no Content-Length header.

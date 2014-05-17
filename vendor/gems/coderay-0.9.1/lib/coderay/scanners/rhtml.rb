@@ -10,7 +10,7 @@ module Scanners
     include Streamable
     register_for :rhtml
     title 'HTML ERB Template'
-    
+
     KINDS_NOT_LOC = HTML::KINDS_NOT_LOC
 
     ERB_RUBY_BLOCK = /

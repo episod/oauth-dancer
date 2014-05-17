@@ -7,7 +7,7 @@ context "Rack::Lobster::LambdaLobster" do
   specify "should be a single lambda" do
     Rack::Lobster::LambdaLobster.should.be.kind_of Proc
   end
-  
+
   specify "should look like a lobster" do
     res = Rack::MockRequest.new(Rack::Lobster::LambdaLobster).get("/")
     res.should.be.ok

@@ -1,5 +1,5 @@
 module CodeRay
-  
+
 # = PluginHost
 #
 # A simple subclass plugin system.
@@ -8,12 +8,12 @@ module CodeRay
 #    class Generators < PluginHost
 #      plugin_path 'app/generators'
 #    end
-#    
+#
 #    class Generator
 #      extend Plugin
 #      PLUGIN_HOST = Generators
 #    end
-#    
+#
 #    class FancyGenerator < Generator
 #      register_for :fancy
 #    end
@@ -280,7 +280,7 @@ module Plugin
   def register_for *ids
     plugin_host.register self, *ids
   end
-  
+
   # Returns the title of the plugin, or sets it to the
   # optional argument +title+.
   def title title = nil
@@ -311,9 +311,9 @@ module Plugin
   #
   # The above example loads the file myplugin/my_helper.rb relative to the
   # file in which MyPlugin was defined.
-  # 
+  #
   # You can also load a helper from a different plugin:
-  # 
+  #
   #  helper 'other_plugin/helper_name'
   def helper *helpers
     for helper in helpers

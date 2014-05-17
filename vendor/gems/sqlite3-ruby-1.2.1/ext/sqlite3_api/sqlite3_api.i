@@ -60,7 +60,7 @@ void Sqlite3_ruby_function_step(sqlite3_context* ctx,int n,
   VALUE rb_args;
   VALUE *rb_context;
   int idx;
-  
+
   data = (CallbackData*)sqlite3_user_data(ctx);
 
   if( data->proc2 != Qnil ) {
@@ -84,7 +84,7 @@ void Sqlite3_ruby_function_step(sqlite3_context* ctx,int n,
 void Sqlite3_ruby_function_final(sqlite3_context *ctx) {
   VALUE *rb_context;
   CallbackData *data;
-  
+
   rb_context = (VALUE*)sqlite3_aggregate_context(ctx,sizeof(VALUE));
   if( *rb_context == 0 ) {
     *rb_context = rb_hash_new();
